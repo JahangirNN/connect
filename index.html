@@ -180,46 +180,51 @@
     </footer>
 
     <script>
-        // Intersection Observer for fade-in animations
+        // Wait until the entire HTML document is loaded and ready
         document.addEventListener('DOMContentLoaded', function() {
-                const observer = new IntersectionObserver((entries) => {
-                    // ... observer code is unchanged ...
-                });
-
-                const elementsToAnimate = document.querySelectorAll('.fade-in');
-                elementsToAnimate.forEach(el => {
-                    observer.observe(el);
-                });
-
-                // --- ADD THIS NEW BLOCK FOR THE VIDEO LOADER ---
-                const videoContainers = document.querySelectorAll('.case-study-visual');
-                videoContainers.forEach(container => {
-                    const video = container.querySelector('video');
-                    if (video) {
-                        video.addEventListener('loadeddata', () => {
-                            container.classList.add('video-loaded');
-                        });
+            
+            // --- 1. INTERSECTION OBSERVER FOR FADE-IN ANIMATIONS ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
                     }
                 });
+            }, {
+                threshold: 0.1
+            });
 
-        // Case Studies Tab functionality
-        const clientLogos = document.querySelectorAll('.client-logo');
-        // ... the rest of the script is unchanged ...
-    });
-</script>
-Save all your files. Now, when you load the page, you will see a clean, spinning loader over each video. As soon as a video
+            const elementsToAnimate = document.querySelectorAll('.fade-in');
+            elementsToAnimate.forEach(el => {
+                observer.observe(el);
+            });
+
+            // --- 2. VIDEO LOADER FUNCTIONALITY ---
+            const videoContainers = document.querySelectorAll('.case-study-visual');
+            videoContainers.forEach(container => {
+                const video = container.querySelector('video');
+                if (video) {
+                    // When the video has enough data to play, add the 'video-loaded' class
+                    video.addEventListener('loadeddata', () => {
+                        container.classList.add('video-loaded');
+                    });
+                }
+            });
+
+            // --- 3. CASE STUDIES TAB FUNCTIONALITY ---
+            const clientLogos = document.querySelectorAll('.client-logo');
             const caseStudies = document.querySelectorAll('.case-study');
 
             clientLogos.forEach(logo => {
                 logo.addEventListener('click', () => {
-                    // Remove active class from all logos and studies
+                    // Remove 'active' from all logos and studies first
                     clientLogos.forEach(l => l.classList.remove('active'));
                     caseStudies.forEach(s => s.classList.remove('active'));
 
-                    // Add active class to the clicked logo
+                    // Add 'active' to the one that was clicked
                     logo.classList.add('active');
 
-                    // Find and activate the corresponding case study
+                    // Show the corresponding case study
                     const caseId = logo.getAttribute('data-case');
                     const targetStudy = document.getElementById(caseId);
                     if (targetStudy) {
