@@ -182,23 +182,32 @@
     <script>
         // Intersection Observer for fade-in animations
         document.addEventListener('DOMContentLoaded', function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                const observer = new IntersectionObserver((entries) => {
+                    // ... observer code is unchanged ...
+                });
+
+                const elementsToAnimate = document.querySelectorAll('.fade-in');
+                elementsToAnimate.forEach(el => {
+                    observer.observe(el);
+                });
+
+                // --- ADD THIS NEW BLOCK FOR THE VIDEO LOADER ---
+                const videoContainers = document.querySelectorAll('.case-study-visual');
+                videoContainers.forEach(container => {
+                    const video = container.querySelector('video');
+                    if (video) {
+                        video.addEventListener('loadeddata', () => {
+                            container.classList.add('video-loaded');
+                        });
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
 
-            const elementsToAnimate = document.querySelectorAll('.fade-in');
-            elementsToAnimate.forEach(el => {
-                observer.observe(el);
-            });
-
-            // Case Studies Tab functionality
-            const clientLogos = document.querySelectorAll('.client-logo');
+        // Case Studies Tab functionality
+        const clientLogos = document.querySelectorAll('.client-logo');
+        // ... the rest of the script is unchanged ...
+    });
+</script>
+Save all your files. Now, when you load the page, you will see a clean, spinning loader over each video. As soon as a video
             const caseStudies = document.querySelectorAll('.case-study');
 
             clientLogos.forEach(logo => {
