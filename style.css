@@ -191,7 +191,18 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This is the magic part! */
+    object-fit: cover;
+    opacity: 0; /* Hide the video by default */
+    transition: opacity 0.5s ease-in-out; /* Add a smooth fade-in */
+}
+
+/* This class will be added by JavaScript */
+.case-study-visual.video-loaded .loader {
+    opacity: 0; /* Fade out the loader when the video is ready */
+}
+
+.case-study-visual.video-loaded video {
+    opacity: 1; /* Fade in the video when it's ready */
 }
 /* --- END OF NEW STYLES --- */
 
@@ -228,4 +239,26 @@ a {
     .case-study.active { grid-template-columns: 1fr; gap: 2.5rem; }
     .case-study-visual { order: -1; height: 250px; }
     .testimonials-grid { grid-template-columns: 1fr; }
+}
+
+/* --- NEW: Video Loader Styles --- */
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(28, 28, 28, 0.15);
+    border-top-color: var(--primary-text-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+    transition: opacity 0.4s ease;
+    transform: translate(-50%, -50%); /* This must be here for centering */
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
