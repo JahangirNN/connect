@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>SYSTEM_LINK // JAHANGIR_N</title>
+    <style>
+        /* --- 1. CORE VARIABLES & SETUP --- */
+        :root {
+            /* DEEP SPACE PALETTE */
+            --bg-void: #050505;
+            --bg-glass: rgba(10, 10, 15, 0.6);
+            
+            /* NEON SIGNALS */
+            --neon-cyan: #00fff2;   /* Logic */
+            --neon-pink: #ff0055;   /* Critical */
+            --neon-amber: #ffcc00;  /* Data */
+            
+            --border-primary: rgba(0, 255, 242, 0.3);
+            
+            --text-main: #ebffff;
+            --text-dim: #7da0a8;
+            
+            --glass: blur(16px) saturate(140%);
+            --font-ui: 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* --- 2. CINEMATIC BACKGROUNDS --- */
+        
+        /* THE BATTLEFIELD CANVAS */
+        #warp-canvas {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        /* Vignette/Glow */
+        body::after {
+            content:''; position: fixed; inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 242, 0.02), #000 95%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* Scanline Overlay (TV Static) */
+        .scanlines {
+            position: fixed; inset: 0; pointer-events: none; z-index: 999;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            opacity: 0.08;
+        }
+
+        /* --- 3. TYPOGRAPHY & DECORATIONS --- */
+        .mono { font-family: var(--font-mono); letter-spacing: -0.5px; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
+
+        /* Glitch Animation */
+        .glitch:hover {
+            text-shadow: 2px 0 var(--neon-pink), -2px 0 var(--neon-cyan);
+            animation: jitter 0.3s infinite;
+        }
+        @keyframes jitter {
+            0% { transform: translate(0); } 20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); } 60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); } 100% { transform: translate(0); }
+        }
+
+        /* --- 4. NAVIGATION HUD --- */
+        .nav-dock {
+            position: fixed; top: 0; left: 0; width: 100%;
+            display: flex; justify-content: center;
+            z-index: 1000; padding: 20px; pointer-events: none;
+        }
+
+        nav {
+            pointer-events: auto;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--border-primary);
+            box-shadow: 0 0 20px rgba(0, 255, 242, 0.15);
+            backdrop-filter: var(--glass);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            padding: 2px; display: flex; gap: 2px;
+        }
+
+        nav a {
+            color: var(--text-dim); font-family: var(--font-mono); font-size: 0.75rem;
+            padding: 12px 24px; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        nav a:hover, nav a.active { color: #000; background: var(--neon-cyan); box-shadow: 0 0 25px var(--neon-cyan); }
+
+        /* --- 5. HERO SECTION --- */
+        header {
+            min-height: 90vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+            position: relative; border-bottom: 1px solid var(--border-primary); padding-bottom: 60px;
+        }
+
+        .hero-marker {
+            color: var(--neon-pink); font-family: var(--font-mono); font-size: 0.8rem;
+            margin-bottom: 1rem; padding-left: 10px; border-left: 3px solid var(--neon-pink);
+            animation: pulse 2s infinite;
+        }
+
+        header h1 {
+            font-size: clamp(3.5rem, 11vw, 7rem);
+            line-height: 0.85; text-transform: uppercase; font-weight: 900;
+            color: transparent; -webkit-text-stroke: 1px #fff;
+            margin-bottom: 2rem; position: relative; z-index: 2;
+        }
+        /* Filled version for contrast */
+        header h1::before {
+            content: 'Jahangir\A Nasirwala'; white-space: pre; position: absolute; left: 3px; top: 3px;
+            color: rgba(0, 255, 242, 0.08); z-index: -1; -webkit-text-stroke: 0; filter: blur(2px);
+        }
+
+        .hero-bio {
+            max-width: 650px; font-size: 1.15rem; border-left: 2px solid var(--neon-cyan); padding-left: 20px;
+            margin-bottom: 3rem; color: #ccc; background: linear-gradient(90deg, rgba(0,255,242,0.05), transparent);
+        }
+
+        /* Scifi Buttons */
+        .hud-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 16px 32px; border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan); font-family: var(--font-mono); font-weight: bold; font-size: 0.9rem; 
+            text-transform: uppercase; position: relative; overflow: hidden; margin-right: 15px; margin-bottom: 10px;
+            background: rgba(0, 5, 10, 0.8); backdrop-filter: blur(4px); transition: 0.3s;
+        }
+        .hud-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 242, 0.4), transparent);
+            transition: 0.5s;
+        }
+        .hud-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 40px var(--neon-cyan); }
+        .hud-btn:hover::before { left: 100%; }
+
+        /* --- 6. BENTO GRID --- */
+        .grid-header {
+            display: flex; align-items: center; justify-content: space-between;
+            color: var(--neon-amber); font-family: var(--font-mono); font-size: 0.8rem;
+            margin: 6rem 0 2rem; border-bottom: 1px solid var(--neon-amber); padding-bottom: 10px;
+        }
+        .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+        .panel {
+            background: var(--bg-glass); border: 1px solid var(--border-primary);
+            backdrop-filter: var(--glass); padding: 32px; position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        /* Corners */
+        .panel::before { content:''; position: absolute; top:-1px; left:-1px; width: 15px; height: 15px; border-top: 2px solid var(--neon-cyan); border-left: 2px solid var(--neon-cyan); }
+        .panel::after { content:''; position: absolute; bottom:-1px; right:-1px; width: 15px; height: 15px; border-bottom: 2px solid var(--neon-cyan); border-right: 2px solid var(--neon-cyan); }
+        
+        .panel:hover { transform: translateY(-5px); border-color: var(--neon-cyan); box-shadow: inset 0 0 30px rgba(0, 255, 242, 0.05), 0 0 30px rgba(0,0,0,0.6); }
+
+        .panel h3 { font-size: 1.8rem; text-transform: uppercase; font-weight: 800; margin-bottom: 0.5rem; color: #fff; }
+        .panel-desc { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; padding-left: 10px; border-left: 2px solid rgba(255,255,255,0.1); }
+        .panel-meta { font-family: var(--font-mono); color: var(--neon-pink); font-size: 0.75rem; margin-bottom: 1rem; display: block; }
+        
+        .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+        .feat { font-size: 0.8rem; color: #ddd; padding-left: 14px; position: relative; }
+        .feat::before { content:'+'; position: absolute; left: 0; color: var(--neon-cyan); font-weight: bold;}
+        
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+        .tag { font-size: 0.7rem; color: var(--neon-cyan); font-family: var(--font-mono); border: 1px solid rgba(0, 255, 242, 0.2); padding: 6px 10px; }
+        
+        .col-2 { grid-column: span 2; }
+        .sys-arch { background: rgba(0,0,0,0.4); border: 1px solid var(--text-dim); padding: 12px; margin-bottom: 1.2rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); display: flex; justify-content: space-between; }
+        .stack-list p { margin-bottom: 8px; font-size: 0.85rem; border-bottom: 1px dashed #333; padding-bottom: 6px; color: #ccc;}
+        .stack-list span { color: var(--neon-amber); font-weight: bold; }
+
+        /* --- 7. TIMELINE --- */
+        .timeline { margin-left: 20px; padding-left: 40px; border-left: 1px solid var(--border-primary); margin-top: 3rem; }
+        .log { position: relative; margin-bottom: 3.5rem; }
+        .log-node { position: absolute; left: -46px; top: 0; width: 12px; height: 12px; background: #000; border: 1px solid var(--neon-cyan); transform: rotate(45deg); box-shadow: 0 0 10px var(--neon-cyan);}
+        
+        .log-date { font-family: var(--font-mono); color: var(--neon-amber); font-size: 0.85rem; margin-bottom: 6px; letter-spacing: 1px; }
+        .log-role { font-size: 1.4rem; font-weight: bold; color: #fff; margin-bottom: 6px; text-transform: uppercase; }
+        .log-context { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-pink); margin-bottom: 10px; display: block; text-transform: uppercase;}
+
+        /* --- 8. FOOTER --- */
+        footer { margin-top: 6rem; padding: 4rem 20px 100px 20px; border-top: 1px solid var(--border-primary); text-align: center; background: linear-gradient(180deg, transparent, rgba(0, 255, 242, 0.05)); }
+        .link-giant { display:block; width: 100%; word-break: break-all; font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; color: #fff; text-transform: uppercase; transition: 0.3s; }
+        .link-giant:hover { color: var(--neon-cyan); letter-spacing: 4px; text-shadow: 0 0 30px var(--neon-cyan); }
+
+
+        /* GAME HUD */
+        #game-hud {
+            position: fixed; top: 20px; right: 20px;
+            font-family: 'Courier New', monospace;
+            text-align: right; pointer-events: none; z-index: 50;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            opacity: 0.8;
+        }
+        .hud-label { font-size: 0.7rem; color: #fff; letter-spacing: 2px; }
+        .hud-score { font-size: 2rem; font-weight: 900; line-height: 1; }
+        .hud-status { font-size: 0.7rem; color: var(--neon-pink); animation: pulse 1s infinite; margin-top: 5px; }
+
+        @keyframes recoil-shake { 
+            0% { transform: translate(0,0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0,0); }
+        }
+        /* Update this in your <style> tag */
+        .identity-scan {
+            width: 100px; height: 100px;
+            border: 2px solid rgba(0, 255, 242, 0.3); /* Solid ring, not dashed */
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: grid; place-items: center;
+            font-family: var(--font-tech); color: var(--neon-cyan);
+            position: relative;
+            box-shadow: 0 0 15px var(--border-primary);
+        }
+
+        /* Add a scanner line moving up and down instead of spinning */
+        .identity-scan::after {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: scan-vertical 2s linear infinite;
+        }
+
+        @keyframes scan-vertical {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        /* RESPONSIVE */
+        @media (max-width: 900px) { .bento { grid-template-columns: 1fr; } .col-2 { grid-column: span 1; } }
+        @media (max-width: 768px) {
+            .nav-dock { top: auto; bottom: 0; padding: 10px 10px 20px 10px; background: linear-gradient(0deg, #000, transparent); }
+            nav { width: 100%; justify-content: space-between; }
+            nav a { padding: 14px 0; width: 25%; text-align: center; font-size: 0.7rem; }
+            header h1 { -webkit-text-stroke: 0; color: #fff; } header h1::before { display: none; }
+        }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+    <div id="game-hud">
+        <div class="hud-label">SCORE</div>
+        <div class="hud-score" id="score-val">0</div>
+        <div class="hud-status" id="pilot-status">[AI AUTO-PILOT ENGAGED]</div>
+    </div>
+    <!-- THE WARP ENGINE -->
+    <canvas id="warp-canvas"></canvas>
+    <div class="scanlines"></div>
+
+    <div class="nav-dock">
+        <nav>
+            <a href="#work" class="active">OPS</a>
+            <a href="#tech">DATA</a>
+            <a href="#journey">LOGS</a>
+            <a href="mailto:jahangirashraf23@gmail.com">COMMS</a>
+        </nav>
+    </div>
+
+    <div class="container">
+        
+        <!-- Hero -->
+        <header>
+            <div class="hero-marker">// SYSTEM_STATUS: ONLINE</div>
+            
+            <h1 class="glitch">Jahangir<br>Nasirwala</h1>
+            
+            <div class="hero-bio">
+                <span class="mono" style="color:var(--neon-cyan)">[ TARGET: AI ARCHITECTURE ]:</span><br> 
+                Full Stack Developer. Building autonomous intelligent systems that bridge the gap between 
+                <span style="color: #fff; font-weight:bold;">Agentic AI</span> and 
+                <span style="color: #fff; font-weight:bold;">Production Engineering</span>.
+            </div>
+            
+            <div>
+                <a href="#work" class="hud-btn">Execute::Projects</a>
+                <a href="https://github.com/JahangirNN" target="_blank" class="hud-btn" style="border-color: #fff; color: #fff;">Github::Source</a>
+            </div>
+        </header>
+        
+        <!-- Work -->
+        <div class="grid-header">
+            <span>// DEPLOYED_ENGINEERING</span>
+            <span>SEC_LEVEL_01</span>
+        </div>
+
+        <div id="work" class="bento">
+            
+            <!-- RCA -->
+            <div class="panel col-2">
+                <span class="panel-meta">2025 // COLLAB // ARCHITECTURE</span>
+                <h3 class="glitch">RoughCut Agent (RCA)</h3>
+                
+                <div class="sys-arch">
+                    <span>BRAIN: Python/Vertex</span>
+                    <span>HAND: Adobe CEP/JS</span>
+                </div>
+                
+                <div class="panel-desc">
+                    Stateful AI operative for Adobe Premiere Pro. It maintains "Timeline Consciousness"—perceiving video/audio context to execute surgical edits via natural language.
+                </div>
+                
+                <div class="feat-grid">
+                    <div class="feat">Semantic Construction</div>
+                    <div class="feat">Complex L-Cuts & J-Cuts</div>
+                    <div class="feat">Context-Aware Auto-Ducking</div>
+                    <div class="feat">Gapless Ripple Engine</div>
+                    <div class="feat">4K Proxy Optimization</div>
+                    <div class="feat">Persistent Memory</div>
+                </div>
+
+                <div class="tags">
+                    <div class="tag">FastAPI</div>
+                    <div class="tag">Google Vertex AI</div>
+                    <div class="tag">Deepgram</div>
+                    <div class="tag">System Arch</div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div id="tech" class="panel">
+                <span class="panel-meta">SYS_CAPABILITIES</span>
+                <h3>Arsenal</h3>
+                
+                <div class="stack-list" style="margin-top: 15px;">
+                    <p><span>AI:</span> Python, FastAPI, Agents, RAG</p>
+                    <p><span>MOBILE:</span> React Native Expo</p>
+                    <p><span>WEB:</span> Next.js, React</p>
+                    <p><span>DATA:</span> Firebase, SQL, Vector DBs</p>
+                    <!-- <p><span>VISION:</span> Computer Vision, FFmpeg</p> -->
+                </div>
+            </div>
+
+            <!-- Evalu8 -->
+            <div class="panel">
+                <span class="panel-meta">2025 // STARTUP // FOUNDER</span>
+                <h3>Evalu8 Now</h3>
+                <div class="panel-desc">
+                    Bootstrapped EdTech Startup. Engineered React Expo app + Vision AI backend to automate paper grading.
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 15px; color: #fff;">
+                    > SCALED_TO: 500+ Users<br>
+                    > TIME_SAVED: 90%
+                </div>
+                <a href="https://www.linkedin.com/posts/jahangir-ashraf-nasirwala-327b6b322_aitool-startup-aiassistant-activity-7365435904938655745-mw6r" target="_blank" class="hud-btn" style="padding: 10px; width:100%; font-size: 0.75rem;">WATCH PROMO DATA</a>
+            </div>
+
+            <!-- Max Out -->
+            <div class="panel col-2">
+                <span class="panel-meta">2024 // SOLO DEV // LEGACY</span>
+                <h3>Max Out In 30 Days</h3>
+                <div class="panel-desc">
+                    Gamified Men's Health Platform. React Native Expo with 3D Assets, level logic, and Play Store policy compliance.
+                </div>
+                <div class="tags" style="margin-bottom: 15px;">
+                    <div class="tag">React Native</div>
+                    <div class="tag">Firebase</div>
+                    <div class="tag">Gamification</div>
+                </div>
+                <a href="https://drive.google.com/file/d/1J0nhEk5D2074MzmpJs_TWfk7ik3ys3S7/view" target="_blank" style="font-family: var(--font-mono); color: var(--neon-amber); border-bottom: 1px dashed var(--neon-amber); font-size: 0.9rem;">
+                    >> ACQUIRE .APK FILE
+                </a>
+            </div>
+            
+        </div>
+
+        <!-- Logs -->
+        <div id="journey" class="grid-header" style="margin-top: 8rem;">
+            <span>// CHRONOLOGICAL_LOGS</span>
+            <span>TRACE_ROUTE</span>
+        </div>
+
+        <div class="timeline">
+            <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[NOV 2025 - CURRENT]</div>
+                <div class="log-role">AI Engineer [Collab]</div>
+                <span class="log-context">W/ Senior Data Scientist</span>
+                <p style="color:#aaa; font-size: 0.95rem;">
+                    Engineering complex Agentic AI workflows. Solving "stateless to stateful" architectural challenges (Moving Logic from Python Brain to Adobe Hand) and token optimization.
+                </p>
+            </div>
+
+            <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[MAR 2025 - SEPT 2025]</div>
+                <div class="log-role">Founder @ Evalu8</div>
+                <span class="log-context">BOOTSTRAPPED STARTUP</span>
+                <p style="color:#aaa; font-size: 0.95rem;">
+                    Identified grading bottleneck. Built Mobile AI solution from zero. Handled production deployment, vision pipeline, and growth.
+                </p>
+            </div>
+
+            <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[FEB 2024 - DEC 2024]</div>
+                <div class="log-role">Independent Dev</div>
+                <span class="log-context">SOLO ENGINEERING CYCLE</span>
+                <p style="color:#aaa; font-size: 0.95rem;">
+                    Project "Max Out". Deep dive into scalable React Native architecture, authentication flows, and app security.
+                </p>
+            </div>
+
+             <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[2023 - 2026]</div>
+                <div class="log-role">Computer Engineering</div>
+                <span class="log-context">Govt. Engineering College, Bharuch</span>
+            </div>
+        </div>
+
+        <footer>
+            <div style="font-family: var(--font-mono); color: var(--neon-pink); margin-bottom: 1rem;">// OPEN_COMMUNICATION_CHANNEL</div>
+            <a href="mailto:jahangirashraf23@gmail.com" class="link-giant">Connect</a>
+            
+            <div style="margin-top: 3rem; display: flex; gap: 24px; justify-content: center;">
+                <a href="https://github.com/JahangirNN" target="_blank" style="font-family:var(--font-mono); opacity: 0.7;">GITHUB_REPO</a>
+                <a href="https://in.linkedin.com/in/jahangir-ashraf-nasirwala-327b6b322" target="_blank" style="font-family:var(--font-mono); opacity: 0.7;">LINKEDIN_SIGNAL</a>
+            </div>
+            
+            <p style="margin-top: 4rem; font-size: 0.7rem; color: #555; font-family: var(--font-mono);">
+                SYS_ID: JAHANGIR_N // V.2025.12
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('warp-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // UI Elements
+        const scoreEl = document.getElementById('score-val');
+        const statusEl = document.getElementById('pilot-status');
+    
+        let width, height;
+        let score = 0;
+        
+        // Game State
+        let mouse = { x: 0, y: 0 };
+        let lastInputTime = 0;
+        let mode = 'AUTO'; // 'AUTO' or 'MANUAL'
+        let isMobile = false;
+    
+        // Configuration
+        const PLAYER_SPEED = 6;
+        const MAX_ENEMIES = 6; // Keep low for clean aesthetic
+        const FRICTION = 0.94;
+    
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            
+            // Mobile Detection
+            isMobile = width < 768;
+            
+            if (isMobile) {
+                mode = 'AUTO';
+                statusEl.innerText = "[ MOBILE SYSTEM MONITOR ]";
+                statusEl.style.color = "#ffcc00"; // Amber color
+            }
+        }
+        window.addEventListener('resize', resize);
+        resize();
+    
+        // INPUT HANDLERS
+        document.addEventListener('mousemove', e => {
+            if(isMobile) return; // Ignore input on mobile to allow scrolling
+            
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            
+            // Wake up manual control
+            lastInputTime = Date.now();
+            if(mode === 'AUTO') {
+                mode = 'MANUAL';
+                statusEl.innerText = "[ MANUAL OVERRIDE ACTIVE ]";
+                statusEl.style.color = "#00fff2";
+                statusEl.style.animation = "none";
+            }
+        });
+    
+        // --- CLASSES ---
+    
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 4;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.life = 1.0;
+                this.decay = Math.random() * 0.05 + 0.02;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                this.life -= this.decay;
+            }
+            draw() {
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+    
+        class Bullet {
+            constructor(x, y, angle) {
+                this.x = x; this.y = y;
+                // High speed precision shots
+                this.vx = Math.cos(angle) * 20;
+                this.vy = Math.sin(angle) * 20;
+                this.life = 1.0; 
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                this.life -= 0.03;
+            }
+            draw() {
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#00fff2';
+                ctx.shadowBlur = 15; ctx.shadowColor = '#00fff2';
+                ctx.beginPath(); 
+                ctx.moveTo(this.x, this.y); 
+                ctx.lineTo(this.x - this.vx * 0.6, this.y - this.vy * 0.6); 
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+            }
+        }
+    
+        class Enemy {
+            constructor() {
+                this.respawn();
+            }
+            respawn() {
+                // Spawn far outside screen logic
+                let side = Math.floor(Math.random() * 4);
+                if(side === 0) { this.x = Math.random()*width; this.y = -100; }
+                if(side === 1) { this.x = width+100; this.y = Math.random()*height; }
+                if(side === 2) { this.x = Math.random()*width; this.y = height+100; }
+                if(side === 3) { this.x = -100; this.y = Math.random()*height; }
+    
+                this.hp = 3;
+                this.speed = Math.random() * 1.5 + 0.5;
+                this.rotation = 0;
+                this.rotSpeed = (Math.random() - 0.5) * 0.1;
+                this.size = 18;
+            }
+            update(playerPos) {
+                let dx = playerPos.x - this.x;
+                let dy = playerPos.y - this.y;
+                let dist = Math.hypot(dx, dy);
+                
+                this.x += (dx/dist) * this.speed;
+                this.y += (dy/dist) * this.speed;
+                this.rotation += this.rotSpeed;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                
+                // Draw Core
+                ctx.fillStyle = '#1a0005';
+                ctx.strokeStyle = '#ff0055';
+                ctx.shadowBlur = 15; ctx.shadowColor = '#ff0055';
+                ctx.lineWidth = 2;
+                
+                ctx.beginPath();
+                ctx.arc(0, 0, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+    
+                // Draw Rotating Shield Rings
+                ctx.rotate(this.rotation);
+                ctx.beginPath();
+                // Complex Geometry shape (Drone looking)
+                ctx.moveTo(15, 0); ctx.lineTo(8, 8); ctx.lineTo(-8, 8);
+                ctx.lineTo(-15, 0); ctx.lineTo(-8, -8); ctx.lineTo(8, -8);
+                ctx.closePath();
+                
+                // Warning Pulse opacity
+                ctx.globalAlpha = 0.6 + Math.sin(Date.now() * 0.01) * 0.3;
+                ctx.strokeStyle = '#ff0055';
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+    
+                ctx.restore();
+                ctx.shadowBlur = 0;
+            }
+        }
+    
+        class Player {
+            constructor() {
+                this.x = width/2; this.y = height/2;
+                this.vx = 0; this.vy = 0;
+                this.angle = 0;
+                this.cooldown = 0;
+            }
+            update() {
+                let targetX, targetY, shoot = false;
+    
+                if(mode === 'MANUAL') {
+                    targetX = mouse.x;
+                    targetY = mouse.y;
+                    
+                    // --- MANUAL MOVEMENT ---
+                    let dx = targetX - this.x;
+                    let dy = targetY - this.y;
+                    
+                    // Spring physics for smooth movement
+                    this.vx += dx * 0.005;
+                    this.vy += dy * 0.005;
+                    
+                    // Auto-Fire logic: Just fire.
+                    if(this.cooldown <= 0) shoot = true;
+    
+                    this.angle = Math.atan2(targetY - this.y, targetX - this.x);
+    
+                } else {
+                    // --- AI PILOT LOGIC ---
+                    let nearest = null;
+                    let min = Infinity;
+                    enemies.forEach(e => {
+                        let d = Math.hypot(e.x - this.x, e.y - this.y);
+                        if(d < min) { min = d; nearest = e; }
+                    });
+    
+                    if(nearest) {
+                        targetX = nearest.x;
+                        targetY = nearest.y;
+                        
+                        let dx = targetX - this.x;
+                        let dy = targetY - this.y;
+                        
+                        // Maintain tactical distance
+                        let dist = Math.hypot(dx, dy);
+                        if(dist > 250) {
+                            this.vx += (dx/dist) * 0.25;
+                            this.vy += (dy/dist) * 0.25;
+                        } else if (dist < 150) {
+                            this.vx -= (dx/dist) * 0.4; // Dodge back
+                            this.vy -= (dy/dist) * 0.4;
+                        }
+    
+                        // Aiming
+                        let desiredAngle = Math.atan2(dy, dx);
+                        let diff = desiredAngle - this.angle;
+                        while (diff <= -Math.PI) diff += Math.PI * 2;
+                        while (diff > Math.PI) diff -= Math.PI * 2;
+                        this.angle += diff * 0.15; // AI Turn speed
+                        
+                        if(Math.abs(diff) < 0.2) shoot = true;
+                        
+                    } else {
+                        // Patrol pattern if empty
+                        this.angle += 0.01;
+                        this.vx += Math.cos(this.angle) * 0.1;
+                        this.vy += Math.sin(this.angle) * 0.1;
+                    }
+                }
+    
+                // Apply Friction
+                this.vx *= FRICTION;
+                this.vy *= FRICTION;
+                this.x += this.vx;
+                this.y += this.vy;
+    
+                // Keep in bounds
+                const padding = 20;
+                if(this.x < padding) this.vx += 1;
+                if(this.x > width-padding) this.vx -= 1;
+                if(this.y < padding) this.vy += 1;
+                if(this.y > height-padding) this.vy -= 1;
+    
+                // Fire Bullet
+                if(shoot && this.cooldown <= 0) {
+                    bullets.push(new Bullet(this.x, this.y, this.angle));
+                    this.cooldown = 8; // Faster fire rate
+                    // Recoil
+                    this.vx -= Math.cos(this.angle) * 1.5;
+                    this.vy -= Math.sin(this.angle) * 1.5;
+                }
+                if(this.cooldown > 0) this.cooldown--;
+            }
+    
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                
+                ctx.shadowBlur = 15; ctx.shadowColor = '#00fff2';
+                
+                // --- DETAILED FIGHTER SHIP ---
+                
+                // Engine Flames
+                ctx.globalAlpha = 0.8 + Math.random()*0.2;
+                ctx.fillStyle = '#00fff2';
+                ctx.beginPath();
+                ctx.moveTo(-15, -4);
+                ctx.lineTo(-30 - Math.random()*10, 0); // Flickering tail
+                ctx.lineTo(-15, 4);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+    
+                // Chassis
+                ctx.strokeStyle = '#fff'; 
+                ctx.lineWidth = 2;
+                ctx.fillStyle = '#050505';
+                
+                ctx.beginPath();
+                ctx.moveTo(20, 0);  // Nose
+                ctx.lineTo(-5, 12); // Right wing tip
+                ctx.lineTo(-5, 5);  // Right indent
+                ctx.lineTo(-15, 8); // Engine Block Right
+                ctx.lineTo(-10, 0); // Rear center
+                ctx.lineTo(-15, -8);// Engine Block Left
+                ctx.lineTo(-5, -5); // Left indent
+                ctx.lineTo(-5, -12);// Left wing tip
+                ctx.closePath();
+                
+                ctx.fill();
+                ctx.stroke();
+    
+                // Cockpit dot
+                ctx.fillStyle = '#fff';
+                ctx.beginPath(); ctx.arc(0, 0, 2, 0, Math.PI*2); ctx.fill();
+    
+                ctx.restore();
+                ctx.shadowBlur = 0;
+            }
+        }
+    
+        // --- INIT ---
+        let player = new Player();
+        let bullets = [];
+        let enemies = [];
+        let particles = [];
+        
+        // Spawn a few initial targets
+        for(let i=0; i<4; i++) enemies.push(new Enemy());
+    
+        // --- GAME LOOP ---
+        function loop() {
+            // Reset manual control after idle time (Desktop only)
+            if(!isMobile && mode === 'MANUAL' && Date.now() - lastInputTime > 3000) {
+                mode = 'AUTO';
+                statusEl.innerText = "[ AI AUTOPILOT RESUMED ]";
+                statusEl.style.color = "#ff0055";
+                statusEl.style.animation = "pulse 1s infinite";
+            }
+    
+            // Draw Motion Blur Trail
+            ctx.fillStyle = 'rgba(5, 5, 8, 0.25)'; // Higher opacity = Less Blur, Lower = Trippy
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'lighter'; // Neon Blending Mode
+    
+            // Starfield Effect
+            ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            for(let i=0; i<5; i++) {
+                ctx.fillRect(Math.random()*width, Math.random()*height, 2, 2);
+            }
+    
+            // 1. UPDATE PLAYER
+            player.update();
+            player.draw();
+    
+            // 2. UPDATE BULLETS & COLLISION
+            for(let i = bullets.length - 1; i >= 0; i--) {
+                let b = bullets[i];
+                b.update();
+                b.draw();
+                
+                // Screen & Life Check
+                if(b.life <= 0 || b.x < 0 || b.x > width || b.y < 0 || b.y > height) {
+                    bullets.splice(i, 1);
+                    continue;
+                }
+    
+                // Hit Detection
+                for(let j = enemies.length - 1; j >= 0; j--) {
+                    let e = enemies[j];
+                    let dist = Math.hypot(b.x - e.x, b.y - e.y);
+                    
+                    if(dist < e.size + 10) { // Hit!
+                        bullets.splice(i, 1);
+                        e.hp--;
+                        // Small Hit Flash
+                        particles.push(new Particle(b.x, b.y, '#fff')); 
+    
+                        if(e.hp <= 0) {
+                            enemies.splice(j, 1);
+                            // Big Explosion
+                            for(let k=0; k<12; k++) {
+                                particles.push(new Particle(e.x, e.y, '#ff0055'));
+                            }
+                            // Update Score (Text Shake)
+                            score += 100;
+                            scoreEl.innerText = score;
+                        }
+                        break; // Bullet hit, stop checking other enemies
+                    }
+                }
+            }
+    
+            // 3. SPAWN ENEMIES
+            if(enemies.length < MAX_ENEMIES && Math.random() < 0.03) {
+                enemies.push(new Enemy());
+            }
+    
+            // 4. UPDATE ENEMIES
+            enemies.forEach(e => {
+                e.update(player);
+                e.draw();
+            });
+    
+            // 5. UPDATE PARTICLES
+            for(let i=particles.length-1; i>=0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if(particles[i].life <= 0) particles.splice(i, 1);
+            }
+    
+            ctx.globalCompositeOperation = 'source-over';
+            requestAnimationFrame(loop);
+        }
+        
+        loop();
+    </script>
+</body>
+</html>
