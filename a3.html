@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>SYSTEM_LINK // JAHANGIR_N</title>
+    <style>
+        /* --- 1. CORE VARIABLES & SETUP --- */
+        :root {
+            /* DEEP SPACE PALETTE */
+            --bg-void: #020203;
+            --bg-glass: rgba(10, 10, 15, 0.7);
+            
+            /* NEON SIGNALS */
+            --neon-cyan: #00fff2;   /* Logic / System */
+            --neon-pink: #ff0055;   /* Critical / AI */
+            --neon-amber: #ffcc00;  /* Data / Time */
+            
+            --border-primary: rgba(0, 255, 242, 0.25);
+            --border-active: rgba(0, 255, 242, 0.8);
+            
+            --text-main: #ebffff;
+            --text-dim: #7da0a8;
+            
+            --glass: blur(12px) saturate(110%);
+            --font-ui: 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.5;
+            cursor: crosshair; /* The Sniper feel */
+        }
+
+        /* --- 2. CINEMATIC BACKGROUNDS --- */
+        
+        /* The Moving Grid */
+        .cyber-grid {
+            position: fixed; inset: 0;
+            background: 
+                linear-gradient(rgba(0, 255, 242, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 242, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(20deg);
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        
+        /* The Vignette/Glow */
+        body::after {
+            content:''; position: fixed; inset: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(0, 255, 242, 0.03), #000 90%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* Scanline Overlay (TV Static) */
+        .scanlines {
+            position: fixed; inset: 0; pointer-events: none; z-index: 10;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            opacity: 0.15;
+        }
+
+        /* --- 3. TYPOGRAPHY & DECORATIONS --- */
+        .mono { font-family: var(--font-mono); letter-spacing: -0.5px; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+
+        .deco-line {
+            height: 1px; background: linear-gradient(90deg, transparent, var(--border-primary), transparent);
+            margin: 4rem 0; opacity: 0.5;
+        }
+
+        /* Glitch Animation */
+        .glitch:hover {
+            text-shadow: 2px 0 var(--neon-pink), -2px 0 var(--neon-cyan);
+            animation: jitter 0.3s infinite;
+        }
+        @keyframes jitter {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* --- 4. NAVIGATION HUD --- */
+        .nav-dock {
+            position: fixed; top: 0; left: 0; width: 100%;
+            display: flex; justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            pointer-events: none;
+        }
+
+        nav {
+            pointer-events: auto;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--border-primary);
+            box-shadow: 0 0 15px rgba(0, 255, 242, 0.1);
+            backdrop-filter: var(--glass);
+            /* Cyberpunk Clipped Corners */
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            padding: 2px 2px;
+            display: flex; gap: 2px;
+        }
+
+        nav a {
+            color: var(--text-dim); font-family: var(--font-mono); font-size: 0.75rem;
+            padding: 10px 24px; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--bg-void); background: var(--neon-cyan); box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* --- 5. HERO SECTION --- */
+        header {
+            min-height: 90vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+            position: relative; border-bottom: 1px solid var(--border-primary);
+            padding-bottom: 60px;
+        }
+
+        .hero-marker {
+            color: var(--neon-pink); font-family: var(--font-mono); font-size: 0.8rem;
+            margin-bottom: 1rem; padding-left: 10px; border-left: 3px solid var(--neon-pink);
+            animation: pulse 2s infinite;
+        }
+
+        header h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            line-height: 0.85; text-transform: uppercase; font-weight: 900;
+            color: transparent; -webkit-text-stroke: 1px #fff;
+            margin-bottom: 2rem; position: relative;
+        }
+        
+        /* The filled version overlaid for dramatic effect */
+        header h1::before {
+            content: 'Jahangir\A Nasirwala'; white-space: pre; position: absolute; left: 4px; top: 4px;
+            color: rgba(255,255,255,0.1); z-index: -1; -webkit-text-stroke: 0;
+        }
+
+        .hero-bio {
+            max-width: 600px; font-size: 1.1rem; border-left: 1px solid var(--text-dim); padding-left: 20px;
+            margin-bottom: 3rem; color: #ccc;
+        }
+
+        /* Scifi Buttons */
+        .hud-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 14px 30px; 
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-family: var(--font-mono); font-weight: bold; font-size: 0.85rem; text-transform: uppercase;
+            position: relative; overflow: hidden; margin-right: 15px; margin-bottom: 10px;
+            background: rgba(0, 255, 242, 0.05);
+            transition: 0.3s;
+        }
+        
+        .hud-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 242, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .hud-btn:hover { 
+            background: var(--neon-cyan); color: #000; box-shadow: 0 0 30px var(--neon-cyan);
+        }
+        .hud-btn:hover::before { left: 100%; }
+
+        /* --- 6. BENTO GRID (HUD PANELS) --- */
+        .grid-header {
+            display: flex; align-items: center; justify-content: space-between;
+            color: var(--neon-amber); font-family: var(--font-mono); font-size: 0.8rem;
+            margin: 6rem 0 2rem; border-bottom: 1px solid var(--neon-amber); padding-bottom: 10px;
+        }
+
+        .bento {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+        }
+
+        .panel {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-primary);
+            backdrop-filter: var(--glass);
+            padding: 30px; position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        /* Holographic Corners */
+        .panel::before {
+            content:''; position: absolute; top:-1px; left:-1px; width: 15px; height: 15px;
+            border-top: 2px solid var(--neon-cyan); border-left: 2px solid var(--neon-cyan);
+        }
+        .panel::after {
+            content:''; position: absolute; bottom:-1px; right:-1px; width: 15px; height: 15px;
+            border-bottom: 2px solid var(--neon-cyan); border-right: 2px solid var(--neon-cyan);
+        }
+
+        .panel:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-cyan);
+            box-shadow: inset 0 0 20px rgba(0, 255, 242, 0.1), 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* Specific Project Styling */
+        .panel-meta { 
+            font-family: var(--font-mono); color: var(--neon-pink); font-size: 0.7rem; 
+            margin-bottom: 1rem; display: block;
+        }
+        
+        .panel h3 { font-size: 1.8rem; text-transform: uppercase; font-weight: 800; margin-bottom: 0.5rem; color: #fff; line-height: 1; }
+        .panel-desc { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.5rem; border-left: 2px solid rgba(255,255,255,0.1); padding-left: 10px;}
+
+        /* Brain/Hand Viz */
+        .sys-arch {
+            background: rgba(0,0,0,0.4); border: 1px solid var(--text-dim);
+            padding: 10px; margin-bottom: 1rem; font-family: var(--font-mono); font-size: 0.7rem; color: var(--neon-cyan);
+            display: flex; justify-content: space-between;
+        }
+
+        /* Feature List */
+        .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+        .feat { font-size: 0.75rem; color: #ddd; position: relative; padding-left: 12px; }
+        .feat::before { content:'+'; position: absolute; left: 0; color: var(--neon-cyan); }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+        .tag {
+            font-size: 0.65rem; color: var(--neon-cyan); font-family: var(--font-mono);
+            border: 1px solid rgba(0, 255, 242, 0.2); padding: 4px 8px;
+        }
+
+        .col-2 { grid-column: span 2; }
+        
+        /* Stack Cards */
+        .stack-list p { margin-bottom: 6px; font-size: 0.8rem; border-bottom: 1px dashed #333; padding-bottom: 6px; color: #ccc;}
+        .stack-list span { color: var(--neon-amber); font-weight: bold; }
+
+        /* --- 7. TIMELINE (DATA LOGS) --- */
+        .timeline { margin-left: 20px; padding-left: 40px; border-left: 1px solid var(--border-primary); margin-top: 3rem; }
+        .log { position: relative; margin-bottom: 3rem; }
+        
+        /* Interactive Blinking Nodes */
+        .log-node {
+            position: absolute; left: -46px; top: 0; width: 12px; height: 12px; background: #000;
+            border: 1px solid var(--neon-cyan);
+            transform: rotate(45deg);
+        }
+        .log:first-child .log-node { background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); }
+        
+        .log-date { font-family: var(--font-mono); color: var(--neon-amber); font-size: 0.8rem; margin-bottom: 5px; }
+        .log-role { font-size: 1.3rem; font-weight: bold; color: #fff; margin-bottom: 5px; }
+        .log-context { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-pink); margin-bottom: 10px; display: block; text-transform: uppercase;}
+        
+        /* --- 8. FOOTER --- */
+        footer {
+            margin-top: 6rem; padding: 4rem 0; border-top: 1px solid var(--border-primary);
+            text-align: center; background: linear-gradient(180deg, transparent, rgba(0, 255, 242, 0.05));
+        }
+        
+        .link-giant {
+            font-size: clamp(1.5rem, 5vw, 3.5rem); font-weight: 900; color: #fff;
+            text-transform: uppercase;
+        }
+        .link-giant:hover { color: var(--neon-cyan); letter-spacing: 2px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .bento { grid-template-columns: 1fr; }
+            .col-2 { grid-column: span 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-dock { top: auto; bottom: 10px; padding: 10px; }
+            nav { width: 100%; justify-content: space-around; }
+            header { padding-top: 20px; }
+            /* Force dramatic headers to fit */
+            header h1 { -webkit-text-stroke: 0; color: #fff; }
+            header h1::before { display: none; }
+            .container { padding-bottom: 120px; }
+        }
+
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+    
+    <!-- Visual Overlays -->
+    <div class="cyber-grid"></div>
+    <div class="scanlines"></div>
+
+    <div class="nav-dock">
+        <nav>
+            <a href="#work" class="active">PROJECTS</a>
+            <a href="#tech">ARSENAL</a>
+            <a href="#journey">LOGS</a>
+            <a href="mailto:jahangirashraf23@gmail.com">LINK</a>
+        </nav>
+    </div>
+
+    <div class="container">
+        
+        <!-- Dramatic Hero -->
+        <header>
+            <div class="hero-marker">// SYSTEM_STATUS: ONLINE</div>
+            
+            <!-- The Glitch Header -->
+            <h1 class="glitch">Jahangir<br>Nasirwala</h1>
+            
+            <div class="hero-bio">
+                <span class="mono" style="color:var(--neon-cyan)">[ ROLE_DEF ]:</span> 
+                Full Stack Developer & AI Engineer. <br><br>
+                Building intelligent autonomous systems that bridge the gap between 
+                <span style="color: #fff">Agentic AI</span> and 
+                <span style="color: #fff">Production Engineering</span>.
+            </div>
+            
+            <div>
+                <a href="#work" class="hud-btn">Execute::Projects</a>
+                <a href="https://github.com/JahangirNN" class="hud-btn" style="border-color: #fff; color: #fff;">Github::Source</a>
+            </div>
+        </header>
+        
+        <!-- Projects Section -->
+        <div class="grid-header">
+            <span>// DEPLOYED_ENGINEERING</span>
+            <span>SEC_LEVEL_01</span>
+        </div>
+
+        <div id="work" class="bento">
+            
+            <!-- RCA (Hero Card) -->
+            <div class="panel col-2">
+                <span class="panel-meta">2025 // COLLABORATION // ARCHITECTURE</span>
+                <h3 class="glitch">RoughCut Agent (RCA)</h3>
+                
+                <div class="sys-arch">
+                    <span>BRAIN: Vertex/Python</span>
+                    <span>HAND: Adobe CEP</span>
+                </div>
+                
+                <div class="panel-desc">
+                    Stateful, autonomous AI collaborative editor for Adobe Premiere Pro. Unlike automation scripts, RCA maintains "Timeline Consciousness"—perceiving context and executing surgical edits via natural language.
+                </div>
+                
+                <div class="feat-grid">
+                    <div class="feat">Semantic Timeline Construction</div>
+                    <div class="feat">Complex L-Cuts & J-Cuts</div>
+                    <div class="feat">Context-Aware Auto-Ducking</div>
+                    <div class="feat">Gapless Ripple Engine</div>
+                    <div class="feat">4K Proxy Optimization</div>
+                    <div class="feat">Persistent Project Memory</div>
+                </div>
+
+                <div class="tags">
+                    <div class="tag">FastAPI</div>
+                    <div class="tag">Google Vertex AI</div>
+                    <div class="tag">Deepgram</div>
+                    <div class="tag">System Architecture</div>
+                </div>
+            </div>
+
+            <!-- Stack Card -->
+            <div id="tech" class="panel">
+                <span class="panel-meta">SYS_CAPABILITIES</span>
+                <h3>Tech_Stack</h3>
+                
+                <div class="stack-list" style="margin-top: 15px;">
+                    <p><span>AI:</span> Python, FastAPI, Agents, RAG</p>
+                    <p><span>MOBILE:</span> React Native Expo</p>
+                    <p><span>WEB:</span> Next.js, React</p>
+                    <p><span>DATA:</span> Firebase, SQL, Vector DBs</p>
+                    <p><span>VIDEO:</span> FFmpeg, Computer Vision</p>
+                </div>
+            </div>
+
+            <!-- Evalu8 Card -->
+            <div class="panel">
+                <span class="panel-meta">2025 // STARTUP // FOUNDER</span>
+                <h3>Evalu8 Now</h3>
+                <div class="panel-desc">
+                    Bootstrapped EdTech Startup. Engineered React Expo app + Vision AI backend to automate paper grading.
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 15px; color: #fff;">
+                    > SCALED_TO: 500+ Users<br>
+                    > TIME_SAVED: 90%
+                </div>
+                <a href="https://www.linkedin.com/posts/jahangir-ashraf-nasirwala-327b6b322_aitool-startup-aiassistant-activity-7365435904938655745-mw6r" class="hud-btn" style="padding: 8px 15px; font-size: 0.7rem; width:100%;">WATCH PROMO DATA</a>
+            </div>
+
+            <!-- Max Out Card -->
+            <div class="panel col-2">
+                <span class="panel-meta">2024 // SOLO DEV // LEGACY</span>
+                <h3>Max Out In 30 Days</h3>
+                <div class="panel-desc">
+                    Full-featured Gamified Health Platform. Built from scratch with React Native Expo. Features 3D Assets, level logic, and Play Store compliance.
+                </div>
+                <div class="tags" style="margin-bottom: 1rem;">
+                    <div class="tag">React Native Expo</div>
+                    <div class="tag">Firebase</div>
+                    <div class="tag">Gamification Logic</div>
+                </div>
+                <a href="https://drive.google.com/file/d/1J0nhEk5D2074MzmpJs_TWfk7ik3ys3S7/view" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--neon-amber); border-bottom: 1px dashed var(--neon-amber);">
+                    >> DOWNLOAD .APK PACKET
+                </a>
+            </div>
+            
+        </div>
+
+        <div id="journey" class="grid-header" style="margin-top: 8rem;">
+            <span>// CHRONOLOGICAL_LOGS</span>
+            <span>TRACE_ROUTE</span>
+        </div>
+
+        <div class="timeline">
+            <!-- Item 1 -->
+            <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[NOV 2025 - CURRENT]</div>
+                <div class="log-role">Building RoughCut Agent</div>
+                <span class="log-context">COLLAB W/ SENIOR DATA SCIENTIST</span>
+                <p style="color:#aaa; font-size: 0.9rem;">
+                    Engineering complex Agentic AI workflows. Solving "stateless to stateful" architectural challenges and token cost optimization for video processing.
+                </p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[MAR 2025 - SEPT 2025]</div>
+                <div class="log-role">Founder @ Evalu8</div>
+                <span class="log-context">BOOTSTRAPPED STARTUP</span>
+                <p style="color:#aaa; font-size: 0.9rem;">
+                    Identified manual grading bottleneck. Built Mobile AI solution from zero. Handled production deployment, vision pipeline, and user acquisition.
+                </p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[FEB 2024 - DEC 2024]</div>
+                <div class="log-role">Independent Dev</div>
+                <span class="log-context">SOLO ENGINEERING CYCLE</span>
+                <p style="color:#aaa; font-size: 0.9rem;">
+                    Project "Max Out". Deep dive into scalable React Native architecture, authentication flows, and app store policies.
+                </p>
+            </div>
+
+             <!-- Education -->
+            <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[2023 - 2026 ONGOING]</div>
+                <div class="log-role">B.Tech Computer Engineering</div>
+                <span class="log-context">Govt. Engineering College, Bharuch</span>
+            </div>
+
+             <div class="log">
+                <div class="log-node"></div>
+                <div class="log-date">[2020 - 2023]</div>
+                <div class="log-role">Diploma in IT</div>
+                <span class="log-context">Principal Polytechnic College, Ahmedabad</span>
+            </div>
+
+        </div>
+
+        <!-- Dramatic Footer -->
+        <footer>
+            <div style="font-family: var(--font-mono); color: var(--neon-pink); margin-bottom: 1rem;">// OPEN_COMMUNICATION_CHANNEL</div>
+            <a href="mailto:jahangirashraf23@gmail.com" class="link-giant">Connect</a>
+            
+            <div style="margin-top: 3rem; display: flex; gap: 24px; justify-content: center;">
+                <a href="https://github.com/JahangirNN" style="font-family:var(--font-mono); opacity: 0.7;">GITHUB_REPO</a>
+                <a href="https://in.linkedin.com/in/jahangir-ashraf-nasirwala-327b6b322?trk=public_post_feed-actor-name" style="font-family:var(--font-mono); opacity: 0.7;">LINKEDIN_SIGNAL</a>
+            </div>
+            
+            <p style="margin-top: 4rem; font-size: 0.7rem; color: #555; font-family: var(--font-mono);">
+                SYS_ID: JAHANGIR_N // V.2025.12
+            </p>
+        </footer>
+
+    </div>
+</body>
+</html>

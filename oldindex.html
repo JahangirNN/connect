@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#050505">
+    <title>Jahangir Nasirwala | Full Stack AI Engineer</title>
+    <style>
+        /* --- 1. CORE VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --surface-color: #0a0a0a;
+            --card-bg: rgba(22, 22, 22, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-inner-light: rgba(255, 255, 255, 0.02);
+            
+            /* High-Contrast Accents */
+            --accent-rca: #d8b4fe;     /* Brighter Purple */
+            --accent-startup: #fda4af; /* Softer Red */
+            --accent-max: #6ee7b7;     /* Visible Green */
+            
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            
+            --glass-backdrop: blur(20px) saturate(180%);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Background Mesh */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%; left: -20%; width: 140%; height: 140%;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(168, 85, 247, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05), transparent 25%);
+            z-index: -2;
+            pointer-events: none;
+            will-change: transform;
+        }
+        
+        /* Noise Texture */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- UTILITIES --- */
+        a { text-decoration: none; color: inherit; transition: all 0.2s var(--ease-out); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; }
+
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal { opacity: 0; animation: fadeInUp 0.8s var(--ease-out) forwards; }
+        .reveal-1 { animation-delay: 0.1s; }
+        .reveal-2 { animation-delay: 0.2s; }
+        .reveal-3 { animation-delay: 0.3s; }
+
+        /* Shimmer Effect */
+        .shimmer-text {
+            background: linear-gradient(90deg, #888 0%, #fff 50%, #888 100%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer { to { background-position: -200% center; } }
+
+        /* --- NAVIGATION SYSTEM (FIXED) --- */
+        
+        /* Wrapper ensures proper centering and z-index */
+        .nav-wrapper {
+            position: fixed;
+            top: 20px;
+            left: 0; width: 100%;
+            display: flex; justify-content: center;
+            z-index: 1000;
+            pointer-events: none; /* Let clicks pass through outside the nav */
+        }
+
+        nav {
+            pointer-events: auto;
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: var(--glass-backdrop);
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            padding: 6px 6px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        nav a { 
+            color: var(--text-muted); 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 99px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+        nav a.active { color: #fff; background: rgba(255,255,255,0.12); }
+
+
+        /* --- HERO --- */
+        header {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        /* Decorative Blur Behind Header */
+        header::after {
+            content: ''; position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+            width: 300px; height: 300px; background: var(--accent-rca);
+            filter: blur(150px); opacity: 0.06; z-index: -1;
+        }
+
+        .status-badge {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 14px; border-radius: 50px;
+            font-size: 0.75rem; font-weight: 500;
+            margin-bottom: 2rem;
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--accent-rca);
+            backdrop-filter: blur(10px);
+        }
+        .status-pulse { width: 6px; height: 6px; background: currentColor; border-radius: 50%; box-shadow: 0 0 10px currentColor; animation: pulse 2s infinite; }
+
+        header h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.05; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.04em; color: #fff;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            max-width: 600px; margin-bottom: 2.5rem; line-height: 1.5;
+        }
+
+        /* --- BENTO GRID --- */
+        .section-label {
+            margin: 6rem 0 1.5rem;
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em;
+            color: var(--text-muted); display: flex; align-items: center; gap: 15px; opacity: 0.8;
+        }
+        .section-label::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(90deg, var(--card-border), transparent); }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            grid-auto-rows: auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 32px;
+            display: flex; flex-direction: column; position: relative;
+            overflow: hidden;
+            transition: transform 0.4s var(--ease-out), border-color 0.3s;
+            box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        .card-glow {
+            position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.05), transparent 40%);
+            opacity: 0; transition: opacity 0.5s; z-index: 1;
+        }
+        .card:hover .card-glow { opacity: 1; }
+
+        .col-span-2 { grid-column: span 2; }
+
+        /* Typography */
+        .card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.8rem; z-index: 2; color: #fff; letter-spacing: -0.01em; }
+        .card p { color: #bbb; font-size: 0.95rem; z-index: 2; margin-bottom: 1.5rem; line-height: 1.6; }
+        .meta-pill { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; display: inline-block; opacity: 1; z-index: 2; }
+
+        .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; z-index: 2; }
+        .feature-item {
+            font-size: 0.8rem; color: #d4d4d4; padding: 8px 10px; 
+            border-left: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.01);
+            line-height: 1.2;
+        }
+        
+        .tag-row { margin-top: auto; display: flex; gap: 6px; flex-wrap: wrap; z-index: 2; }
+        .tag {
+            font-size: 0.7rem; padding: 5px 12px; border-radius: 8px;
+            background: rgba(255,255,255,0.03); color: #ccc;
+            border: 1px solid rgba(255,255,255,0.04); font-weight: 500; white-space: nowrap;
+        }
+
+        .btn-outline {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: auto; padding: 12px 20px; border-radius: 14px;
+            font-size: 0.85rem; font-weight: 600; text-align: center;
+            border: 1px solid var(--card-border); color: #fff; background: rgba(255,255,255,0.02);
+            transition: all 0.2s; z-index: 2; cursor: pointer; text-transform: capitalize;
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); transform: translateY(-1px); }
+
+        /* Specific Colors */
+        .card.rca-card { background: linear-gradient(160deg, #120e16 0%, #0d0d0d 100%); }
+        .architecture-note {
+            font-size: 0.85rem; color: #aaa; margin-bottom: 1.2rem;
+            padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: center; gap: 10px; z-index: 2;
+        }
+        .dot-sep { width: 4px; height: 4px; background: #444; border-radius: 50%; }
+        .card.eval-card .meta-pill { color: var(--accent-startup); }
+        .card.max-card .meta-pill { color: var(--accent-max); }
+
+        /* --- TIMELINE --- */
+        .timeline { margin-left: 10px; padding-left: 30px; margin-top: 3rem; border-left: 1px dashed rgba(255,255,255,0.1); }
+        .timeline-item { position: relative; padding-bottom: 4rem; padding-left: 20px; }
+        .timeline-item:last-child { border:none; padding-bottom: 0; }
+        
+        .timeline-item::before {
+            content: ''; position: absolute; left: -36px; top: 5px; width: 10px; height: 10px;
+            border-radius: 50%; background: var(--bg-color); border: 2px solid var(--text-muted); transition: 0.3s;
+        }
+        .timeline-item.active::before { 
+            background: var(--text-main); border-color: var(--text-main); 
+            box-shadow: 0 0 15px rgba(255,255,255,0.4);
+        }
+        .t-date { font-size: 0.8rem; font-family: 'SF Mono', monospace; color: var(--text-muted); margin-bottom: 4px; display: block; }
+        .t-title { font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 2px; }
+        .t-role { color: var(--accent-rca); font-size: 0.9rem; font-weight: 500; margin-bottom: 12px; display: block; }
+        .t-desc { color: #999; font-size: 0.95rem; }
+
+        /* --- UPDATED FOOTER STYLES --- */
+        footer {
+            margin-top: 6rem;
+            /* Added horizontal padding (20px) and extra bottom padding (120px) for mobile nav */
+            padding: 6rem 20px 120px 20px; 
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            position: relative;
+            overflow: hidden; /* Prevents horizontal scroll triggering */
+        }
+
+        .contact-link {
+            /* Adjusted font size clamp: Start smaller (1.5rem) on mobile */
+            font-size: clamp(1.5rem, 6vw, 3rem);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+            transition: color 0.3s;
+            
+            /* THE FIX: These lines prevent the email from leaving the screen */
+            display: block;
+            width: 100%;
+            word-break: break-word;    /* Breaks long words like emails */
+            overflow-wrap: break-word; /* Modern browser support */
+            line-height: 1.2;
+        }
+
+        .contact-link:hover {
+            color: var(--accent-rca);
+        }
+        .contact-link:hover { color: var(--accent-rca); }
+
+        /* --- MOBILE NAV & OPTIMIZATIONS --- */
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .col-span-2 { grid-column: span 1; }
+        }
+
+        @media (max-width: 768px) {
+            /* RE-ENGINEERED MOBILE NAV */
+            .nav-wrapper {
+                top: auto; bottom: 20px; /* Moves dock to bottom */
+                padding: 0 16px; /* Prevents edge touching */
+            }
+
+            nav {
+                width: 100%;
+                max-width: 400px;
+                padding: 4px; /* Tighter padding for spacing */
+                background: rgba(20,20,20,0.85); /* Slightly darker for mobile readability */
+                box-shadow: 0 5px 30px rgba(0,0,0,0.8);
+            }
+
+            .nav-inner {
+                width: 100%;
+                justify-content: space-between; /* Spreads items evenly */
+                gap: 0;
+            }
+
+            nav a {
+                padding: 12px 0; /* Vertical hit area larger */
+                width: 25%; /* Force even distribution */
+                text-align: center;
+                font-size: 0.7rem; /* Readable small text */
+                background: transparent !important; /* Removes blocky background */
+            }
+
+            /* Simple active indicator for mobile */
+            nav a.active {
+                color: #fff;
+                font-weight: 800;
+            }
+            
+            /* UI Fixes */
+            header { padding-top: 20px; }
+            header::after { width: 150px; height: 150px; }
+            .feature-list { grid-template-columns: 1fr; }
+            .architecture-note { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .dot-sep { display: none; }
+            .btn-outline { padding: 14px 20px; width: 100%; }
+            .container { padding: 0 16px; padding-bottom: 100px; } /* Bottom padding ensures content isn't covered by nav */
+        }
+
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+    </style>
+</head>
+<body>
+    
+    <!-- Texture Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation (Desktop Top / Mobile Bottom) -->
+    <div class="nav-wrapper reveal reveal-1">
+        <nav>
+            <div class="nav-inner">
+                <a href="#work" class="active">Work</a>
+                <a href="#tech">Stack</a>
+                <a href="#journey">Journey</a>
+                <a href="mailto:jahangirashraf23@gmail.com">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <header>
+            <div class="status-badge reveal reveal-1">
+                <div class="status-pulse"></div>
+                Building Autonomous Systems
+            </div>
+            <h1 class="reveal reveal-2">Jahangir Nasirwala</h1>
+            <p class="shimmer-text reveal reveal-2" style="font-weight: 600; margin-bottom: 0.5rem;">
+                Full Stack Developer & AI Engineer
+            </p>
+            <p class="reveal reveal-2">
+                I engineer intelligent systems that bridge the gap between <strong>Agentic AI</strong> and <strong>Product Engineering</strong>. <br>
+                From scalable React Native architectures to stateful LLM Agents.
+            </p>
+            <div class="reveal reveal-3" style="margin-top: 2rem; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <a href="#work" class="btn-outline" style="background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.2);">View Work</a>
+                <a href="https://github.com/JahangirNN" class="btn-outline">GitHub Profile</a>
+            </div>
+        </header>
+
+        <!-- Selected Work Section -->
+        <div class="section-label reveal reveal-3">Selected Engineering</div>
+        
+        <div id="work" class="bento-grid reveal reveal-3">
+            
+            <!-- 1. RCA (Flagship) -->
+            <div class="card rca-card col-span-2">
+                <div class="card-glow"></div>
+                
+                <span class="meta-pill" style="color: var(--accent-rca);">Nov 2025 - Present • Collaboration</span>
+                <h3>RoughCut Agent (RCA)</h3>
+                
+                <div class="architecture-note">
+                    <span style="color:#eee">Brain (Python/Gemini)</span> 
+                    <div class="dot-sep"></div> 
+                    <span style="color:#eee">Hand (Adobe ExtendScript)</span>
+                </div>
+
+                <p>
+                    A multimodal AI Agent for Adobe Premiere Pro. Unlike standard automation scripts, RCA maintains "Timeline Consciousness"—it perceives video/audio context and executes surgical edits via natural language commands.
+                </p>
+                
+                <div class="feature-list">
+                    <div class="feature-item">Semantic Timeline Assembly</div>
+                    <div class="feature-item">Intelligent L-Cuts & J-Cuts</div>
+                    <div class="feature-item">Context-Aware Audio Mixing</div>
+                    <div class="feature-item">Gapless Ripple Engine</div>
+                    <div class="feature-item">Style-Consistent Subtitling</div>
+                    <div class="feature-item">4K Proxy Optimization</div>
+                </div>
+
+                <div class="tag-row">
+                    <span class="tag" style="border-color: rgba(168, 85, 247, 0.4); color: #e9d5ff;">FastAPI</span>
+                    <span class="tag">Google Vertex AI</span>
+                    <span class="tag">Deepgram</span>
+                    <span class="tag">Adobe CEP</span>
+                </div>
+            </div>
+
+            <!-- 2. Tech Stack -->
+            <div id="tech" class="card tech-card">
+                <div class="card-glow"></div>
+                <span class="meta-pill" style="color:#888;">Technical Proficiency</span>
+                <h3>Core Stack</h3>
+                <p>Specialized in heavy-lifting backend logic and smooth native interfaces.</p>
+                
+                <strong style="color: #fff; font-size: 0.8rem; margin-top: 10px; display:block;">Mobile & Client</strong>
+                <div class="tag-row" style="margin-bottom: 20px;">
+                    <span class="tag" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: #fff;">React Native Expo</span>
+                    <span class="tag">Next.js</span>
+                    <span class="tag">React</span>
+                </div>
+
+                <strong style="color: #fff; font-size: 0.8rem; display:block;">AI & Systems</strong>
+                <div class="tag-row">
+                    <span class="tag">Python (Expert)</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">RAG / Agents</span>
+                    <span class="tag">Firebase / SQL</span>
+                </div>
+            </div>
+
+            <!-- 3. Evalu8 Now (Startup) -->
+            <div class="card eval-card">
+                <div class="card-glow"></div>
+                <span class="meta-pill">Mar 2025 - Sept 2025 • Startup</span>
+                <h3>Evalu8 Now</h3>
+                <p>
+                    Founded an EdTech startup to automate paper grading. Built a production-grade React Expo application integrated with Computer Vision.
+                </p>
+                <ul style="color: #aaa; font-size: 0.9rem; list-style: disc; padding-left: 1rem; margin-bottom: 1.5rem;">
+                    <li>Vision-based answer key generation.</li>
+                    <li>Reduced grading time by 90%.</li>
+                    <li>Scaled to 500+ active users.</li>
+                </ul>
+                <div class="tag-row" style="margin-bottom: 20px;">
+                     <span class="tag">React Expo</span>
+                     <span class="tag">Computer Vision</span>
+                </div>
+                <a href="https://www.linkedin.com/posts/jahangir-ashraf-nasirwala-327b6b322_aitool-startup-aiassistant-activity-7365435904938655745-mw6r" target="_blank" class="btn-outline">
+                    ▶ View Product Promo
+                </a>
+            </div>
+
+            <!-- 4. Max Out (Project) -->
+            <div class="card max-card col-span-2">
+                <div class="card-glow"></div>
+                <span class="meta-pill">Feb 2024 - Dec 2024 • Engineering</span>
+                <h3>Max Out In 30 Days</h3>
+                <p>
+                    A full-featured gamified health platform engineered from zero to production. <br>
+                    Implemented complex level-progression logic, 3D asset rendering, and a secure real-time database architecture.
+                </p>
+                
+                <div class="tag-row" style="margin-bottom: 2rem;">
+                    <span class="tag" style="border-color: rgba(16, 185, 129, 0.3);">React Native Expo</span>
+                    <span class="tag">Firebase Auth</span>
+                    <span class="tag">Google Play Store</span>
+                </div>
+
+                <a href="https://drive.google.com/file/d/1J0nhEk5D2074MzmpJs_TWfk7ik3ys3S7/view" target="_blank" class="btn-outline" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); width: fit-content;">
+                    Download Android .APK
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Journey Section -->
+        <div id="journey" class="section-label" style="margin-top: 8rem;">Professional Journey</div>
+        <div class="timeline">
+            
+            <!-- Current Role -->
+            <div class="timeline-item active">
+                <span class="t-date">Nov 2025 - Present</span>
+                <div class="t-title">Building RoughCut Agent</div>
+                <span class="t-role">Collab w/ Senior Data Scientist</span>
+                <p class="t-desc">
+                    Transitioned into specialized Agentic AI engineering. solving complex state-management issues (moving "Brain" logic to legacy "Hand" environments) and optimizing token usage for high-volume video processing.
+                </p>
+            </div>
+
+            <!-- Startup Role -->
+            <div class="timeline-item">
+                <span class="t-date">Mar 2025 - Sept 2025</span>
+                <div class="t-title">Founder & Lead Engineer @ Evalu8</div>
+                <span class="t-role">Bootstrapped Startup</span>
+                <p class="t-desc">
+                    Identified a market gap in manual grading. Engineered the entire mobile solution and handled technical product growth. Learned critical lessons in distribution and user retention.
+                </p>
+            </div>
+
+            <!-- Freelance Role -->
+            <div class="timeline-item">
+                <span class="t-date">Feb 2024 - Dec 2024</span>
+                <div class="t-title">Independent Developer @ Max Out</div>
+                <span class="t-role">Full Lifecycle Engineering</span>
+                <p class="t-desc">
+                    A 10-month deep dive into scalable mobile architecture. Managed database design, frontend animations, and platform policy compliance.
+                </p>
+            </div>
+            
+            <!-- Education -->
+             <div class="timeline-item">
+                <span class="t-date">2023 - July 2026 (Ongoing)</span>
+                <div class="t-title">Computer Engineering (B.Tech)</div>
+                <span class="t-role">Govt Engineering College, Bharuch</span>
+                <p class="t-desc">
+                   Academic focus on Algorithms, System Design, and AI Integrations.
+                </p>
+            </div>
+
+             <div class="timeline-item">
+                <span class="t-date">2020 - 2023</span>
+                <div class="t-title">Diploma in IT</div>
+                <span class="t-role">Principal Polytechnic College, Ahmedabad</span>
+                <p class="t-desc">
+                   Graduated with distinction.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #bbb;">Ready to ship?</h2>
+            <a href="mailto:jahangirashraf23@gmail.com" class="contact-link">jahangirashraf23@gmail.com</a>
+            
+            <div style="margin-top: 3rem; display: flex; gap: 24px; justify-content: center;">
+                <a href="https://github.com/JahangirNN" target="_blank" style="opacity: 0.7; font-weight: 500;">GitHub</a>
+                <a href="https://in.linkedin.com/in/jahangir-ashraf-nasirwala-327b6b322?trk=public_post_feed-actor-name" target="_blank" style="opacity: 0.7; font-weight: 500;">LinkedIn</a>
+            </div>
+            
+            <p style="margin-top: 4rem; font-size: 11px; opacity: 0.3; text-transform: uppercase; letter-spacing: 2px;">
+                © 2025 Jahangir Nasirwala
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Logic for Interactions -->
+    <script>
+        const cards = document.querySelectorAll('.card');
+        let ticking = false;
+
+        document.addEventListener('mousemove', (e) => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    cards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        card.style.setProperty('--x', `${x}px`);
+                        card.style.setProperty('--y', `${y}px`);
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>
+</body>
+</html>
