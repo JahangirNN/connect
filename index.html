@@ -272,8 +272,36 @@
         .t-role { color: var(--accent-rca); font-size: 0.9rem; font-weight: 500; margin-bottom: 12px; display: block; }
         .t-desc { color: #999; font-size: 0.95rem; }
 
-        footer { margin-top: 6rem; padding: 6rem 0; text-align: center; border-top: 1px solid var(--card-border); }
-        .contact-link { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; color: #fff; transition: color 0.3s; }
+        /* --- UPDATED FOOTER STYLES --- */
+        footer {
+            margin-top: 6rem;
+            /* Added horizontal padding (20px) and extra bottom padding (120px) for mobile nav */
+            padding: 6rem 20px 120px 20px; 
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            position: relative;
+            overflow: hidden; /* Prevents horizontal scroll triggering */
+        }
+
+        .contact-link {
+            /* Adjusted font size clamp: Start smaller (1.5rem) on mobile */
+            font-size: clamp(1.5rem, 6vw, 3rem);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+            transition: color 0.3s;
+            
+            /* THE FIX: These lines prevent the email from leaving the screen */
+            display: block;
+            width: 100%;
+            word-break: break-word;    /* Breaks long words like emails */
+            overflow-wrap: break-word; /* Modern browser support */
+            line-height: 1.2;
+        }
+
+        .contact-link:hover {
+            color: var(--accent-rca);
+        }
         .contact-link:hover { color: var(--accent-rca); }
 
         /* --- MOBILE NAV & OPTIMIZATIONS --- */
