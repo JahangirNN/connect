@@ -3,235 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jahangir Nasirwala | Digital Craft & Strategy</title>
-    <!-- Link to your external CSS file -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Premium Fonts from Fontshare -->
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700&f[]=general-sans@600,700&display=swap" rel="stylesheet">
+    <title>Jahangir Nasirwala | Full Stack AI Engineer</title>
+    <style>
+        /* --- 1. CORE VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --surface-color: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-inner-light: rgba(255, 255, 255, 0.03);
+            
+            /* Project Accents - Neon adjusted */
+            --accent-rca: #c084fc;    /* Lighter Purple */
+            --accent-startup: #fb7185; /* Soft Red */
+            --accent-max: #34d399;     /* Emerald Green */
+            
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            
+            --glass-backdrop: blur(12px);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Background Mesh */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(30, 30, 40, 0.2) 0%, rgba(0,0,0,0) 50%);
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        /* Noise Overlay for texture */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* --- UTILITIES --- */
+        a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
+        ul { list-style: none; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; }
+        
+        /* Shimmering Text Animation */
+        .shimmer-text {
+            background: linear-gradient(to right, #999 20%, #fff 50%, #999 80%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 5s linear infinite;
+        }
+        @keyframes shimmer { to { background-position: 200% center; } }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            padding: 10px 8px; /* Compact wrapper */
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+        /* Inner container for Nav Items to ensure clickability */
+        .nav-inner {
+            display: flex; gap: 4px;
+        }
+        nav a { 
+            color: var(--text-muted); 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        nav a:hover, nav a.active { color: #fff; background: rgba(255,255,255,0.08); }
+
+        /* --- HERO SECTION --- */
+        header {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 100px;
+            position: relative;
+        }
+        /* Floating blurred lights behind header */
+        header::after {
+            content: ''; position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+            width: 300px; height: 300px; background: var(--accent-rca);
+            filter: blur(120px); opacity: 0.08; z-index: -1;
+        }
+
+        .status-badge {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--card-border);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            margin-bottom: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-rca);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.05);
+            letter-spacing: 0.02em;
+        }
+        .status-pulse { width: 6px; height: 6px; background: currentColor; border-radius: 50%; box-shadow: 0 0 8px currentColor; animation: pulse 2s infinite; }
+
+        header h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            line-height: 1.05;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.04em;
+            color: #fff;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 620px;
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- BENTO GRID SYSTEM --- */
+        .section-label {
+            margin: 6rem 0 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            display: flex; align-items: center; gap: 15px; opacity: 0.8;
+        }
+        .section-label::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(90deg, var(--card-border), transparent); }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            grid-auto-rows: minmax(320px, auto);
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            box-shadow: inset 0 0 0 1px var(--card-inner-light);
+            border-radius: 24px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255,255,255,0.12);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .card-glow {
+            position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.04), transparent 40%);
+            z-index: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* Layout Helpers */
+        .col-span-2 { grid-column: span 2; }
+        .row-span-2 { grid-row: span 2; }
+
+        /* Card Typography */
+        .card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.8rem; z-index: 2; line-height: 1.2; letter-spacing: -0.01em; color: #fff; }
+        .card p { color: #bbbbbb; font-size: 0.95rem; z-index: 2; margin-bottom: 1.5rem; line-height: 1.6; }
+        
+        .meta-pill {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; margin-bottom: 16px; display: inline-block;
+            opacity: 1; z-index: 2;
+        }
+
+        /* Features List for RCA */
+        .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; z-index: 2; }
+        .feature-item {
+            font-size: 0.8rem; color: #d4d4d4;
+            padding: 8px 10px; 
+            border-left: 2px solid rgba(255,255,255,0.1);
+            background: linear-gradient(90deg, rgba(255,255,255,0.03), transparent);
+        }
+        .feature-item:hover { border-color: var(--accent-rca); background: linear-gradient(90deg, rgba(168,85,247,0.1), transparent); }
+
+        /* Tags */
+        .tag-row { margin-top: auto; display: flex; gap: 6px; flex-wrap: wrap; z-index: 2; }
+        .tag {
+            font-size: 0.7rem; padding: 5px 10px; border-radius: 6px;
+            background: rgba(255,255,255,0.05); color: #d1d5db;
+            border: 1px solid rgba(255,255,255,0.05); font-weight: 500;
+            transition: all 0.2s;
+        }
+        .tag:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.15); }
+
+        /* BUTTONS */
+        .btn-outline {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: auto; padding: 10px 18px; border-radius: 12px;
+            font-size: 0.85rem; font-weight: 600; text-align: center;
+            border: 1px solid var(--card-border); color: #fff; background: rgba(255,255,255,0.02);
+            transition: all 0.2s; z-index: 2; cursor: pointer; position: relative; overflow: hidden;
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); transform: translateY(-1px); }
+
+        /* RCA Architecture Note */
+        .architecture-note { 
+            font-size: 0.85rem; color: #ddd; margin-bottom: 1.2rem; 
+            padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); 
+            display: flex; align-items: center; gap: 8px; z-index: 2;
+        }
+        .dot-sep { width: 4px; height: 4px; background: var(--card-border); border-radius: 50%; }
+
+        /* --- SPECIFIC CARD STYLES --- */
+        
+        /* 1. RCA */
+        .card.rca-card {
+            /* Rich deep gradient for importance */
+            background: linear-gradient(160deg, #100b14 0%, #0d0d0d 100%);
+            border-color: rgba(168, 85, 247, 0.2);
+        }
+        .card.rca-card::before {
+            content:''; position: absolute; top:0; right:0; width: 60%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* 2. Evalu8 */
+        .card.eval-card { position: relative; }
+        .card.eval-card::before {
+            content:''; position: absolute; top:0; right:0; width: 80%; height: 60%;
+            background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+        .card.eval-card .meta-pill { color: var(--accent-startup); }
+
+        /* 3. MaxOut */
+        .card.max-card { position: relative; }
+        .card.max-card::before {
+             content:''; position: absolute; bottom:0; left:0; width: 80%; height: 60%;
+            background: radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+        .card.max-card .meta-pill { color: var(--accent-max); }
+
+        /* --- TIMELINE --- */
+        .timeline { 
+            border-left: 1px solid var(--card-border); margin-left: 8px; padding-left: 40px; margin-top: 3rem; 
+        }
+        .timeline-item { position: relative; padding-bottom: 4rem; }
+        
+        /* Interactive Timeline Dot */
+        .timeline-item::before {
+            content: ''; position: absolute; left: -46px; top: 6px; width: 10px; height: 10px;
+            border-radius: 50%; background: var(--bg-color); border: 2px solid var(--text-muted);
+            transition: 0.3s ease;
+        }
+        .timeline-item:hover::before, .timeline-item.active::before { 
+            background: var(--text-main); border-color: var(--text-main); 
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+            transform: scale(1.2);
+        }
+        
+        .t-date { font-size: 0.8rem; font-family: monospace; color: var(--text-muted); margin-bottom: 6px; display: block; letter-spacing: 0.05em; }
+        .t-title { font-size: 1.15rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
+        .t-role { color: var(--accent-rca); font-size: 0.85rem; font-weight: 500; margin-bottom: 0.8rem; display: block; }
+        
+        /* FOOTER */
+        footer { margin: 8rem 0 3rem; text-align: center; border-top: 1px solid var(--card-border); padding-top: 5rem; }
+        .contact-link { 
+            font-size: clamp(1.8rem, 5vw, 2.5rem); 
+            font-weight: 700; color: #fff; 
+            letter-spacing: -0.02em;
+            transition: color 0.3s;
+        }
+        .contact-link:hover { color: var(--accent-rca); text-shadow: 0 0 30px rgba(168,85,247,0.3); }
+
+        /* ANIMATION */
+        @keyframes pulse { 0% { opacity: 0.4; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } 100% { opacity: 0.4; transform: scale(0.95); } }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr; gap: 16px; }
+            .col-span-2, .full-width { grid-column: span 1; }
+            header h1 { font-size: 3rem; }
+            .feature-list { grid-template-columns: 1fr; }
+            nav { width: 90%; justify-content: center; padding: 10px; }
+        }
+    </style>
 </head>
 <body>
-
-    <header class="header">
-        <nav class="container nav">
-            <a href="#" class="nav-logo" aria-label="Jahangir Nasirwala Home">
-                <svg width="80" height="32" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    
-                    <text x="50%" y="50%" text-anchor="middle"
-                          font-family="Georgia, 'Times New Roman', serif"
-                          font-size="6" font-weight="600"
-                          fill="black" dy=".35em" letter-spacing="0.5">
-                      Jahangir
-                    </text>
-                  
-                    
-                    <line x1="4" y1="18" x2="20" y2="18" stroke="black" stroke-width="0.5" stroke-linecap="round"/>
-                  
-                    
-                    <circle cx="12" cy="18" r="0.5" fill="black"/>
-                  </svg>
-                  
-
-                  
-                  
-            </a>
-            <ul class="nav-menu">
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#work" class="nav-link">Work</a></li>
-                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-                <li><a href="#contact" class="nav-link btn-nav">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <!-- HERO SECTION -->
-        <section class="hero" id="home">
-            <div class="container hero-content fade-in">
-                <h1>I build digital tools that grow your business.</h1>
-                <p class="hero-subtitle">
-                    I partner with ambitious e-commerce and small business brands to create websites, apps, and content that not only look great but deliver real, measurable results.
-                </p>
-                <a href="#work" class="btn">See My Work</a>
-            </div>
-        </section>
-
-        <!-- SERVICES SECTION -->
-        <section id="services">
-            <div class="container">
-                <h2 class="fade-in">What I Do</h2>
-                <p class="section-subtitle fade-in">I focus on three key areas to help your brand succeed online, from the code that powers your business to the content that captures your audience.</p>
-                
-                <div class="services-grid">
-                    <div class="service-card fade-in">
-                        <h3>Websites & Apps</h3>
-                        <p>I build fast, reliable, and easy-to-use websites and mobile apps that help you sell more products and serve your customers better.</p>
-                    </div>
-                    <div class="service-card fade-in">
-                        <h3>Video & Content Creation</h3>
-                        <p>I create professional videos and engaging social media content that tells your brand's story, captures attention, and turns viewers into loyal customers.</p>
-                    </div>
-                    <div class="service-card fade-in">
-                        <h3>Smart Automation</h3>
-                        <p>I use modern AI tools to automate tasks, personalize customer experiences, and uncover insights that can save you time and increase your profits.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- INTERACTIVE WORK/CASE STUDY SECTION -->
-        <section id="work">
-            <div class="container">
-                <h2 class="fade-in">Brand Success Stories</h2>
-                <p class="section-subtitle fade-in">I partner with brands to elevate their digital presence through strategic content and robust development. Here’s a look at how we achieve results together.</p>
-
-                <div class="case-studies-container fade-in">
-                    <!-- Client Logos - The Tabs -->
-                    <div class="client-logos">
-                        <button class="client-logo active" data-case="aura">Aura Living</button>
-                        <button class="client-logo" data-case="rove">Rove Apparel</button>
-                        <button class="client-logo" data-case="nourish">Nourish Foods</button>
-                    </div>
-
-                    <!-- Case Study Content -->
-                    <div class="case-study-content">
-                        <article class="case-study active" id="aura">
-                            <div class="case-study-details">
-                                <h3>Challenge: Bring a luxury feel online.</h3>
-                                <p>Aura Living, a local home decor brand, needed their website to match their elegant in-store experience. We created a stunning brand video and social media content that captured their unique style and boosted their online sales.</p>
-                                <div class="case-study-metrics">
-                                    <div class="metric"><strong>+250%</strong><span>Customer Engagement</span></div>
-                                    <div class="metric"><strong>+40%</strong><span>Online Sales Growth</span></div>
-                                </div>
-                            </div>
-                            <div class="case-study-visual">
-                                <div class="loader"></div>
-                                <video src="videos/aura-video.mp4" autoplay loop muted playsinline></video>
-                            </div>
-                        </article>
-
-                        <article class="case-study" id="rove">
-                            <div class="case-study-details">
-                                <h3>Challenge: Launch a new brand with a bang.</h3>
-                                <p>For streetwear startup Rove Apparel, we produced a high-energy video to launch their new collection. The campaign went viral, building a massive community and driving record-breaking launch-day traffic to their site.</p>
-                                <div class="case-study-metrics">
-                                    <div class="metric"><strong>1M+</strong><span>Video Views on Instagram</span></div>
-                                    <div class="metric"><strong>+60%</strong><span>Website Traffic</span></div>
-                                </div>
-                            </div>
-                            <div class="case-study-visual">
-                                <div class="loader"></div>
-                                <video src="videos/rove-video.mp4" autoplay loop muted playsinline></video>
-                            </div>
-                        </article>
-
-                        <article class="case-study" id="nourish">
-                            <div class="case-study-details">
-                                <h3>Challenge: Become the local go-to expert.</h3>
-                                <p>Nourish Foods wanted to build trust with their customers. We created a series of fun, easy-to-follow recipe videos that established them as a top resource for healthy living and grew their audience fivefold.</p>
-                                <div class="case-study-metrics">
-                                    <div class="metric"><strong>5x</strong><span>Audience Growth</span></div>
-                                    <div class="metric"><strong>Top 3</strong><span>Local Health Food Voice</span></div>
-                                </div>
-                            </div>
-                            <div class="case-study-visual">
-                                <div class="loader"></div>
-                                <video src="videos/nourish-video.mp4" autoplay loop muted playsinline></video>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- TESTIMONIALS SECTION -->
-        <section id="testimonials">
-            <div class="container">
-                <h2 class="fade-in">Trusted by Partners</h2>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card fade-in">
-                        <p class="testimonial-text">"Jahangir took our vision and turned it into a high-performance online store that actually works. Our sales have increased dramatically, and the process was seamless. He's more than a developer; he's a true partner."</p>
-                        <div class="testimonial-author">Sarah Jenkins<span>Founder, The Artisan Boutique</span></div>
-                    </div>
-                    <div class="testimonial-card fade-in">
-                        <p class="testimonial-text">"The mobile app Jahangir built for us has been a game-changer. Our customers love how easy it is to use, and it's helped us build a much stronger, more loyal community around our brand. We couldn't be happier."</p>
-                         <div class="testimonial-author">Michael Chen<span>Owner, FreshFare Organics</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
     
-    <footer id="contact" class="footer">
-        <div class="container footer-content">
-            <h2 class="fade-in">Let's Create Together</h2>
-            <p class="section-subtitle fade-in">
-                Have a project in mind or just want to connect? I'd love to hear from you.
-            </p>
-            <div class="contact-links fade-in">
-                <a href="mailto:acerdesktop53@gmail.com" class="contact-link">acerdesktop53@gmail.com</a>
-                <a href="https://www.instagram.com/zayywastaken" target="_blank" class="contact-link">@zayywastaken</a>
+    <!-- Background Noise Texture -->
+    <div class="noise-overlay"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="#work" class="active">Projects</a>
+            <a href="#tech">Stack</a>
+            <a href="#context">Context</a>
+            <a href="mailto:jahangirashraf23@gmail.com">Contact</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- HERO -->
+        <header>
+            <div class="status-badge">
+                <div class="status-pulse"></div>
+                Innovating with Agentic AI & Mobile Tech
             </div>
-            <div class="footer-bottom">
-                 <p>&copy; 2025 Jahangir Nasirwala</p>
+            <h1>Jahangir Nasirwala</h1>
+            <p class="shimmer-text" style="font-weight: 500;">
+                Full Stack Developer & AI Engineer
+            </p>
+            <p>
+                I build intelligent, autonomous systems using <span style="color:#fff;">Python & React Native</span>. <br>From production Android Apps to stateful Agents controlling Adobe Premiere Pro.
+            </p>
+            <div style="margin-top: 2rem; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <a href="#work" class="btn-outline" style="background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.2);">View Work</a>
+                <a href="https://github.com/JahangirNN" class="btn-outline">GitHub Profile</a>
+            </div>
+        </header>
+
+        <!-- PROJECT GRID -->
+        <div class="section-label">Masterpiece Engineering</div>
+        
+        <div id="work" class="bento-grid">
+            
+            <!-- 1. RCA (Flagship Project) -->
+            <div  class="card rca-card col-span-2">
+                <div class="card-glow"></div>
+                
+                <span class="meta-pill" style="color: var(--accent-rca);">Nov 2025 - Present • Architecture</span>
+                <h3>RoughCut Agent (RCA)</h3>
+                
+                <div class="architecture-note">
+                    <span style="color:#ddd">The Brain</span> (Python/Vertex AI) 
+                    <div class="dot-sep"></div> 
+                    <span style="color:#ddd">The Hand</span> (Adobe CEP)
+                </div>
+
+                <p>
+                    A stateful, autonomous AI collaborative editor. It doesn't just run scripts; it perceives the timeline, maintains project memory, and executes frame-perfect edits via natural language.
+                </p>
+                
+                <div class="feature-list">
+                    <div class="feature-item">Semantic Construction</div>
+                    <div class="feature-item">Split-Edits (L/J Cuts)</div>
+                    <div class="feature-item">Context-Aware Auto-Ducking</div>
+                    <div class="feature-item">Gapless Ripple Editing</div>
+                    <div class="feature-item">Generative Subtitling</div>
+                    <div class="feature-item">4K → Proxy Gen (90% Faster)</div>
+                </div>
+
+                <div class="tag-row">
+                    <span class="tag" style="border-color: rgba(168, 85, 247, 0.4); color: var(--accent-rca);">FastAPI</span>
+                    <span class="tag">Vertex AI (Gemini 2.5)</span>
+                    <span class="tag">Deepgram</span>
+                    <span class="tag">ExtendScript</span>
+                </div>
+            </div>
+
+            <!-- 2. Technical Stack -->
+            <div id="tech" class="card tech-card">
+                <div class="card-glow"></div>
+                <span class="meta-pill" style="color:#aaa;">Core Arsenal</span>
+                <h3>The Tech Stack</h3>
+                <p>Bridging heavy backend AI with smooth mobile experiences.</p>
+                
+                <strong style="color: #fff; font-size: 0.8rem; margin-top: 10px; display:block;">Mobile & Frontend</strong>
+                <div class="tag-row" style="margin-bottom: 20px;">
+                    <span class="tag" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: #fff;">React Native Expo</span>
+                    <span class="tag">Next.js</span>
+                </div>
+
+                <strong style="color: #fff; font-size: 0.8rem; display:block;">AI & Backend</strong>
+                <div class="tag-row">
+                    <span class="tag">Python (Fluent)</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">RAG / Agents</span>
+                    <span class="tag">Firebase</span>
+                </div>
+            </div>
+
+            <!-- 3. Evalu8 Now (Startup) -->
+            <div class="card eval-card">
+                <div class="card-glow"></div>
+                <span class="meta-pill">Mar 2025 - Sept 2025 • Startup</span>
+                <h3>Evalu8 Now</h3>
+                <p>
+                    AI-powered Android App for automated paper evaluation. I managed the full lifecycle: React Expo Dev + Marketing.
+                </p>
+                <ul style="color: #999; font-size: 0.85rem; list-style: disc; padding-left: 1rem; margin-bottom: 1.5rem;">
+                    <li>Vision AI creates solution keys.</li>
+                    <li>Checks paper in &lt; 1 minute.</li>
+                    <li>Scaled to 500+ active users.</li>
+                </ul>
+                <div class="tag-row" style="margin-bottom: 20px;">
+                     <span class="tag">React Expo</span>
+                     <span class="tag">Computer Vision</span>
+                </div>
+                <a href="https://www.linkedin.com/posts/jahangir-ashraf-nasirwala-327b6b322_aitool-startup-aiassistant-activity-7365435904938655745-mw6r" target="_blank" class="btn-outline">
+                    <span style="font-size:1.2em; line-height:0; margin-right:4px;">▶</span> Watch Promo
+                </a>
+            </div>
+
+            <!-- 4. Max Out (With APK Link) -->
+            <div class="card max-card col-span-2">
+                <div class="card-glow"></div>
+                <span class="meta-pill">Feb 2024 - Dec 2024 • Solo Dev</span>
+                <h3>Max Out In 30 Days</h3>
+                <p>
+                    A comprehensive Gamified Men's Health Android Application. <br>
+                    Engineered from scratch including level-based progression, 3D animated exercises, and user tracking. Originally deployed to Play Store.
+                </p>
+                
+                <div class="tag-row" style="margin-bottom: 2rem;">
+                    <span class="tag" style="border-color: rgba(16, 185, 129, 0.3);">React Native Expo</span>
+                    <span class="tag">Firebase Auth & DB</span>
+                    <span class="tag">Product Lifecycle</span>
+                </div>
+
+                <a href="https://drive.google.com/file/d/1J0nhEk5D2074MzmpJs_TWfk7ik3ys3S7/view" target="_blank" class="btn-outline" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); width: fit-content;">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right:8px;"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+                    Download .APK
+                </a>
+            </div>
+
+        </div>
+
+        <!-- CONTEXT TIMELINE -->
+        <div id="context" class="section-label" style="margin-top: 8rem;">The Professional Journey</div>
+        <div class="timeline">
+            
+            <div class="timeline-item active">
+                <span class="t-date">Nov 2025 - Present</span>
+                <div class="t-title">Full Stack AI Engineer (Collab)</div>
+                <span class="t-role">Collab w/ Senior Data Scientist</span>
+                <p style="color:#bbb; font-size:0.95rem;">
+                    Solving "stateless to stateful" problems in Agentic workflows. Migrating Python Logic (Brain) to legacy Adobe environments (Hand). <br>
+                    <strong>Key challenge:</strong> Optimizing API token costs for 4K video understanding via proxy pipelines.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="t-date">Mar 2025 - Sept 2025</span>
+                <div class="t-title">Founder & Lead Dev @ Evalu8</div>
+                <span class="t-role">Bootstrapped EdTech Startup</span>
+                <p style="color:#bbb; font-size:0.95rem;">
+                    Identified a manual grading bottleneck. Built a <strong>React Expo</strong> app that used Vision AI to generate personalized student feedback. 
+                    Successfully acquired 500+ users through self-made video content marketing.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="t-date">Feb 2024 - Dec 2024</span>
+                <div class="t-title">Independent Developer @ Max Out</div>
+                <span class="t-role">Freelance / Solo</span>
+                <p style="color:#bbb; font-size:0.95rem;">
+                    10-month deep dive into Mobile Architecture. Built complex logic for daily health tracking and progression. Handled Play Store policies and user data security.
+                </p>
+            </div>
+            
+             <div class="timeline-item">
+                <span class="t-date">2023 - July 2026 (Education ongoing)</span>
+                <div class="t-title">Computer Engineering (B.Tech)</div>
+                <span class="t-role">Govt Engineering College, Bharuch</span>
+                <p style="color:#bbb; font-size:0.95rem;">
+                    ...
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="t-date">2020 - 2023 (Education)</span>
+                <div class="t-title">Diploma in Information technology</div>
+                <span class="t-role">Principal Polytechnique College, Ahmedabad</span>
+                <p style="color:#bbb; font-size:0.95rem;">
+                    ...
+                </p>
             </div>
         </div>
-    </footer>
+
+        <!-- FOOTER -->
+        <footer>
+            <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #aaa;">Let's engineer the future.</h2>
+            <a href="mailto:jahangirashraf23@gmail.com" class="contact-link">jahangirashraf23@gmail.com</a>
+            
+            <div style="margin-top: 3rem; display: flex; gap: 24px; justify-content: center;">
+                <a href="https://github.com/JahangirNN" target="_blank" style="opacity: 0.6; transition:opacity 0.2s;">GitHub</a>
+                <a href="https://in.linkedin.com/in/jahangir-ashraf-nasirwala-327b6b322?trk=public_post_feed-actor-name" target="_blank" style="opacity: 0.6; transition:opacity 0.2s;">LinkedIn</a>
+            </div>
+            
+            <p style="margin-top: 4rem; font-size: 12px; opacity: 0.3;">
+                © 2025 Jahangir Nasirwala.
+            </p>
+        </footer>
+
+    </div>
 
     <script>
-        // Wait until the entire HTML document is loaded and ready
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // --- 1. INTERSECTION OBSERVER FOR FADE-IN ANIMATIONS ---
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
+        // High-performance interaction logic
+        const cards = document.querySelectorAll('.card');
 
-            const elementsToAnimate = document.querySelectorAll('.fade-in');
-            elementsToAnimate.forEach(el => {
-                observer.observe(el);
-            });
+        // Throttle updates for performance on 120hz displays
+        let ticking = false;
 
-            // --- 2. VIDEO LOADER FUNCTIONALITY ---
-            const videoContainers = document.querySelectorAll('.case-study-visual');
-            videoContainers.forEach(container => {
-                const video = container.querySelector('video');
-                if (video) {
-                    // When the video has enough data to play, add the 'video-loaded' class
-                    video.addEventListener('loadeddata', () => {
-                        container.classList.add('video-loaded');
+        document.addEventListener('mousemove', (e) => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    cards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        // Set CSS variables for spotlight effect
+                        card.style.setProperty('--x', `${x}px`);
+                        card.style.setProperty('--y', `${y}px`);
                     });
-                }
-            });
-
-            // --- 3. CASE STUDIES TAB FUNCTIONALITY ---
-            const clientLogos = document.querySelectorAll('.client-logo');
-            const caseStudies = document.querySelectorAll('.case-study');
-
-            clientLogos.forEach(logo => {
-                logo.addEventListener('click', () => {
-                    // Remove 'active' from all logos and studies first
-                    clientLogos.forEach(l => l.classList.remove('active'));
-                    caseStudies.forEach(s => s.classList.remove('active'));
-
-                    // Add 'active' to the one that was clicked
-                    logo.classList.add('active');
-
-                    // Show the corresponding case study
-                    const caseId = logo.getAttribute('data-case');
-                    const targetStudy = document.getElementById(caseId);
-                    if (targetStudy) {
-                        targetStudy.classList.add('active');
-                    }
+                    ticking = false;
                 });
-            });
+                ticking = true;
+            }
         });
     </script>
 </body>
