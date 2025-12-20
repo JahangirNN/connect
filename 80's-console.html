@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0d0d0d">
+    <title>JAHANGIR_NASIRWALA.EXE</title>
+    <style>
+        /* --- SYSTEM_CORE_98 UPGRADED THEME --- */
+        :root {
+            --bg-color: #050505;
+            --surface-color: #0a0a0a;
+            --border-color: #00ff41; /* Matrix Green */
+            --text-main: #e0f2e0;
+            --text-dim: #265c26;
+            --glitch-red: #ff0055;
+            --glitch-blue: #00ccff;
+            
+            --font-mono: "Courier Prime", "Courier New", Courier, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: text; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            line-height: 1.5;
+            overflow-x: hidden;
+            border: 4px solid var(--border-color);
+            min-height: 100vh;
+            cursor: crosshair; /* Sniper/Terminal Cursor */
+        }
+
+        /* --- THE MATRIX CANVAS --- */
+        #matrix-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; opacity: 0.25; /* Subtle background */
+            pointer-events: none;
+        }
+
+        /* --- CRT SCREEN EFFECTS --- */
+        body::after {
+            content: " "; display: block; position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Faint Grid Overlay */
+        .grid-overlay {
+            position: fixed; inset: 0; pointer-events: none; z-index: -1;
+            background-image: 
+                linear-gradient(var(--text-dim) 1px, transparent 1px),
+                linear-gradient(90deg, var(--text-dim) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.1;
+        }
+
+        /* UTILS */
+        a { text-decoration: none; color: inherit; position: relative; display: inline-block;}
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10;}
+
+        /* TYPOGRAPHY ANIMATIONS */
+        h1, h2, h3 { text-transform: uppercase; letter-spacing: -1px; }
+        
+        .typewriter {
+            overflow: hidden; 
+            border-right: .15em solid var(--border-color); 
+            white-space: nowrap; 
+            margin: 0; 
+            animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--border-color); } }
+
+        .glitch-hover:hover {
+            animation: glitch-anim 0.3s infinite;
+            background: var(--border-color);
+            color: #000;
+        }
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* NAVIGATION */
+        .nav-wrapper {
+            position: fixed; top: 0; left:0; width: 100%; 
+            display: flex; justify-content: center; z-index: 100;
+            background: #000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        nav { display: flex; border-left: 1px solid var(--border-color); }
+        nav a {
+            font-weight: bold; text-transform: uppercase; color: var(--border-color);
+            padding: 12px 25px; border-right: 1px solid var(--border-color);
+            background: #000; transition: 0.1s; font-size: 0.9rem;
+        }
+        nav a:hover, nav a.active {
+            background: var(--border-color); color: #000;
+            box-shadow: 0 0 15px var(--border-color);
+        }
+
+        /* HERO */
+        header { 
+            min-height: 80vh; 
+            display: flex; flex-direction: column; justify-content: center; align-items: flex-start; 
+            padding-top: 80px; padding-bottom: 60px;
+            border-bottom: 2px dashed var(--text-dim); margin-bottom: 3rem;
+        }
+        
+        .status-badge {
+            font-size: 0.8rem; color: #000; background: var(--border-color);
+            padding: 2px 8px; margin-bottom: 1rem; display: inline-block; font-weight: bold;
+        }
+
+        h1 { 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            text-shadow: 4px 4px 0px rgba(0, 60, 0, 1); 
+            margin-bottom: 1rem; line-height: 1;
+        }
+        
+        .cta-box {
+            border: 2px solid var(--border-color);
+            padding: 10px 20px; margin-top: 2rem;
+            cursor: pointer; box-shadow: 4px 4px 0px var(--border-color);
+            transition: all 0.1s; display: inline-block; margin-right: 15px;
+            color: var(--border-color); font-weight: bold; font-size: 0.9rem;
+        }
+        .cta-box:active { box-shadow: 0px 0px 0px; transform: translate(4px, 4px); }
+        .cta-box.fill { background: var(--border-color); color: #000; }
+        .cta-box.fill:hover { background: #fff; border-color:#fff; color:#000;}
+
+        /* CARDS */
+        .section-header { 
+            border-bottom: 2px solid var(--border-color); margin-bottom: 20px;
+            font-size: 1.2rem; padding-bottom: 5px; color: var(--border-color);
+            text-shadow: 0 0 10px var(--border-color);
+        }
+        
+        .bento-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+        }
+
+        .card {
+            background: #000; border: 2px solid var(--text-dim);
+            padding: 25px; position: relative; transition: 0.2s;
+        }
+        
+        /* Interactive corners */
+        .card::after {
+            content: ""; position: absolute; bottom: 0; right: 0;
+            width: 0; height: 0; border-style: solid;
+            border-width: 0 0 15px 15px;
+            border-color: transparent transparent var(--border-color) transparent;
+        }
+
+        .card:hover {
+            border-color: var(--border-color);
+            box-shadow: -5px 5px 0px rgba(0,255,65,0.2);
+            transform: translate(2px, -2px);
+            z-index: 10;
+        }
+
+        .meta-pill { 
+            background: #0d260d; color: var(--border-color); border: 1px solid var(--text-dim);
+            font-size: 0.65rem; padding: 3px 6px; margin-bottom: 15px; display: inline-block; letter-spacing: 1px;
+        }
+        
+        .architecture-ascii {
+            font-family: monospace; font-size: 0.65rem; white-space: pre; 
+            color: #ccc; margin-bottom: 1rem; border-left: 2px solid var(--border-color);
+            background: #081a08; padding: 10px; display: block; overflow-x: auto;
+        }
+
+        .col-span-2 { grid-column: span 2; }
+        .tag { color: #888; font-size: 0.7rem; margin-right: 8px; text-decoration: none; border-bottom: 1px solid #444; }
+
+        /* TIMELINE */
+        .timeline { 
+            border-left: 2px solid var(--text-dim); padding-left: 20px; margin-top: 2rem;
+        }
+        .timeline-item { margin-bottom: 2.5rem; position: relative; padding-left: 10px;}
+        .timeline-item::before {
+            content: '█'; position: absolute; left: -28px; top: 0; color: var(--border-color);
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+        
+        .t-date { font-weight:bold; color:var(--border-color); margin-bottom: 5px; font-size: 0.85rem;}
+
+        footer { margin-top: 6rem; border-top: 4px double var(--border-color); padding: 4rem 0; text-align: center; background: #000;}
+        .email-link { 
+            font-size: 1.3rem; font-weight: bold;
+            color: #000; background: var(--border-color); padding: 5px 15px;
+        }
+        .email-link:hover { background: #fff; cursor: help; }
+
+        @media(max-width: 900px){
+            .bento-grid { grid-template-columns: 1fr; gap: 20px; }
+            .col-span-2 { grid-column: span 1; }
+            h1 { font-size: 2.5rem; white-space: normal;}
+            .typewriter { animation: none; border:none; white-space: normal;}
+            .nav-wrapper { position: fixed; top:auto; bottom: 0; border-top: 2px solid var(--border-color); }
+            nav a { font-size: 0.7rem; flex-grow: 1; text-align: center; padding: 15px 5px;}
+            header { padding-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. The Code Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+    <div class="grid-overlay"></div>
+
+    <div class="nav-wrapper">
+        <nav>
+            <a href="#work" class="active">/PROJECTS</a>
+            <a href="#tech">/STACK</a>
+            <a href="#journey">/LOGS</a>
+            <a href="mailto:jahangirashraf23@gmail.com">/CONTACT</a>
+        </nav>
+    </div>
+
+    <div class="container">
+        
+        <header>
+            <div class="status-badge">[ STATUS: SYSTEM_ONLINE ]</div>
+            
+            <h1 class="typewriter">Jahangir_Nasirwala</h1>
+            
+            <div style="font-size: 1.2rem; color: #fff; margin-bottom: 1.5rem; border-left: 4px solid var(--border-color); padding-left: 15px;">
+                > TARGET: AI_ARCHITECT<br>
+                > SPECIALTY: AGENTIC_WORKFLOWS
+            </div>
+
+            <p style="margin-bottom: 2rem;">
+                Bridging the gap between [ CHAOTIC_PYTHON ] and [ PRODUCTION_UI ]. <br>
+                Building autonomous agents that actually work.
+            </p>
+            
+            <div style="display:flex; flex-wrap:wrap;">
+                <a href="#work" class="cta-box fill glitch-hover">EXECUTE(WORK.EXE)</a>
+                <a href="https://github.com/JahangirNN" class="cta-box glitch-hover">SOURCE_CODE</a>
+            </div>
+        </header>
+
+        <div class="section-header">/// SELECTED_WORKS_DATABASE</div>
+        
+        <div id="work" class="bento-grid">
+            
+            <!-- ROUGH CUT AGENT -->
+            <div class="card col-span-2">
+                <span class="meta-pill">v1.0.4 [ARCHITECT]</span>
+                <h3 class="glitch-hover">RoughCut Agent (RCA)</h3>
+                
+                <div class="architecture-ascii">
+>> INITIALIZING BRIDGE...
+[ BRAIN / VERTEX AI ] <====> [ HAND / ADOBE CEP ]
+Python Logic Node            ExtendScript Node
+                </div>
+                
+                <p>An autonomous editing unit for Adobe Premiere. Features "Timeline Consciousness."</p>
+                <ul style="margin-top: 15px; padding-left: 20px; list-style-type: square; color: #aaa;">
+                    <li>Semantic Assembly</li>
+                    <li>Auto-Ducking (Audio Analysis)</li>
+                    <li>Gapless Ripple Logic</li>
+                </ul>
+                <div style="margin-top: 15px;">
+                    <span class="tag">&lt;FastAPI&gt;</span>
+                    <span class="tag">&lt;ExtendScript&gt;</span>
+                    <span class="tag">&lt;Deepgram&gt;</span>
+                </div>
+            </div>
+
+            <!-- TECH STACK -->
+            <div id="tech" class="card tech-stack">
+                <span class="meta-pill">ARSENAL_DUMP</span>
+                <h3 class="glitch-hover">Tech_Stack</h3>
+                <br>
+                <p style="color:#fff; border-bottom: 1px dashed #333; margin-bottom:5px;">[ FRONTEND ]</p>
+                <p style="margin-bottom:15px;">React Native Expo, Next.js</p>
+                
+                <p style="color:#fff; border-bottom: 1px dashed #333; margin-bottom:5px;">[ BACKEND ]</p>
+                <p style="margin-bottom:15px;">Python (Fluent), FastAPI, Agents</p>
+                
+                <p style="color:#fff; border-bottom: 1px dashed #333; margin-bottom:5px;">[ STORAGE ]</p>
+                <p>Firebase, Vector DBs</p>
+            </div>
+
+            <!-- EVALU8 -->
+            <div class="card">
+                <span class="meta-pill">STARTUP_LOG</span>
+                <h3 class="glitch-hover">Evalu8 Now</h3>
+                <p style="color: #fff;">> TARGET: EdTech Automation</p>
+                <p style="margin-top:10px;">Automated grading via Computer Vision.</p>
+                <p style="color: #aaa;">Metric: 500+ Active Users.</p>
+                <br>
+                <a href="https://www.linkedin.com/posts/jahangir-ashraf-nasirwala-327b6b322_aitool-startup-aiassistant-activity-7365435904938655745-mw6r" target="_blank" style="text-decoration: underline; color: var(--border-color); font-weight:bold;">[ VIEW_PROMO_DATA ]</a>
+            </div>
+
+            <!-- MAX OUT -->
+            <div class="card col-span-2">
+                <span class="meta-pill">LEGACY_PROJ</span>
+                <h3 class="glitch-hover">Max Out in 30 Days</h3>
+                <p>Comprehensive health algorithm (Android App).</p>
+                <div style="display:flex; gap:10px; margin-top:10px;">
+                    <span class="tag">&lt;Expo&gt;</span>
+                    <span class="tag">&lt;Gamification&gt;</span>
+                    <span class="tag">&lt;3D_Assets&gt;</span>
+                </div>
+                <br>
+                <a href="https://drive.google.com/file/d/1J0nhEk5D2074MzmpJs_TWfk7ik3ys3S7/view" class="cta-box" style="margin:0; padding: 5px 15px;">DOWNLOAD .APK</a>
+            </div>
+
+        </div>
+
+        <div id="journey" class="section-header" style="margin-top: 4rem;">/// CHRONOLOGICAL_LOGS</div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="t-date">[ 2025 - CURRENT ]</div>
+                <div style="font-weight:bold; font-size:1.1rem; color:#fff;">Agentic AI Engineer</div>
+                <div>Collaborating w/ Senior Data Scientist on Video AI architecture. Solving State Management.</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="t-date">[ 2025.03 - 2025.09 ]</div>
+                <div style="font-weight:bold; font-size:1.1rem; color:#fff;">Founder @ Evalu8</div>
+                <div>Bootstrapped AI startup. Handled Vision Engineering + Growth Hacking.</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="t-date">[ 2024.02 - 2024.12 ]</div>
+                <div style="font-weight:bold; font-size:1.1rem; color:#fff;">Independent Dev @ Max Out</div>
+                <div>10-month engineering cycle. Full production release logic.</div>
+            </div>
+             <div class="timeline-item">
+                <div class="t-date">[ 2023 - 2026 ]</div>
+                <div style="font-weight:bold; font-size:1.1rem; color:#fff;">Education: B.Tech</div>
+                <div>Govt Engineering College Bharuch. (Comp. Sci)</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>END_OF_LINE</p>
+            <br>
+            <a href="mailto:jahangirashraf23@gmail.com" class="email-link">jahangirashraf23@gmail.com</a>
+            
+             <p style="margin-top:20px; font-size: 0.7rem; color: #444;">SYS_ID: JAHANGIR_N // V.3.1</p>
+        </footer>
+        
+        <div style="height: 100px;"></div>
+
+    </div>
+
+    <!-- THE MATRIX RAIN ENGINE -->
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // INTERACTIVITY
+        let mouse = { x: -100, y: -100 };
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // INIT
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const characters = katakana.split("");
+        
+        const fontSize = 16;
+        const columns = canvas.width/fontSize;
+        
+        // Array of drops (one per column)
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            // Black background with slight opacity (create fade trail)
+            ctx.fillStyle = "rgba(5, 5, 5, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Text Attributes
+            ctx.font = fontSize + "px monospace";
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = characters[Math.floor(Math.random()*characters.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+                
+                // --- INTERACTIVE FEATURE ---
+                // If text is near mouse, make it White, otherwise Green
+                const dist = Math.hypot(x - mouse.x, y - mouse.y);
+                
+                if (dist < 100) {
+                     ctx.fillStyle = "#fff"; // Decrypted White
+                     ctx.shadowBlur = 15;
+                     ctx.shadowColor = "#fff";
+                } else {
+                    ctx.fillStyle = "#00ff41"; // Matrix Green
+                    ctx.shadowBlur = 0;
+                }
+                
+                ctx.fillText(text, x, y);
+
+                // Send drop back to top randomly
+                if(y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+
+        // Run animation loop
+        setInterval(draw, 33);
+        
+        // Handle Resize
+        window.addEventListener('resize', () => {
+             canvas.width = window.innerWidth;
+             canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
