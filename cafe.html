@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velvet Roast Café</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --coffee-dark: #2C1810;
+            --coffee-medium: #5D4037;
+            --coffee-light: #8D6E63;
+            --cream: #F5F1E8;
+            --gold: #D4A574;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--coffee-dark);
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Initial Overlay */
+        #enter-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            background: linear-gradient(135deg, #1a0f0a 0%, #2C1810 50%, #3e2723 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+        }
+
+        #enter-overlay.hidden-overlay {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .steam-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+
+        .steam {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(100vh) translateX(0) scale(1);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-100px) translateX(50px) scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Main Content */
+        #main-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        #main-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Reservation Modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 15, 10, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 60;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2C1810 0%, #3e2723 100%);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-backdrop.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 3px;
+        }
+
+        /* Form Styles */
+        .form-input {
+            background: rgba(26, 15, 10, 0.6);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            color: #F5F1E8;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgba(245, 241, 232, 0.4);
+        }
+
+        /* WhatsApp Button Pulse */
+        .whatsapp-pulse {
+            animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(212, 165, 116, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 165, 116, 0);
+            }
+        }
+
+        /* Floating Reserve Button */
+        .floating-reserve {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 40;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .floating-reserve.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Parallax & Animations */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .hover-lift {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--coffee-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        /* Grain Texture */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 40;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Button Glow */
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .glow-button:hover::before {
+            left: 100%;
+        }
+
+        /* Menu Card Hover */
+        .menu-card {
+            background: rgba(44, 24, 16, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .menu-card:hover {
+            border-color: rgba(212, 165, 116, 0.6);
+        }
+
+        /* Time slot selection */
+        .time-slot {
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:hover {
+            border-color: var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .time-slot.selected {
+            background: var(--gold);
+            color: #2C1810;
+            border-color: var(--gold);
+        }
+    </style>
+</head>
+
+<body class="text-gray-100 antialiased">
+
+    <!-- Film Grain Overlay -->
+    <div class="grain"></div>
+
+    <!-- Reservation Modal -->
+    <div id="reservation-modal" class="modal-backdrop" onclick="closeModal(event)">
+        <div class="modal-content w-full max-w-md mx-4 rounded-lg p-8 relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 text-[#D4A574] hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div class="text-center mb-8">
+                <div
+                    class="w-12 h-12 mx-auto mb-4 rounded-full bg-[#D4A574] bg-opacity-20 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-[#D4A574]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h3 class="serif text-3xl text-[#D4A574] mb-2">Reserve Your Table</h3>
+                <p class="text-gray-400 text-sm">We'll confirm your booking via WhatsApp</p>
+            </div>
+
+            <form id="reservation-form" class="space-y-5" onsubmit="sendToWhatsApp(event)">
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Your Name</label>
+                    <input type="text" id="customer-name" required
+                        class="form-input w-full px-4 py-3 rounded-sm text-sm" placeholder="John Doe">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Date</label>
+                        <input type="date" id="reservation-date" required
+                            class="form-input w-full px-4 py-3 rounded-sm text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Guests</label>
+                        <select id="guest-count" class="form-input w-full px-4 py-3 rounded-sm text-sm">
+                            <option value="1">1 Person</option>
+                            <option value="2" selected>2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5 People</option>
+                            <option value="6">6 People</option>
+                            <option value="more">6+ People</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Occasion</label>
+                    <select id="reservation-occasion" class="form-input w-full px-4 py-3 rounded-sm text-sm">
+                        <option value="General Dining">General Dining</option>
+                        <option value="Birthday" selected>Birthday</option>
+                        <option value="Anniversary">Anniversary</option>
+                        <option value="Date Night">Date Night</option>
+                        <option value="Business Meeting">Business Meeting</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Removed Phone Number and Special Requests fields as per request -->
+
+                <button type="submit"
+                    class="w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-medium rounded-sm transition-all duration-300 flex items-center justify-center space-x-2 group whatsapp-pulse">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                    <span>Send WhatsApp Reservation</span>
+                </button>
+
+                <p class="text-xs text-center text-gray-500 mt-4">
+                    You'll be redirected to WhatsApp to complete your booking
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Initial Entry Overlay -->
+    <div id="enter-overlay">
+        <div class="steam-container" id="steam-container"></div>
+
+        <div class="relative z-10 text-center px-6 max-w-2xl">
+            <div class="mb-8 opacity-0 animate-fade-in" style="animation: fadeIn 1s ease-out 0.5s forwards;">
+                <svg class="w-16 h-16 mx-auto mb-6 text-[#D4A574]" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M18.5 3H6c-1.1 0-2 .9-2 2v5.71c0 3.83 2.95 7.18 6.78 7.29 3.96.12 7.22-3.06 7.22-7v-1h.5c1.93 0 3.5-1.57 3.5-3.5S20.43 3 18.5 3zM16 8.99c0 2.2-1.8 3.99-3.99 3.99-2.2 0-4-1.8-4-4V5h8v3.99zm2.5-1.99h-1v-2h1c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zM4 19h16v2H4v-2z" />
+                </svg>
+            </div>
+
+            <h1 class="serif text-5xl md:text-7xl font-light mb-4 tracking-wide opacity-0"
+                style="animation: fadeIn 1s ease-out 0.8s forwards;">
+                Velvet Roast
+            </h1>
+            <p class="text-lg md:text-xl text-[#D4A574] tracking-[0.3em] uppercase mb-12 opacity-0"
+                style="animation: fadeIn 1s ease-out 1.1s forwards;">
+                Est. 2024
+            </p>
+
+            <!-- Primary Reserve Button on Landing -->
+            <div class="space-y-4 opacity-0" style="animation: fadeIn 1s ease-out 1.4s forwards;">
+                <button onclick="openReservation()"
+                    class="glow-button group relative px-12 py-4 bg-[#D4A574] text-[#2C1810] hover:bg-[#e6b88a] transition-all duration-500 tracking-widest uppercase text-sm font-medium mb-4 whatsapp-pulse">
+                    <span class="relative z-10 flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                        <span>Reserve Table</span>
+                    </span>
+                    <div
+                        class="absolute inset-0 border-2 border-[#D4A574] transform scale-110 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500">
+                    </div>
+                </button>
+
+                <div>
+                    <button onclick="enterCafe()"
+                        class="text-gray-400 hover:text-white text-xs tracking-widest uppercase transition-colors border-b border-transparent hover:border-white pb-1">
+                        Explore Menu First
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 text-xs tracking-widest text-gray-500 opacity-50">
+            SCROLL TO EXPLORE
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+
+        <!-- Navigation -->
+        <nav class="fixed top-0 w-full z-30 transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+                <div class="serif text-2xl text-[#D4A574] tracking-wider cursor-pointer"
+                    onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Velvet Roast</div>
+                <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase items-center">
+                    <a href="#about" class="hover:text-[#D4A574] transition-colors">Our Story</a>
+                    <a href="#menu" class="hover:text-[#D4A574] transition-colors">Menu</a>
+                    <a href="#atmosphere" class="hover:text-[#D4A574] transition-colors">Atmosphere</a>
+                    <a href="#visit" class="hover:text-[#D4A574] transition-colors">Visit</a>
+                    <button onclick="openReservation()"
+                        class="px-6 py-2 bg-[#D4A574] text-[#2C1810] hover:bg-[#e6b88a] transition-all duration-300 text-xs font-medium rounded-sm">
+                        Reserve
+                    </button>
+                </div>
+                <button class="md:hidden text-[#D4A574]" onclick="toggleMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=1920&q=80"
+                    alt="Coffee Shop Interior" class="w-full h-full object-cover opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#2C1810] via-transparent to-[#2C1810]"></div>
+            </div>
+
+            <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+                <p class="text-[#D4A574] tracking-[0.4em] uppercase text-sm mb-6 animate-pulse">Artisan Coffee & Kitchen
+                </p>
+                <h2 class="serif text-6xl md:text-8xl font-light mb-8 leading-tight">
+                    Where Every Cup<br>
+                    <span class="italic text-[#D4A574]">Tells a Story</span>
+                </h2>
+                <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light mb-10">
+                    Nestled in the heart of the city, Velvet Roast is a sanctuary for coffee lovers.
+                    We source ethical beans, roast them to perfection, and serve them with intention.
+                </p>
+                <button onclick="openReservation()"
+                    class="px-10 py-4 border-2 border-[#D4A574] text-[#D4A574] hover:bg-[#D4A574] hover:text-[#2C1810] transition-all duration-300 tracking-widest uppercase text-sm font-medium inline-flex items-center space-x-2 group">
+                    <span>Book Your Experience</span>
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <svg class="w-6 h-6 text-[#D4A574]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 px-6 relative">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="w-20 h-px bg-[#D4A574] mb-8"></div>
+                    <h3 class="serif text-4xl md:text-5xl font-light">Crafted with Intention</h3>
+                    <p class="text-gray-300 leading-relaxed font-light text-lg">
+                        We believe coffee is more than caffeine—it's a ritual, a pause in the day, a moment of
+                        connection.
+                        Our beans are sourced directly from farmers in Ethiopia, Colombia, and Guatemala, ensuring fair
+                        trade practices and exceptional quality.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed font-light text-lg">
+                        Every roast is profiled to highlight the unique characteristics of its origin.
+                        From floral Ethiopian Yirgacheffe to chocolatey Colombian Supremo, we celebrate
+                        the diversity of flavor that coffee has to offer.
+                    </p>
+                    <div class="flex space-x-8 pt-4">
+                        <div>
+                            <div class="serif text-3xl text-[#D4A574] mb-1">15+</div>
+                            <div class="text-xs tracking-widest uppercase text-gray-500">Single Origins</div>
+                        </div>
+                        <div>
+                            <div class="serif text-3xl text-[#D4A574] mb-1">48h</div>
+                            <div class="text-xs tracking-widest uppercase text-gray-500">Fresh Roasted</div>
+                        </div>
+                        <div>
+                            <div class="serif text-3xl text-[#D4A574] mb-1">100%</div>
+                            <div class="text-xs tracking-widest uppercase text-gray-500">Ethical</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="aspect-[4/5] overflow-hidden rounded-sm">
+                        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80"
+                            alt="Coffee Pouring"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 w-48 h-48 border border-[#D4A574] opacity-30"></div>
+                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-[#D4A574] opacity-10"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Preview -->
+        <section id="menu" class="py-24 px-6 bg-[#1a0f0a] relative overflow-hidden">
+            <div
+                class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#D4A574] to-transparent opacity-30">
+            </div>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <p class="text-[#D4A574] tracking-[0.3em] uppercase text-sm mb-4">Curated Selection</p>
+                    <h3 class="serif text-4xl md:text-5xl font-light">Signature Drinks</h3>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Drink 1 -->
+                    <div class="menu-card p-8 hover-lift group cursor-pointer">
+                        <div class="h-64 mb-6 overflow-hidden rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80"
+                                alt="Velvet Latte"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h4 class="serif text-2xl text-[#D4A574]">Velvet Latte</h4>
+                            <span class="text-gray-400">$5.50</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">Double espresso with steamed oat milk,
+                            finished with a hint of Madagascar vanilla and cinnamon dust.</p>
+                        <div class="text-xs tracking-widest uppercase text-gray-600">House Favorite</div>
+                    </div>
+
+                    <!-- Drink 2 -->
+                    <div class="menu-card p-8 hover-lift group cursor-pointer">
+                        <div class="h-64 mb-6 overflow-hidden rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80"
+                                alt="Midnight Espresso"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h4 class="serif text-2xl text-[#D4A574]">Midnight Espresso</h4>
+                            <span class="text-gray-400">$4.00</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">Our darkest roast, pulled long. Notes of
+                            dark chocolate, smoked wood, and black cherry.</p>
+                        <div class="text-xs tracking-widest uppercase text-gray-600">Bold & Intense</div>
+                    </div>
+
+                    <!-- Drink 3 -->
+                    <div class="menu-card p-8 hover-lift group cursor-pointer">
+                        <div class="h-64 mb-6 overflow-hidden rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80"
+                                alt="Golden Hour Cold Brew"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="flex justify-between items-baseline mb-2">
+                            <h4 class="serif text-2xl text-[#D4A574]">Golden Hour</h4>
+                            <span class="text-gray-400">$6.00</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">24-hour cold brew infused with turmeric
+                            and ginger, topped with orange blossom foam.</p>
+                        <div class="text-xs tracking-widest uppercase text-gray-600">Refreshing</div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <button onclick="openReservation()"
+                        class="px-8 py-3 border border-[#D4A574] text-[#D4A574] hover:bg-[#D4A574] hover:text-[#2C1810] transition-all duration-300 tracking-widest uppercase text-xs">
+                        Reserve to Try These
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Atmosphere/Gallery -->
+        <section id="atmosphere" class="py-24 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                    <div>
+                        <h3 class="serif text-4xl md:text-5xl font-light mb-6">The Space</h3>
+                        <p class="text-gray-300 leading-relaxed font-light text-lg mb-6">
+                            Warm lighting, exposed brick, and the gentle hum of conversation.
+                            Our space is designed to feel like an extension of your living room—comfortable,
+                            inspiring, and always welcoming.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed font-light text-lg">
+                            Whether you're here for a morning ritual, an afternoon work session,
+                            or an evening wind-down, find your corner and stay awhile.
+                        </p>
+                        <button onclick="openReservation()"
+                            class="mt-8 px-8 py-3 bg-[#D4A574] text-[#2C1810] hover:bg-[#e6b88a] transition-all duration-300 tracking-widest uppercase text-xs font-medium">
+                            Book Your Corner
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4 mt-8">
+                            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&q=80"
+                                class="w-full h-48 object-cover rounded-sm hover:opacity-80 transition-opacity">
+                            <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400&q=80"
+                                class="w-full h-64 object-cover rounded-sm hover:opacity-80 transition-opacity">
+                        </div>
+                        <div class="space-y-4">
+                            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&q=80"
+                                class="w-full h-64 object-cover rounded-sm hover:opacity-80 transition-opacity">
+                            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80"
+                                class="w-full h-48 object-cover rounded-sm hover:opacity-80 transition-opacity">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visit/Contact -->
+        <section id="visit" class="py-24 px-6 bg-[#1a0f0a] relative">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="w-20 h-px bg-[#D4A574] mx-auto mb-8"></div>
+                <h3 class="serif text-4xl md:text-5xl font-light mb-8">Visit Us</h3>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-12 text-left">
+                    <div
+                        class="p-6 border border-[#D4A574] border-opacity-20 hover:border-opacity-50 transition-colors">
+                        <div class="text-[#D4A574] mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <h4 class="serif text-xl mb-2">Location</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            128 Artisan Avenue<br>
+                            Design District<br>
+                            New York, NY 10012
+                        </p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-[#D4A574] border-opacity-20 hover:border-opacity-50 transition-colors">
+                        <div class="text-[#D4A574] mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h4 class="serif text-xl mb-2">Hours</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Mon - Fri: 7am - 8pm<br>
+                            Saturday: 8am - 9pm<br>
+                            Sunday: 8am - 6pm
+                        </p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-[#D4A574] border-opacity-20 hover:border-opacity-50 transition-colors">
+                        <div class="text-[#D4A574] mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h4 class="serif text-xl mb-2">Contact</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            hello@velvetroast.com<br>
+                            +1 (555) 123-4567<br>
+                            @velvetroast
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="openReservation()"
+                    class="px-12 py-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-medium rounded-sm transition-all duration-300 inline-flex items-center space-x-3 group">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                    <span class="tracking-widest uppercase text-sm">Reserve via WhatsApp</span>
+                </button>
+
+                <p class="text-gray-500 text-sm mt-6">
+                    Instant confirmation • No credit card required • Free cancellation
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 px-6 border-t border-[#D4A574] border-opacity-10">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+                <div class="serif text-2xl text-[#D4A574] mb-4 md:mb-0">Velvet Roast</div>
+                <div class="flex space-x-6 text-gray-500 text-sm">
+                    <a href="#" class="hover:text-[#D4A574] transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-[#D4A574] transition-colors">Facebook</a>
+                    <a href="#" class="hover:text-[#D4A574] transition-colors">Twitter</a>
+                </div>
+                <div class="text-gray-600 text-xs mt-4 md:mt-0">
+                    © 2024 Velvet Roast Café. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Floating Reserve Button (appears after scroll) -->
+    <div id="floating-reserve" class="floating-reserve">
+        <button onclick="openReservation()"
+            class="bg-[#25D366] hover:bg-[#128C7E] text-white p-4 rounded-full shadow-2xl transition-all duration-300 flex items-center space-x-2 group whatsapp-pulse">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+            </svg>
+            <span
+                class="max-w-xs md:max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap text-sm font-medium">Reserve
+                Table</span>
+        </button>
+    </div>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <script>
+        // Generate steam particles
+        function createSteam() {
+            const container = document.getElementById('steam-container');
+            for (let i = 0; i < 15; i++) {
+                const steam = document.createElement('div');
+                steam.className = 'steam';
+                steam.style.left = Math.random() * 100 + '%';
+                steam.style.animationDelay = Math.random() * 20 + 's';
+                steam.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(steam);
+            }
+        }
+        createSteam();
+
+        // Set minimum date and prefill with today
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('reservation-date');
+        dateInput.min = today;
+        dateInput.value = today;
+
+        // Modal Functions
+        function openReservation() {
+            document.getElementById('reservation-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target === document.getElementById('reservation-modal')) {
+                document.getElementById('reservation-modal').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+
+        // WhatsApp Integration
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('customer-name').value;
+            const date = document.getElementById('reservation-date').value;
+            const guests = document.getElementById('guest-count').value;
+            const occasion = document.getElementById('reservation-occasion').value;
+
+            // Format the message
+            let message = `*New Reservation Request - Velvet Roast Café*%0A%0A`;
+            message += `*Name:* ${name}%0A`;
+            message += `*Date:* ${date}%0A`;
+            message += `*Guests:* ${guests}%0A`;
+            message += `*Occasion:* ${occasion}%0A`;
+
+            message += `%0AThank you!`;
+
+            // Replace with your actual WhatsApp business number
+            const whatsappNumber = '1234567890'; // Change this to your actual WhatsApp number
+
+            // Open WhatsApp
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+
+            // Close modal
+            closeModal();
+
+            // Optional: Show success message
+            setTimeout(() => {
+                alert('Opening WhatsApp to send your reservation request!');
+            }, 500);
+        }
+
+        // Enter Cafe Animation
+        function enterCafe() {
+            const overlay = document.getElementById('enter-overlay');
+            const mainContent = document.getElementById('main-content');
+
+            overlay.classList.add('hidden-overlay');
+            mainContent.classList.add('visible');
+
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                document.body.style.overflow = 'auto';
+            }, 1200);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const floatingBtn = document.getElementById('floating-reserve');
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#2C1810]', 'bg-opacity-95', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-[#2C1810]', 'bg-opacity-95', 'backdrop-blur-md', 'shadow-lg');
+            }
+
+            // Show floating button after scrolling past hero
+            if (window.scrollY > window.innerHeight * 0.5) {
+                floatingBtn.classList.add('visible');
+            } else {
+                floatingBtn.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            alert('Mobile menu would open here');
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.menu-card, #about img, #atmosphere img').forEach((el) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
