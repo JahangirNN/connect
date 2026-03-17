@@ -160,53 +160,87 @@
             color: var(--sage);
         }
 
+        /* --- Mobile Nav --- */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                padding: 40px;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                border-top: 1px solid var(--beige);
+            }
+        }
+
         /* --- Hero --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             background-color: var(--beige);
             position: relative;
             overflow: hidden;
-            padding-top: 200px;
+            padding: 120px 7% 60px;
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             align-items: center;
-            gap: 5%;
+            gap: 40px;
             width: 100%;
         }
 
-        @media (max-width: 1024px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
+        @media (min-width: 1024px) {
+            .hero {
+                padding-top: 80px;
+                padding-bottom: 0;
             }
-
-            .hero-image {
-                display: none;
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 5%;
             }
         }
 
         .hero-content h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 8vw, 5rem);
             line-height: 1.1;
             margin-bottom: 25px;
             color: var(--text);
         }
 
         .hero-content p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-light);
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             max-width: 500px;
         }
 
         .hero-image {
             position: relative;
-            height: 80vh;
+            width: 100%;
+            height: 400px;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-image {
+                height: 80vh;
+            }
         }
 
         .hero-image img {
@@ -218,13 +252,24 @@
 
         .hero-badge {
             position: absolute;
-            bottom: 40px;
-            left: -40px;
+            bottom: 20px;
+            right: 20px;
             background: var(--white);
-            padding: 30px;
+            padding: 20px;
             border-radius: 4px;
-            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.05);
-            max-width: 250px;
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.05);
+            max-width: 200px;
+            z-index: 2;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-badge {
+                bottom: 40px;
+                left: -40px;
+                right: auto;
+                padding: 30px;
+                max-width: 250px;
+            }
         }
 
         /* --- Principles Section --- */
@@ -250,21 +295,28 @@
         /* --- About Section --- */
         .about {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 80px;
+            grid-template-columns: 1fr;
+            gap: 40px;
             align-items: center;
         }
 
-        @media (max-width: 900px) {
+        @media (min-width: 1024px) {
             .about {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1.2fr;
+                gap: 80px;
             }
         }
 
         .about-image {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 20px;
+        }
+
+        @media (min-width: 640px) {
+            .about-image {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         .about-image img {
@@ -297,15 +349,20 @@
 
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 300px);
+            grid-template-columns: 1fr;
             gap: 20px;
         }
 
-        @media (max-width: 1024px) {
+        @media (min-width: 640px) {
             .bento-grid {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: auto;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(2, 300px);
             }
         }
 
@@ -333,12 +390,21 @@
 
         /* --- Stats --- */
         .stats-bar {
-            padding: 80px 0;
+            padding: 60px 7%;
             background: var(--sage);
             color: var(--white);
-            display: flex;
-            justify-content: space-around;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
             text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .stats-bar {
+                grid-template-columns: repeat(4, 1fr);
+                display: flex;
+                justify-content: space-around;
+            }
         }
 
         .stat-val {
@@ -489,12 +555,15 @@
             <span>Taste Kart</span>
         </a>
         <div class="nav-right">
-            <nav class="nav-links">
-                <a href="#about">Our Story</a>
-                <a href="#principles">Philosophy</a>
-                <a href="#gallery">Creations</a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#about" onclick="toggleMenu()">Our Story</a>
+                <a href="#principles" onclick="toggleMenu()">Philosophy</a>
+                <a href="#gallery" onclick="toggleMenu()">Creations</a>
             </nav>
-            <button class="btn" onclick="openModal()">Order / Booking</button>
+            <button class="btn" style="padding: 12px 25px; font-size: 0.75rem;" onclick="openModal()">Order</button>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </header>
 
@@ -694,6 +763,14 @@
             window.open(`https://wa.me/919925979363?text=${encoded}`, '_blank');
             closeModal();
         });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            if (window.innerWidth <= 1024) {
+                const nav = document.getElementById('navLinks');
+                nav.classList.toggle('active');
+            }
+        }
     </script>
 </body>
 
