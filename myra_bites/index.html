@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myra Bites | Flavoured Makhana – Light, Tasty, Guilt-free</title>
+    <meta name="description" content="Discover the goodness in every crunch with Myra Bites. Premium flavoured makhana, light, tasty, and guilt-free snacks. Order now via DM.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #D4AF37; /* Roasted Gold */
+            --secondary: #1B4332; /* Forest Green */
+            --accent: #E07A5F; /* Terracotta */
+            --bg: #FDFBF7; /* Off-white Cream */
+            --text: #2D3436;
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- Transitions --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            background: rgba(253, 251, 247, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            padding: 15px 5%;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                background: var(--white);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.5s ease-in-out;
+                z-index: 999;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+
+            nav a {
+                font-size: 1.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+            .menu-toggle.active span:nth-child(2) { opacity: 0; }
+            .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            padding-top: 80px;
+            text-align: center;
+            background: radial-gradient(circle at center, #ffffff 0%, #fdfbf7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-tagline {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary);
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        #hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            color: var(--secondary);
+            margin-bottom: 25px;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(27, 67, 50, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(27, 67, 50, 0.3);
+            background: #132e23;
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Decorative Elements */
+        .makhana-path {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .p1 { top: 15%; left: 10%; width: 120px; animation: float 6s infinite ease-in-out; }
+        .p2 { bottom: 10%; right: 10%; width: 150px; animation: float 8s infinite ease-in-out reverse; }
+        .p3 { top: 40%; right: 15%; width: 80px; animation: float 5s infinite ease-in-out; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* --- About Section --- */
+        #about {
+            padding: 100px 5%;
+            background: var(--white);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        @media (max-width: 992px) {
+            #about { grid-template-columns: 1fr; gap: 50px; text-align: center; }
+        }
+
+        .about-img-container {
+            position: relative;
+        }
+
+        .about-img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 30px 30px 0 var(--primary);
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--secondary);
+            margin-bottom: 25px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            padding: 20px;
+            background: #fdfbf7;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .feature-item h4 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        /* --- Flavors Section --- */
+        #flavors {
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .flavors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .flavor-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 40px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .flavor-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .flavor-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .flavor-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .flavor-card p {
+            color: #777;
+            font-size: 1rem;
+        }
+
+        .card-bg-icon {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 8rem;
+            opacity: 0.03;
+            transform: rotate(-15deg);
+        }
+
+        /* --- Benefits Strip --- */
+        .benefits-strip {
+            background: var(--secondary);
+            padding: 50px 5%;
+            color: var(--white);
+        }
+
+        .benefits-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .benefit-box {
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .benefit-box span {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .benefit-box h5 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* --- Call to Action --- */
+        #contact {
+            padding: 120px 5%;
+            text-align: center;
+            background: var(--bg);
+        }
+
+        .cta-box {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 80px 40px;
+            border-radius: 40px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 60px 5%;
+            background: #111;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            padding-top: 30px;
+            margin-top: 30px;
+        }
+
+        /* Order Button Floating (Mobile only maybe?) */
+        .floating-order {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background: #25D366;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transition: var(--transition);
+        }
+
+        .floating-order:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        @media (max-width: 500px) {
+            .floating-order span { display: none; }
+            .floating-order { padding: 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="Myra Bites Logo" class="logo-img">
+            <a href="#" class="brand">Myra Bites</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">Goodness</a></li>
+                <li><a href="#flavors">Flavors</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="hero-content reveal">
+            <span class="hero-tagline">✨ Gooｄness in every crunch!</span>
+            <h1>The Ultimate<br><i>Guilt-Free</i> Crunch.</h1>
+            <p class="hero-desc">Experience the magic of hand-roasted, flavoured Makhana. Light, tasty, and perfectly seasoned for your healthy snacking cravings.</p>
+            <div class="cta-group">
+                <a href="https://wa.me/917778876166?text=Hello Myra Bites! I'd like to order some flavoured makhana." class="btn btn-primary">Order via WhatsApp</a>
+                <a href="#flavors" class="btn btn-secondary">Explore Flavors</a>
+            </div>
+        </div>
+        
+        <!-- Decorative makhana pieces (could be SVGs or icons) -->
+        <svg class="makhana-path p1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10C30 10 10 30 10 50C10 70 30 90 50 90C70 90 90 70 90 50C90 30 70 10 50 10ZM50 80C35 80 20 65 20 50C20 35 35 20 50 20C65 20 80 35 80 50C80 65 65 80 50 80Z" fill="#D4AF37"/>
+        </svg>
+        <svg class="makhana-path p2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 5C25 5 5 25 5 50C5 75 25 95 50 95C75 95 95 75 95 50C95 25 75 5 50 5Z" fill="#E07A5F"/>
+        </svg>
+    </section>
+
+    <!-- Benefits Strip -->
+    <div class="benefits-strip">
+        <div class="benefits-container">
+            <div class="benefit-box">
+                <span>🍃</span>
+                <h5>100% Organic</h5>
+            </div>
+            <div class="benefit-box">
+                <span>🔥</span>
+                <h5>Roasted Not Fried</h5>
+            </div>
+            <div class="benefit-box">
+                <span>💪</span>
+                <h5>High Protein</h5>
+            </div>
+            <div class="benefit-box">
+                <span>🚫</span>
+                <h5>Zero Gluten</h5>
+            </div>
+        </div>
+    </div>
+
+    <!-- About -->
+    <section id="about">
+        <div class="about-img-container reveal">
+            <!-- Using a colored placeholder since I can't generate images, but designing it to look intentional -->
+            <div style="width: 100%; aspect-ratio: 4/5; background: #f0f0f0; border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                <img src="logo.png" alt="Myra Bites" style="width: 80%; height: 80%; object-fit: contain; opacity: 0.9;">
+                <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px;">
+                    <h4 style="color: var(--secondary)">Makhana Excellence</h4>
+                    <p style="font-size: 0.8rem; color: #666;">Crafted with love and the finest ingredients.</p>
+                </div>
+            </div>
+        </div>
+        <div class="about-content reveal">
+            <div class="section-header">
+                <h2>Healthy snacking<br>reimagined.</h2>
+                <p>At Myra Bites, we believe that snacking shouldn't come with a side of guilt. Our Makhanas are carefully picked and roasted to perfection, ensuring you get the maximum crunch with minimum calories.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h4>Light & Airy</h4>
+                    <p>The perfect companion for your tea-time or mid-day cravings.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Rich Flavors</h4>
+                    <p>Infused with natural spices that dance on your tongue.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Nutrient Dense</h4>
+                    <p>Loaded with antioxidants, magnesium, and protein.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>No Trans-Fat</h4>
+                    <p>Made with high-quality oils and heart-healthy processes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flavors -->
+    <section id="flavors">
+        <div class="section-header reveal">
+            <h2>Our Signature Flavors</h2>
+            <p>From spicy tangs to creamy delights, we have a flavor for every mood.</p>
+        </div>
+        <div class="flavors-grid">
+            <div class="flavor-card reveal">
+                <div class="card-bg-icon">🌶️</div>
+                <i>🔥</i>
+                <h3>Peri Peri</h3>
+                <p>A spicy, tangy punch that brings a kick of African heat to every bite. For the bold snackers.</p>
+            </div>
+            <div class="flavor-card reveal" style="border-top: 5px solid var(--primary);">
+                <div class="card-bg-icon">🧀</div>
+                <i>🧀</i>
+                <h3>Classic Cheese</h3>
+                <p>Velvety smooth cheese coating that melts in your mouth. A timeless favourite for all ages.</p>
+            </div>
+            <div class="flavor-card reveal">
+                <div class="card-bg-icon">🧂</div>
+                <i>🌿</i>
+                <h3>Himalayan Salt</h3>
+                <p>Subtle, clean, and elegant. Hand-picked salt crystals that highlight the natural makhana taste.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Box -->
+    <section id="contact">
+        <div class="cta-box reveal">
+            <h2>Ready to Crunch?</h2>
+            <p style="margin-bottom: 40px; font-size: 1.2rem;">Our premium batches are made fresh to order. Get yours today via DM or WhatsApp.</p>
+            <a href="https://wa.me/917778876166?text=Hi Myra Bites! I want to try your Flavoured Makhana. What's the menu?" class="btn btn-primary">Start Your Order</a>
+            <div style="margin-top: 20px; color: #888;">📦 Delivery Across All Locations</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <a href="#" class="footer-logo">Myra Bites</a>
+        <p>Follow our journey for daily crunch updates!</p>
+        <div class="social-links">
+            <a href="https://instagram.com/myra_bites" target="_blank">IG</a>
+            <a href="#">FB</a>
+            <a href="#">WA</a>
+        </div>
+        <div class="copyright">
+            &copy; 2026 Myra Bites. Goodness in every crunch!
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/917778876166" class="floating-order">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span>Order Now</span>
+    </a>
+
+    <script>
+        // Reveal elements on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const reveal = () => {
+            revealElements.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const nav = document.getElementById('nav');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
