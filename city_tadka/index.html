@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Tadka | Untold Stories of the City</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --surface-color: #1a1d24;
+            --primary: #FF4500; /* Orangy Red for Tadka */
+            --primary-hover: #e03d00;
+            --text-main: #ffffff;
+            --text-muted: #a0a5b1;
+            --accent: #FFB800;
+            --border: #2c313c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(15, 17, 21, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.4);
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 5% 5rem;
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(255,69,0,0.1) 0%, rgba(15,17,21,0) 70%);
+            z-index: -1;
+            border-radius: 50%;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #ffae8f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* Stats Grid */
+        .stats-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .stat-box {
+            background: var(--surface-color);
+            padding: 1.5rem 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: var(--primary);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* Categories / Bento Grid */
+        .categories-section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            grid-auto-rows: 250px;
+        }
+
+        .bento-item {
+            background: var(--surface-color);
+            border-radius: 24px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .bento-item:hover {
+            transform: scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 15px 35px rgba(255, 184, 0, 0.1);
+        }
+
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        .bento-item h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            z-index: 2;
+            margin-bottom: 0.5rem;
+        }
+
+        .bento-item p {
+            font-size: 0.95rem;
+            color: #ddd;
+            z-index: 2;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .bento-item:hover p {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .bg-img-1 { background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop') center/cover; }
+        .bg-img-2 { background: url('https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=600&auto=format&fit=crop') center/cover; }
+        .bg-img-3 { background: url('https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=600&auto=format&fit=crop') center/cover; }
+        .bg-img-4 { background: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop') center/cover; }
+
+        /* Main CTA Section */
+        .cta-section {
+            padding: 6rem 5%;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-color), var(--surface-color));
+        }
+
+        .main-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--accent);
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: 800;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 184, 0, 0.3);
+        }
+
+        .main-cta:hover {
+            transform: scale(1.05);
+            background: #e6a600;
+        }
+
+        .cta-subtext {
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            background: var(--surface-color);
+        }
+
+        .hashtag {
+            color: var(--primary);
+            font-weight: 700;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .stats-container {
+                gap: 1rem;
+            }
+            .stat-box {
+                padding: 1rem 1.5rem;
+                flex: 1 1 40%;
+            }
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="logo.png" alt="City Tadka Logo" class="logo">
+            <span class="brand-name">City Tadka</span>
+        </div>
+        <a href="https://wa.me/919904043077?text=Hi%20City%20Tadka!%20I'm%20interested%20in%20promotions." class="nav-cta" target="_blank">Book Promotions</a>
+    </nav>
+
+    <header>
+        <div class="hero-bg"></div>
+        <h1>Untold Stories of <br>the City</h1>
+        <p class="subtitle">Discovering People, Places & Passions. The ultimate guide to the heartbeat of your city. 🌶️</p>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number" id="followers">0</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="posts">0</div>
+                <div class="stat-label">Posts</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="following">0</div>
+                <div class="stat-label">Following</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="categories-section">
+        <h2 class="section-title">Explore <span>Our Vibes</span></h2>
+        <div class="bento-grid">
+            <div class="bento-item bg-img-1" style="grid-column: span 2;">
+                <h3>Food</h3>
+                <p>Taste the finest and deepest culinary secrets hidden in plain sight.</p>
+            </div>
+            <div class="bento-item bg-img-2">
+                <h3>Fashion</h3>
+                <p>Uncovering local trends and boutique styles.</p>
+            </div>
+            <div class="bento-item bg-img-3">
+                <h3>Lifestyle</h3>
+                <p>From cozy cafes to the wildest party scenes.</p>
+            </div>
+            <div class="bento-item bg-img-4" style="grid-column: span 2;">
+                <h3>Entertainment</h3>
+                <p>Stay updated with the greatest events, movies, and gigs in town.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Ready to Grow Your Brand?</h2>
+        <a href="https://wa.me/919904043077?text=Hi%20City%20Tadka!%20Let's%20discuss%20a%20collaboration." class="main-cta" target="_blank">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            Chat on WhatsApp
+        </a>
+        <p class="cta-subtext">For Promotions: +91 99040 43077</p>
+    </section>
+
+    <footer>
+        <p>A vibrant community for exploring the undiscovered.</p>
+        <span class="hashtag">#CityTadka</span>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">© 2026 City Tadka. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simple counter animation for stats
+        function animateValue(id, start, end, duration, formatStr) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                // easeOutQuart
+                const easeProgress = 1 - Math.pow(1 - progress, 4);
+                let current = Math.floor(easeProgress * (end - start) + start);
+                
+                if (formatStr === 'K') {
+                    obj.innerHTML = (current / 10).toFixed(1) + 'K';
+                } else {
+                    obj.innerHTML = current.toLocaleString();
+                }
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Trigger animations when elements come into view or immediately
+        window.addEventListener('DOMContentLoaded', () => {
+            // 60.6K = 606 (will divide by 10)
+            animateValue("followers", 0, 606, 2500, 'K');
+            animateValue("posts", 0, 6155, 2500, '');
+            animateValue("following", 0, 6, 2500, '');
+        });
+    </script>
+</body>
+</html>
