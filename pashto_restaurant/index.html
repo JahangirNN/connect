@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pashto | Surat Ke Nawabo Ke Lia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #110e0c; /* Very dark brownish black */
+            --secondary-bg: #2a1b14; /* Deep brown */
+            --gold: #d4af37; /* Royal gold */
+            --gold-light: #f3e5ab;
+            --text-light: #fff8ee; /* Cream */
+            --header-bg: rgba(17, 14, 12, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover, .btn-primary {
+            background: var(--gold);
+            color: var(--primary-bg);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            background: var(--gold-light);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: var(--header-bg);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 5% 2rem;
+            background: radial-gradient(circle at center, var(--secondary-bg) 0%, var(--primary-bg) 70%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(45deg, rgba(212,175,55,0.03) 0, rgba(212,175,55,0.03) 1px, transparent 1px, transparent 20px);
+            pointer-events: none;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .awards-badge {
+            margin-top: 3rem;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px dashed rgba(212, 175, 55, 0.3);
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .awards-badge i {
+            font-size: 2rem;
+        }
+
+        .awards-badge span {
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: var(--gold-light);
+        }
+
+        /* Legacy Section */
+        .legacy {
+            padding: 5rem 5%;
+            background-color: var(--primary-bg);
+            text-align: center;
+            position: relative;
+        }
+        
+        .legacy::after {
+            content: '* * *';
+            display: block;
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            opacity: 0.5;
+        }
+
+        .legacy-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .legacy p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 248, 238, 0.8);
+        }
+
+        /* Cuisine Highlights */
+        .cuisine {
+            padding: 5rem 5%;
+            background-color: var(--secondary-bg);
+        }
+
+        .cuisine-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-inline: auto;
+        }
+
+        .cuisine-card {
+            background: rgba(17, 14, 12, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-radius: 4px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .cuisine-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .cuisine-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cuisine-title {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #080605;
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .social-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-num {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            opacity: 0.5;
+            margin-top: 2rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--secondary-bg);
+            border: 1px solid var(--gold);
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: var(--gold);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-content h3 {
+            color: var(--gold-light);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: rgba(255, 248, 238, 0.8);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: white;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23d4af37%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem top 50%;
+            background-size: 0.65rem auto;
+            color: white;
+        }
+
+        select.form-control option {
+            background: var(--primary-bg);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            .cuisine-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Pashto Logo" class="logo" onerror="this.src='https://via.placeholder.com/40x40/110e0c/d4af37?text=P'">
+            <span class="brand-name serif">Pashto</span>
+        </div>
+        <button class="btn btn-primary" onclick="openModal()">Book Now</button>
+    </header>
+
+    <section class="hero">
+        <div class="subtitle">Surat Ke Nawabo Ke Lia</div>
+        <h1>Pashto</h1>
+        <p style="font-size: 1.2rem; color: var(--gold-light); font-style: italic; font-family: 'Playfair Display', serif;">
+            Fine Dine Legacy
+        </p>
+        
+        <div class="awards-badge">
+            <i>🏆</i>
+            <span>FCIC AWARD WINNER 2025<br><small style="opacity: 0.7; font-weight: 300;">(WEST INDIA)</small></span>
+        </div>
+    </section>
+
+    <section class="legacy">
+        <div class="legacy-content">
+            <h2>Dadasaaheb's Fine Dine Legacy 📜</h2>
+            <p>
+                Step into a world where culinary heritage meets modern luxury. At Pashto, we curate an experience designed exclusively for the Nawabs of Surat.
+            </p>
+            <p>
+                Our legacy is engraved in the rich tapestry of flavors drawn from the deep roots of royal kitchens, presented with unparalleled elegance and warmth.
+            </p>
+        </div>
+    </section>
+
+    <section class="cuisine">
+        <h2>A Royal Feast</h2>
+        <div class="cuisine-grid">
+            <div class="cuisine-card">
+                <div class="cuisine-icon">🍛</div>
+                <h3 class="cuisine-title">Mughlai</h3>
+                <p>Rich, aromatic curries and delicately spiced delicacies that carry the essence of imperial courts.</p>
+            </div>
+            <div class="cuisine-card">
+                <div class="cuisine-icon">🥙</div>
+                <h3 class="cuisine-title">Arabian</h3>
+                <p>Authentic Middle Eastern flavors, featuring tender meats, fragrant rice, and time-honored recipes.</p>
+            </div>
+            <div class="cuisine-card">
+                <div class="cuisine-icon">🍢</div>
+                <h3 class="cuisine-title">Awadhi BBQ</h3>
+                <p>Melt-in-your-mouth kebabs and smoked masterpieces crafted over open flames with Awadhi finesse.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-stats">
+            <div class="stat">
+                <span class="stat-num">9,128</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">141</span>
+                <span class="stat-label">Posts</span>
+            </div>
+        </div>
+        <div style="margin-top: 2rem;">
+            <button class="btn" onclick="openModal()">Reserve Your Table</button>
+        </div>
+        <p>&copy; 2026 Pashto Restaurant. Surat Ke Nawabo Ke Lia.</p>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 class="serif">Reserve a Table</h3>
+            <form id="bookingForm" onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" class="form-control" required placeholder="Nawab's Name">
+                </div>
+                <div class="form-group">
+                    <label for="eventType">Occasion / Event Type</label>
+                    <select id="eventType" class="form-control" required>
+                        <option value="Dine-in">Regular Dine-in</option>
+                        <option value="Birthday">Birthday Celebration</option>
+                        <option value="Anniversary">Anniversary</option>
+                        <option value="Family Gathering">Family Gathering</option>
+                        <option value="Corporate Dinner">Corporate Dinner</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="time" id="time" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <input type="number" id="guests" class="form-control" min="1" max="50" required placeholder="e.g. 4">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Reservation (WhatsApp)</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('bookingModal');
+        
+        function openModal() {
+            modal.classList.add('active');
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // Close on outside click
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const eventType = document.getElementById('eventType').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const guests = document.getElementById('guests').value;
+            
+            // Format the date assuming YYYY-MM-DD local
+            const dateObj = new Date(date);
+            const dateStr = dateObj.toLocaleDateString('en-GB'); // DD/MM/YYYY
+
+            const message = `*Pashto Table Reservation Request*%0A%0A` +
+                            `*Name:* ${name}%0A` +
+                            `*Occasion:* ${eventType}%0A` +
+                            `*Date:* ${dateStr}%0A` +
+                            `*Time:* ${time}%0A` +
+                            `*Guests:* ${guests}%0A%0A` +
+                            `Looking forward to dining like a Nawab!`;
+
+            // Note: Since no phone number is provided, defaulting to a placeholder. 
+            // In a real scenario, this would be the restaurant's number.
+            const phoneNumber = "910000000000"; 
+            const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            
+            window.open(waUrl, '_blank');
+            closeModal();
+        }
+    </script>
+</body>
+</html>
