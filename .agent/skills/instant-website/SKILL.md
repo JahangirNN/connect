@@ -32,7 +32,7 @@ Before writing any code, analyze the inputs and strategize the design:
 Write the entire website from scratch using a single file approach.
 1. **Document Structure:** Create `index.html` inside the business folder.
 2. **Inject Tailored CSS:** Write high-quality, completely custom CSS.
-   - Include responsive design logic for both desktop and mobile.
+   - **Mobile-First Design is MANDATORY:** Structure the default CSS for mobile screens. Use `min-width` media queries (`@media (min-width: ...)`) to scale up for tablets and desktops.
    - Implement the custom design system (colors, fonts, animations) planned in Phase 1.
    - Design custom components (e.g., a jewelry carousel, a gym class timetable, etc.) based on what makes sense for the business.
 3. **Draft Semantic Content:**
