@@ -48,8 +48,9 @@ Write the entire website from scratch using a single file approach.
    - Use the logo image (`<img src="logo.jpg">`) appropriately in a custom navigation bar.
 4. **Wire the CTA ("Book Now" / Contact):**
    - Implement a bold, accessible Call-To-Action button.
+   - **CRITICAL:** If no phone number is provided by the user, always default to using `917778876166`.
    - **For cafes and restaurants:** The "Book Now" button MUST open a custom modal/pop-up form. This form should collect details such as the event type (e.g., Birthday, Party), date, time, and number of people. Use JavaScript to capture the form values, construct a combined message, and redirect the user to a WhatsApp chat with the business owner: `https://wa.me/<PhoneNumberAsNumbersOnly>?text=<UrlEncodedMessage>`
-   - **For other businesses:** If a phone number is provided, format the link to instantly open a pre-filled WhatsApp chat: `https://wa.me/<PhoneNumberAsNumbersOnly>?text=Hello...`
+   - **For other businesses:** Format the link to instantly open a pre-filled WhatsApp chat: `https://wa.me/<PhoneNumberAsNumbersOnly>?text=Hello...`
    - If an email is provided, use `mailto:<email>`.
 5. **Final Output:** Save the finalized code to `c:\Users\Administrator\WorkPlace\connect\<business_name>\index.html`.
 

@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pashto | Surat Ke Nawabo Ke Lia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --primary-bg: #110e0c; /* Very dark brownish black */
-            --secondary-bg: #2a1b14; /* Deep brown */
-            --gold: #d4af37; /* Royal gold */
+            --primary-bg: #110e0c;
+            /* Very dark brownish black */
+            --secondary-bg: #2a1b14;
+            /* Deep brown */
+            --gold: #d4af37;
+            /* Royal gold */
             --gold-light: #f3e5ab;
-            --text-light: #fff8ee; /* Cream */
+            --text-light: #fff8ee;
+            /* Cream */
             --header-bg: rgba(17, 14, 12, 0.95);
         }
 
@@ -29,7 +36,13 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6, .serif {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .serif {
             font-family: 'Playfair Display', serif;
         }
 
@@ -71,7 +84,8 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        .btn:hover, .btn-primary {
+        .btn:hover,
+        .btn-primary {
             background: var(--gold);
             color: var(--primary-bg);
         }
@@ -133,8 +147,11 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: repeating-linear-gradient(45deg, rgba(212,175,55,0.03) 0, rgba(212,175,55,0.03) 1px, transparent 1px, transparent 20px);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.03) 0, rgba(212, 175, 55, 0.03) 1px, transparent 1px, transparent 20px);
             pointer-events: none;
         }
 
@@ -160,8 +177,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .awards-badge i {
@@ -182,7 +206,7 @@
             text-align: center;
             position: relative;
         }
-        
+
         .legacy::after {
             content: '* * *';
             display: block;
@@ -316,7 +340,7 @@
             position: relative;
             transform: translateY(20px);
             transition: transform 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .modal-overlay.active .modal-content {
@@ -365,7 +389,7 @@
             outline: none;
             border-color: var(--gold);
         }
-        
+
         select.form-control {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23d4af37%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
@@ -385,20 +409,24 @@
             h1 {
                 font-size: 3.5rem;
             }
+
             .subtitle {
                 font-size: 1.1rem;
             }
+
             .cuisine-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
 </head>
+
 <body>
 
     <header>
         <div class="logo-container">
-            <img src="logo.png" alt="Pashto Logo" class="logo" onerror="this.src='https://via.placeholder.com/40x40/110e0c/d4af37?text=P'">
+            <img src="logo.png" alt="Pashto Logo" class="logo"
+                onerror="this.src='https://via.placeholder.com/40x40/110e0c/d4af37?text=P'">
             <span class="brand-name serif">Pashto</span>
         </div>
         <button class="btn btn-primary" onclick="openModal()">Book Now</button>
@@ -407,10 +435,11 @@
     <section class="hero">
         <div class="subtitle">Surat Ke Nawabo Ke Lia</div>
         <h1>Pashto</h1>
-        <p style="font-size: 1.2rem; color: var(--gold-light); font-style: italic; font-family: 'Playfair Display', serif;">
+        <p
+            style="font-size: 1.2rem; color: var(--gold-light); font-style: italic; font-family: 'Playfair Display', serif;">
             Fine Dine Legacy
         </p>
-        
+
         <div class="awards-badge">
             <i>🏆</i>
             <span>FCIC AWARD WINNER 2025<br><small style="opacity: 0.7; font-weight: 300;">(WEST INDIA)</small></span>
@@ -421,10 +450,12 @@
         <div class="legacy-content">
             <h2>Dadasaaheb's Fine Dine Legacy 📜</h2>
             <p>
-                Step into a world where culinary heritage meets modern luxury. At Pashto, we curate an experience designed exclusively for the Nawabs of Surat.
+                Step into a world where culinary heritage meets modern luxury. At Pashto, we curate an experience
+                designed exclusively for the Nawabs of Surat.
             </p>
             <p>
-                Our legacy is engraved in the rich tapestry of flavors drawn from the deep roots of royal kitchens, presented with unparalleled elegance and warmth.
+                Our legacy is engraved in the rich tapestry of flavors drawn from the deep roots of royal kitchens,
+                presented with unparalleled elegance and warmth.
             </p>
         </div>
     </section>
@@ -435,12 +466,14 @@
             <div class="cuisine-card">
                 <div class="cuisine-icon">🍛</div>
                 <h3 class="cuisine-title">Mughlai</h3>
-                <p>Rich, aromatic curries and delicately spiced delicacies that carry the essence of imperial courts.</p>
+                <p>Rich, aromatic curries and delicately spiced delicacies that carry the essence of imperial courts.
+                </p>
             </div>
             <div class="cuisine-card">
                 <div class="cuisine-icon">🥙</div>
                 <h3 class="cuisine-title">Arabian</h3>
-                <p>Authentic Middle Eastern flavors, featuring tender meats, fragrant rice, and time-honored recipes.</p>
+                <p>Authentic Middle Eastern flavors, featuring tender meats, fragrant rice, and time-honored recipes.
+                </p>
             </div>
             <div class="cuisine-card">
                 <div class="cuisine-icon">🍢</div>
@@ -497,16 +530,18 @@
                 </div>
                 <div class="form-group">
                     <label for="guests">Number of Guests</label>
-                    <input type="number" id="guests" class="form-control" min="1" max="50" required placeholder="e.g. 4">
+                    <input type="number" id="guests" class="form-control" min="1" max="50" required
+                        placeholder="e.g. 4">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Reservation (WhatsApp)</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Reservation
+                    (WhatsApp)</button>
             </form>
         </div>
     </div>
 
     <script>
         const modal = document.getElementById('bookingModal');
-        
+
         function openModal() {
             modal.classList.add('active');
             // Set minimum date to today
@@ -519,7 +554,7 @@
         }
 
         // Close on outside click
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 closeModal();
             }
@@ -527,33 +562,34 @@
 
         function submitForm(event) {
             event.preventDefault();
-            
+
             const name = document.getElementById('name').value;
             const eventType = document.getElementById('eventType').value;
             const date = document.getElementById('date').value;
             const time = document.getElementById('time').value;
             const guests = document.getElementById('guests').value;
-            
+
             // Format the date assuming YYYY-MM-DD local
             const dateObj = new Date(date);
             const dateStr = dateObj.toLocaleDateString('en-GB'); // DD/MM/YYYY
 
             const message = `*Pashto Table Reservation Request*%0A%0A` +
-                            `*Name:* ${name}%0A` +
-                            `*Occasion:* ${eventType}%0A` +
-                            `*Date:* ${dateStr}%0A` +
-                            `*Time:* ${time}%0A` +
-                            `*Guests:* ${guests}%0A%0A` +
-                            `Looking forward to dining like a Nawab!`;
+                `*Name:* ${name}%0A` +
+                `*Occasion:* ${eventType}%0A` +
+                `*Date:* ${dateStr}%0A` +
+                `*Time:* ${time}%0A` +
+                `*Guests:* ${guests}%0A%0A` +
+                `Looking forward to dining like a Nawab!`;
 
             // Note: Since no phone number is provided, defaulting to a placeholder. 
             // In a real scenario, this would be the restaurant's number.
-            const phoneNumber = "910000000000"; 
+            const phoneNumber = "918758987524";
             const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-            
+
             window.open(waUrl, '_blank');
             closeModal();
         }
     </script>
 </body>
+
 </html>
