@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dear Riree | Where every bite tells a story</title>
+    <meta name="description" content="Welcome to Dear Riree, a bespoke cafe experience where every dish is a chapter in a story. Open 12 PM - 11 PM.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F9F7F2;
+            --text-color: #2D2D2D;
+            --accent-color: #D4A373;
+            --secondary-bg: #F0EDE5;
+            --white: #FFFFFF;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes paperPlaneFloat {
+            0% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0) rotate(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s forwards;
+        }
+
+        /* --- Header & Nav --- */
+        header {
+            padding: 2rem 0;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-small {
+            height: 40px;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #fff 0%, var(--bg-color) 70%);
+            padding: 0 1rem;
+        }
+
+        .hero-logo {
+            width: 120px;
+            margin-bottom: 2rem;
+            animation: paperPlaneFloat 4s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--accent-color);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-button {
+            background-color: var(--text-color);
+            color: var(--white);
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            background-color: var(--accent-color);
+        }
+
+        /* --- Story Section --- */
+        .story {
+            padding: 8rem 0;
+            background-color: var(--white);
+            position: relative;
+        }
+
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .story h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .story p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .paper-plane-divider {
+            width: 40px;
+            margin: 2rem auto;
+            opacity: 0.3;
+        }
+
+        /* --- Menu Highlights (Bento Grid) --- */
+        .menu-highlights {
+            padding: 8rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .bento-item {
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .bento-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .bento-item p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .price {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 5rem 0;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+        }
+
+        .footer-logo {
+            width: 60px;
+            margin-bottom: 2rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--bg-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- Modal --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            padding: 3rem;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--white);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--text-color);
+            color: var(--white);
+            padding: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* --- Tablet & Desktop --- */
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 5rem; }
+            .hero p { font-size: 1.8rem; }
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, auto);
+            }
+            .bento-item:nth-child(1) { grid-column: span 1; }
+            .bento-item:nth-child(3) { grid-column: span 2; }
+            
+            .nav-links {
+                display: flex;
+                gap: 3rem;
+            }
+            .nav-links a {
+                text-decoration: none;
+                color: var(--text-color);
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                transition: var(--transition);
+            }
+            .nav-links a:hover { color: var(--accent-color); }
+        }
+
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .bento-item:nth-child(3) { grid-column: span 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <img src="logo.png" alt="Dear Riree Logo" class="logo-small">
+                <div class="nav-links">
+                    <a href="#story">Our Story</a>
+                    <a href="#menu">Menu</a>
+                    <a href="tel:+919343660698">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <img src="logo.png" alt="Dear Riree Paper Plane" class="hero-logo fade-in">
+        <h1 class="fade-in">Dear Riree</h1>
+        <p class="fade-in">Where every bite tells a story.</p>
+        <button class="cta-button fade-in" onclick="openModal()">Book A Table</button>
+    </section>
+
+    <section id="story" class="story">
+        <div class="container story-content">
+            <h2>The Art of the Narrative</h2>
+            <p>At Dear Riree, we believe that food is more than sustenance—it's a medium for expression. Like a carefully folded paper plane, our dishes are crafted with precision and intended to carry you to places of nostalgia and delight.</p>
+            <img src="logo.png" alt="Divider" class="paper-plane-divider">
+            <p>Gather with friends, share a chapter of your day, and let us provide the perfect backdrop of artisanal coffee and soul-stirring desserts.</p>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-highlights">
+        <div class="container">
+            <div class="section-title">
+                <h2>Chapter Highlights</h2>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-item">
+                    <div>
+                        <h3>The Morning Draft</h3>
+                        <p>Artisanal pour-over coffee using single-origin beans, paired with a buttery croissant.</p>
+                    </div>
+                    <div class="price">A refreshing start to your story</div>
+                </div>
+                <div class="bento-item">
+                    <div>
+                        <h3>Sweet Epilogue</h3>
+                        <p>Signature lavender-infused cheesecake with a honey-drizzled crust and edible petals.</p>
+                    </div>
+                    <div class="price">The perfect ending</div>
+                </div>
+                <div class="bento-item">
+                    <div>
+                        <h3>The Bistro Plot</h3>
+                        <p>Our seasonal savory selections. Fresh, vibrant, and always surprising.</p>
+                    </div>
+                    <div class="price">Complex & Satisfying</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <img src="logo.png" alt="Dear Riree Logo" class="footer-logo">
+            <h2>Dear Riree</h2>
+            <div class="contact-info">
+                <p>Open 12 PM - 11 PM Daily</p>
+                <p>☎️ +91 9343660698</p>
+                <p>Instagram: @caferiree</p>
+            </div>
+            <div class="social-links">
+                <a href="https://instagram.com/caferiree">INSTAGRAM</a>
+                <a href="https://wa.me/919343660698">WHATSAPP</a>
+            </div>
+            <p style="margin-top: 3rem; font-size: 0.7rem; opacity: 0.5;">&copy; 2024 DEAR RIREE. WRITTEN WITH LOVE.</p>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 style="margin-bottom: 2rem; text-align: center;">Write Your Reservation</h2>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="eventType">Occasion</label>
+                    <select id="eventType" required>
+                        <option value="Coffee Date">Coffee Date</option>
+                        <option value="Birthday Celebration">Birthday Celebration</option>
+                        <option value="Gathering">Gathering</option>
+                        <option value="Work Session">Work Session</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="guestCount">Number of People</label>
+                    <input type="number" id="guestCount" min="1" max="20" value="2" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="time" id="time" required>
+                </div>
+                <button type="submit" class="submit-btn">Send to WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('bookingModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        document.getElementById('bookingForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const eventType = document.getElementById('eventType').value;
+            const guestCount = document.getElementById('guestCount').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            
+            const message = `Halo Dear Riree! 💌%0A%0AI'd like to reserve a table for a *${eventType}*.%0A%0A📅 Date: ${date}%0A🕒 Time: ${time}%0A👥 Guests: ${guestCount}%0A%0ALooking forward to our story!`;
+            
+            const whatsappUrl = `https://wa.me/919343660698?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

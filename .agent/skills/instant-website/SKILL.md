@@ -26,7 +26,15 @@ Before writing any code, analyze the inputs and strategize the design:
 
 ### Phase 2: Folder Initialization & Asset Management
 1. **Create Business Workspace:** Determine a suitable short name for the business (e.g., `apex_fitness`, `bapas_gems`). Create a dedicated directory: `c:\Users\Administrator\WorkPlace\connect\<business_name>`.
-2. **Setup Assets:** Save or copy the user's provided Logo Image into this new directory (e.g., `c:\Users\Administrator\WorkPlace\connect\<business_name>\logo.jpg`). Document this relative path for the HTML generation.
+2. **Setup Assets:** Save or copy the user's provided Logo Image into this new directory (e.g., `c:\Users\Administrator\WorkPlace\connect\<business_name>\logo.png`). Document this relative path for the HTML generation.
+
+**Expected Folder Structure:**
+```text
+c:\Users\Administrator\WorkPlace\connect\
+└── <business_name>\
+    ├── index.html    (Main website file)
+    └── logo.png      (Business logo)
+```
 
 ### Phase 3: Bespoke Code Generation
 Write the entire website from scratch using a single file approach.
@@ -40,7 +48,8 @@ Write the entire website from scratch using a single file approach.
    - Use the logo image (`<img src="logo.jpg">`) appropriately in a custom navigation bar.
 4. **Wire the CTA ("Book Now" / Contact):**
    - Implement a bold, accessible Call-To-Action button.
-   - If a phone number is provided, format the link to instantly open a pre-filled WhatsApp chat: `https://wa.me/<PhoneNumberAsNumbersOnly>?text=Hello...`
+   - **For cafes and restaurants:** The "Book Now" button MUST open a custom modal/pop-up form. This form should collect details such as the event type (e.g., Birthday, Party), date, time, and number of people. Use JavaScript to capture the form values, construct a combined message, and redirect the user to a WhatsApp chat with the business owner: `https://wa.me/<PhoneNumberAsNumbersOnly>?text=<UrlEncodedMessage>`
+   - **For other businesses:** If a phone number is provided, format the link to instantly open a pre-filled WhatsApp chat: `https://wa.me/<PhoneNumberAsNumbersOnly>?text=Hello...`
    - If an email is provided, use `mailto:<email>`.
 5. **Final Output:** Save the finalized code to `c:\Users\Administrator\WorkPlace\connect\<business_name>\index.html`.
 
