@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taste Kart Ahmedabad | Guilt-Free Artisanal Baking</title>
+    <meta name="description" content="Discover Taste Kart Ahmedabad. Pure ingredients, no maida, and guilt-free artisanal treats. Join our classes or order healthy delights crafted by Chef Neeta Vinaykiya.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --sage: #7D8F7F;
+            --sage-dark: #5A6D5D;
+            --cream: #FAF9F6;
+            --beige: #F2EBE3;
+            --text: #2C332E;
+            --text-light: #6A756D;
+            --white: #FFFFFF;
+            --accent: #D4A373; /* Earthy terracotta */
+            --transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* --- Global Elements & Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section {
+            padding: 100px 7%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: var(--sage);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .btn:hover {
+            background-color: var(--sage-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(125, 143, 127, 0.3);
+        }
+
+        /* --- Header/Nav --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: rgba(250, 249, 246, 0.95);
+            padding: 15px 7%;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.03);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links { display: none; }
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--sage);
+        }
+
+        /* --- Hero --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--beige);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 5%;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-image { display: none; }
+        }
+
+        .hero-content h1 {
+            font-size:clamp(3rem, 6vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--text);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-image {
+            position: relative;
+            height: 80vh;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .hero-badge {
+            position: absolute;
+            bottom: 40px;
+            left: -40px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+            max-width: 250px;
+        }
+
+        /* --- Principles Section --- */
+        .principles {
+            background-color: var(--white);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .principle-card i {
+            font-size: 2.5rem;
+            color: var(--sage);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .principle-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- About Section --- */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .about { grid-template-columns: 1fr; }
+        }
+
+        .about-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .about-image img:first-child {
+            transform: translateY(30px);
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .tagline {
+            color: var(--sage);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* --- Gallery Section (Bento Style) --- */
+        .gallery {
+            background: var(--beige);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+        }
+
+        .bento-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .bento-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .bento-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .item-lg { grid-column: span 2; grid-row: span 2; }
+
+        /* --- Stats --- */
+        .stats-bar {
+            padding: 80px 0;
+            background: var(--sage);
+            color: var(--white);
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--text);
+            color: var(--white);
+            padding: 100px 7% 50px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: var(--transition);
+            opacity: 0.6;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            opacity: 0.4;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+        }
+
+        /* --- Modal --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: var(--white);
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .form-group { margin-bottom: 25px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        /* WhatsApp Button Global */
+        .wa-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .wa-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/917778876166?text=Hi Taste Kart! I would like to inquire about your guilt-free treats." class="wa-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <header id="header">
+        <a href="#" class="logo">
+            <img src="logo.png" alt="Taste Kart Logo">
+            <span>Taste Kart</span>
+        </a>
+        <div class="nav-right">
+            <nav class="nav-links">
+                <a href="#about">Our Story</a>
+                <a href="#principles">Philosophy</a>
+                <a href="#gallery">Creations</a>
+            </nav>
+            <button class="btn" onclick="openModal()">Order / Booking</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <span class="tagline reveal">Guilt-Free Indulgence</span>
+                <h1 class="reveal" style="transition-delay: 0.1s;">Baking Memories, Not Calories.</h1>
+                <p class="reveal" style="transition-delay: 0.2s;">Pure Ingredients. No Maida. artisanal bakes crafted with love in the heart of Ahmedabad.</p>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <button class="btn" onclick="openModal()">Explore Menu</button>
+                </div>
+            </div>
+            <div class="hero-image reveal" style="transition-delay: 0.4s;">
+                <img src="bakery.png" alt="Healthy artisanal bread">
+                <div class="hero-badge reveal" style="transition-delay: 0.6s;">
+                    <h3 class="serif">Founder Neeta Vinaykiya</h3>
+                    <p style="font-size: 0.8rem; margin: 10px 0;">Pioneering healthy, maida-free treats in Ahmedabad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item reveal">
+            <span class="stat-val serif">335</span>
+            <span class="stat-label">Creations</span>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 0.1s;">
+            <span class="stat-val serif">1.2K</span>
+            <span class="stat-label">Happy Hearts</span>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 0.2s;">
+            <span class="stat-val serif">100%</span>
+            <span class="stat-label">Maida Free</span>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 0.3s;">
+            <span class="stat-val serif">Pure</span>
+            <span class="stat-label">Ingredients</span>
+        </div>
+    </div>
+
+    <section id="principles" class="principles">
+        <div class="principle-card reveal">
+            <i class="fas fa-leaf"></i>
+            <h3>Pure Ingredients</h3>
+            <p>We source only the finest, unadulterated components for our bakes. No hidden additives, just nature's best.</p>
+        </div>
+        <div class="principle-card reveal" style="transition-delay: 0.1s;">
+            <i class="fas fa-ban"></i>
+            <h3>No Maida Policy</h3>
+            <p>We've swapped refined flour for wholesome alternatives that don't compromise on texture or taste.</p>
+        </div>
+        <div class="principle-card reveal" style="transition-delay: 0.2s;">
+            <i class="fas fa-smile-beam"></i>
+            <h3>Guilt-Free</h3>
+            <p>Indulge without the aftermath. Our treats are designed to nourish the body as much as the soul.</p>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-image reveal">
+            <img src="ingredients.png" alt="Organic ingredients">
+            <img src="studio.png" alt="Culinary Studio" style="margin-top: 60px;">
+        </div>
+        <div class="about-content">
+            <span class="tagline reveal">Our Story</span>
+            <h2 class="reveal">The Art of Healthy Living</h2>
+            <p class="reveal">Founded by Chef Neeta Vinaykiya, Taste Kart was born out of a simple desire: to make dessert healthy again. In a world full of refined sugars and flours, we chose the harder path—the path of quality.</p>
+            <p class="reveal">From our professional culinary classes to our bespoke orders, every interaction with Taste Kart is a step towards a more conscious, joyful way of eating.</p>
+            <div class="reveal" style="margin-top: 40px;">
+                <button class="btn" style="background: transparent; color: var(--sage); border: 1px solid var(--sage);" onclick="openModal()">Join a Class</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <span class="tagline reveal">Our Creations</span>
+            <h2 class="reveal">Visual Feast</h2>
+        </div>
+        <div class="bento-grid">
+            <div class="bento-item item-lg reveal">
+                <img src="bakery.png" alt="Bento Item 1">
+            </div>
+            <div class="bento-item reveal" style="transition-delay: 0.1s;">
+                <img src="studio.png" alt="Bento Item 2">
+            </div>
+            <div class="bento-item reveal" style="transition-delay: 0.2s;">
+                <img src="ingredients.png" alt="Bento Item 3">
+            </div>
+            <div class="bento-item item-lg reveal" style="transition-delay: 0.3s;">
+                <img src="bakery.png" alt="Bento Item 4">
+            </div>
+        </div>
+    </section>
+
+    <section style="text-align: center; background: var(--white);">
+        <h2 class="reveal serif" style="font-size: 3rem; margin-bottom: 30px;">Ready to taste the difference?</h2>
+        <div class="reveal">
+            <button class="btn" onclick="openModal()">Connect with Us</button>
+        </div>
+    </section>
+
+    <footer>
+        <a href="#" class="footer-logo serif">Taste Kart</a>
+        <p style="margin-bottom: 40px; opacity: 0.7;">335 Posts of Joy • 1.2K Lovers • Ahmedabad, India</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p class="copyright">&copy; 2026 Taste Kart. Designed with love and guilt-free ingredients.</p>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 class="serif" style="margin-bottom: 30px;">How can we help?</h2>
+            <form id="waForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Inquiry Type</label>
+                    <select id="type" class="form-control" required>
+                        <option value="Cake Order">Artisanal Order</option>
+                        <option value="Classes">Cooking Classes</option>
+                        <option value="General Inquiry">General Question</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Your Message / Specific Request</label>
+                    <textarea id="message" class="form-control" rows="4" placeholder="Tell us more..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Send to WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Reveal Animations
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 50;
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.onload = reveal;
+
+        // Header Scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Modal Controls
+        const modal = document.getElementById('bookingModal');
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Form Logic
+        document.getElementById('waForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const type = document.getElementById('type').value;
+            const msg = document.getElementById('message').value;
+            
+            const waMsg = `Hello Taste Kart! My name is ${name}.\nI'm interested in: ${type}.\nMessage: ${msg}`;
+            const encoded = encodeURIComponent(waMsg);
+            window.open(`https://wa.me/917778876166?text=${encoded}`, '_blank');
+            closeModal();
+        });
+    </script>
+</body>
+</html>
