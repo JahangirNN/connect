@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bapa's Gems & Jewellery Institute</title>
+    <!-- Importing Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* COLOR THEME: Luxury Gold & Obsidian */
+        :root {
+            --color-bg: #09090b;
+            --color-surface: #131316;
+            --color-surface-hover: #1c1c20;
+            --color-primary: #e2b96e;
+            /* Luxurious Gold */
+            --color-primary-dim: rgba(226, 185, 110, 0.15);
+            --color-text: #ffffff;
+            --color-subtext: #a1a1aa;
+
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Glow Behind Everything */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 60vh;
+            background: radial-gradient(circle at center, rgba(226, 185, 110, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* CUSTOM NAVIGATION */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: #fff;
+            /* In case the logo has transparency */
+            border: 2px solid var(--color-primary);
+            padding: 4px;
+        }
+
+        .nav-brand {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-subtext);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        .btn-gold {
+            display: inline-block;
+            background: transparent;
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+            padding: 12px 28px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-gold:hover {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            box-shadow: 0 0 20px var(--color-primary-dim);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            color: var(--color-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--color-primary);
+            padding-bottom: 4px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .hero h1 span {
+            font-style: italic;
+            color: var(--color-primary);
+        }
+
+        .hero p {
+            color: var(--color-subtext);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+        }
+
+        /* CONTENT GRID */
+        .offerings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 120px;
+        }
+
+        .course-card {
+            background: var(--color-surface);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 48px 32px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--color-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease-in-out;
+            transform-origin: left;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            background: var(--color-surface-hover);
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
+
+        .course-card p {
+            color: var(--color-subtext);
+            font-size: 0.95rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        /* BANNER */
+        .info-ribbon {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            padding: 40px 24px;
+            text-align: center;
+            margin: 80px 0;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-style: italic;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .contact-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+
+        .contact-number:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-details {
+            color: var(--color-subtext);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 768px) {
+            .nav-brand {
+                display: none;
+            }
+
+            .nav-links a {
+                display: none;
+            }
+
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .info-ribbon {
+                font-size: 1.2rem;
+                padding: 30px 20px;
+            }
+
+            .contact-number {
+                font-size: 2rem;
+            }
+
+            nav {
+                justify-content: space-between;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: emerge 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes emerge {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="nav-logo-area">
+                <!-- Using a placeholder logo name. User should save their logo as logo.jpg here -->
+                <img src="logo.jpg" alt="BGJI Logo" class="logo" onerror="this.style.display='none'">
+                <div class="nav-brand">BGJI</div>
+            </div>
+            <div class="nav-links">
+                <a href="#courses">Courses</a>
+                <a href="#internship">Internships</a>
+            </div>
+            <a href="https://wa.me/918306622329?text=Hello,%20I%20would%20like%20to%20inquire%20about%20your%20courses."
+                class="btn-gold">Book Now</a>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-tag fade-up" style="animation-delay: 0.1s;">Based in Surat 📍</div>
+            <h1 class="fade-up" style="animation-delay: 0.2s;">
+                Master the Art of <br>
+                <span>Gems & Jewellery</span>
+            </h1>
+            <p class="fade-up" style="animation-delay: 0.3s;">
+                India's Leading Gems & Jewellery Institute. Elevating raw talent into industry professionals through
+                world-class education and live manufacturing experience.
+            </p>
+            <div class="fade-up" style="animation-delay: 0.4s;">
+                <a href="https://wa.me/918306622329" class="btn-gold">Begin Your Journey</a>
+            </div>
+        </section>
+
+        <section id="courses" class="offerings">
+            <!-- Course 1 -->
+            <div class="course-card fade-up" style="animation-delay: 0.2s;">
+                <span class="card-icon">✧</span>
+                <h3>Rough To Polish</h3>
+                <p>Learn the complete lifecycle of diamond manufacturing. We teach you how to analyze rough stones, cut
+                    with precision, and achieve a brilliant polished finish.</p>
+            </div>
+
+            <!-- Course 2 -->
+            <div class="course-card fade-up" style="animation-delay: 0.4s;">
+                <span class="card-icon">✏️</span>
+                <h3>Jewellery Design</h3>
+                <p>Turn your creative ideas into stunning jewelry pieces. Master industry-standard techniques and
+                    software under the guidance of expert designers.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Full width ribbon -->
+    <div id="internship" class="info-ribbon fade-up">
+        🎓 Experience real-world education with our Live Internship at a Manufacturing Unit.
+    </div>
+
+    <div class="container">
+        <!-- Footer / Contact -->
+        <footer>
+            <div class="footer-details" style="margin-bottom: 24px;">Reach out for admissions</div>
+            <a href="https://wa.me/918306622329" class="contact-number">+91 83066 22329</a>
+
+            <div class="footer-details" style="opacity: 0.5; margin-top: 48px; font-size: 0.75rem;">
+                ©
+                <script>document.write(new Date().getFullYear())</script> Bapa's Gems & Jewellery Institute <br> Surat,
+                India
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>
