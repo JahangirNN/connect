@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Coffee Concept Surat | Coffee Solves Everything</title>
+    <meta name="description" content="Savor the finest coffee experience in Surat at The Coffee Concept. From artisanal brews to cozy vibes, discover why coffee solves everything. Book your table today.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #3E2723;
+            --primary-light: #5D4037;
+            --accent: #D4A373;
+            --background: #121212;
+            --card-bg: #1E1E1E;
+            --text-light: #F5F5DC;
+            --text-muted: #A0A0A0;
+            --white: #FFFFFF;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--background);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- Transitions & Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        nav.scrolled {
+            padding: 15px 5%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+            border-radius: 5px;
+        }
+
+        .logo span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .nav-links {
+                display: flex;
+                gap: 40px;
+            }
+            .nav-links a {
+                color: var(--text-muted);
+                text-decoration: none;
+                font-weight: 500;
+                transition: var(--transition);
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .nav-links a:hover {
+                color: var(--accent);
+            }
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            padding: 0 5%;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 36px;
+            background-color: var(--accent);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        /* --- Stats/Info --- */
+        .stats {
+            padding: 80px 5%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            background-color: var(--card-bg);
+        }
+
+        @media (min-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- About Section --- */
+        .grid-section {
+            padding: 100px 5%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .grid-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .image-stack {
+            position: relative;
+            height: 400px;
+        }
+
+        .image-stack img {
+            width: 80%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .image-stack::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20%;
+            width: 80%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .content-box h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+
+        .content-box p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+
+        /* --- Menu Highlights --- */
+        .menu-preview {
+            padding: 100px 5%;
+            background: linear-gradient(to bottom, var(--background), #1a0f0a);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent);
+            background: #252525;
+        }
+
+        .menu-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+        }
+
+        .menu-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+
+        /* --- Feature Banner --- */
+        .banner {
+            height: 400px;
+            background: linear-gradient(rgba(62, 39, 35, 0.8), rgba(62, 39, 35, 0.8)), url('beans.png');
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .banner h2 {
+            font-size: 3rem;
+            font-style: italic;
+            color: var(--white);
+        }
+
+        /* --- Contact Area --- */
+        #contact {
+            padding: 100px 5%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+
+        @media (min-width: 1024px) {
+            #contact {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .contact-info .info-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-item i {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.2rem;
+        }
+
+        .info-item div h4 {
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 60px 5%;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* --- Modal System --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 30px;
+            position: relative;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: var(--white);
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+        }
+
+        .modal h2 {
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+
+        /* --- WhatsApp Floating Button --- */
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .wa-float:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- WhatsApp Floating icon -->
+    <a href="https://wa.me/917247724782?text=Hello The Coffee Concept! I would like to know more about your menu." class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <img src="logo.png" alt="The Coffee Concept Logo">
+            <span>The Coffee Concept</span>
+        </a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="btn" style="padding: 10px 24px; font-size: 0.8rem;" onclick="openModal()">Book Table</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="reveal">Coffee Solves Everything ❤️</h1>
+            <p class="reveal" style="transition-delay: 0.2s;">Indulge in Surat's most premium coffee experience. We don't just serve coffee; we serve moments of joy, creativity, and connection.</p>
+            <div class="reveal" style="transition-delay: 0.4s;">
+                <button class="btn" onclick="openModal()">Reserve Your Spot</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stat-item reveal">
+            <h3>105</h3>
+            <p>Moments Shared</p>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 0.1s;">
+            <h3>11.4K</h3>
+            <p>Coffee Lovers</p>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 0.2s;">
+            <h3>10/10</h3>
+            <p>Brew Quality</p>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 0.3s;">
+            <h3>Surat</h3>
+            <p>Home Town</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="grid-section">
+        <div class="image-stack reveal">
+            <img src="latte.png" alt="Art Latte">
+        </div>
+        <div class="content-box reveal">
+            <h2>Our Brewing Philosophy</h2>
+            <p>At The Coffee Concept, we believe that every bean has a story. Our passion for coffee takes us on a journey from the high-altitude plantations to your cup in Surat.</p>
+            <p>Whether you're looking for a quiet corner to work, a place to catch up with friends, or simply the best espresso in town, we've designed our space to be your second home.</p>
+            <button class="btn" style="background: transparent; color: var(--accent);">Learn More</button>
+        </div>
+    </section>
+
+    <!-- Banner -->
+    <section class="banner">
+        <h2 class="reveal">"A coffee a day keeps the worries away."</h2>
+    </section>
+
+    <!-- Menu Highlights -->
+    <section id="menu" class="menu-preview">
+        <div class="section-header reveal">
+            <h2>Curated Brews</h2>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-card reveal">
+                <i class="fas fa-mug-hot"></i>
+                <h3>Signature Espresso</h3>
+                <p>Rich, intense, and perfectly extracted for the true coffee purist.</p>
+            </div>
+            <div class="menu-card reveal" style="transition-delay: 0.1s;">
+                <i class="fas fa-blender"></i>
+                <h3>Cold Brews</h3>
+                <p>Slow-steeped for 18 hours to deliver a smooth, low-acid kick.</p>
+            </div>
+            <div class="menu-card reveal" style="transition-delay: 0.2s;">
+                <i class="fas fa-cookie"></i>
+                <h3>Artisan Pastries</h3>
+                <p>The perfect companion to your brew, baked fresh every morning.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-info reveal">
+            <h2 style="font-size: 2.5rem; margin-bottom: 30px;">Get In Touch</h2>
+            <div class="info-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <h4>Call Us</h4>
+                    <p>+91 7247724782</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Visit Us</h4>
+                    <p>The Coffee Concept, Surat, Gujarat</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h4>Email</h4>
+                    <p>hello@thecoffeeconcept.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="contact-image reveal" style="border-radius: 30px; overflow: hidden; height: 100%; min-height: 400px; background: url('hero.png'); background-size: cover;">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>&copy; 2026 The Coffee Concept Surat. Crafted for perfection.</p>
+    </footer>
+
+    <!-- Reservation Modal -->
+    <div class="modal" id="reservationModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Book a Table</h2>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="form-group grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label>Date</label>
+                        <input type="date" id="date" class="form-control" required>
+                    </div>
+                    <div>
+                        <label>Time</label>
+                        <input type="time" id="time" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Number of People</label>
+                    <input type="number" id="people" class="form-control" value="2" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Event Type (Optional)</label>
+                    <select id="event" class="form-control">
+                        <option value="Casual Meetup">Casual Meetup</option>
+                        <option value="Work Session">Work Session</option>
+                        <option value="Birthday">Birthday</option>
+                        <option value="Date Night">Date Night</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; border-radius: 12px;">Send Reservation Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Scroll Effect for Navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal Animations on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 50) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Modal Logic
+        const modal = document.getElementById('reservationModal');
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Form Submission to WhatsApp
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const people = document.getElementById('people').value;
+            const event = document.getElementById('event').value;
+            
+            const message = `Hello The Coffee Concept! I would like to book a table.\n\n` +
+                            `*Name:* ${name}\n` +
+                            `*Date:* ${date}\n` +
+                            `*Time:* ${time}\n` +
+                            `*People:* ${people}\n` +
+                            `*Event:* ${event}`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const waUrl = `https://wa.me/917247724782?text=${encodedMessage}`;
+            
+            window.open(waUrl, '_blank');
+            closeModal();
+        });
+    </script>
+</body>
+</html>
