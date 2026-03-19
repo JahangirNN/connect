@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shyama International — Premium Dry Fruits | Delhi NCR</title>
+    <meta name="description"
+        content="Handpicked, globally sourced, freshly packed premium dry fruits. California Almonds, Cashews, Walnuts, Luxury Thaals & Corporate Gifting from Delhi NCR.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --cream: #FAF7F2;
+            --sand: #EDE8DF;
+            --espresso: #2C1E13;
+            --walnut: #5C3D2E;
+            --gold: #C4A265;
+            --gold-light: #DFC99B;
+            --sage: #7A8B6F;
+            --white: #fff;
+            --text: #3A3A3A;
+            --light-text: #8A8078;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Inter', system-ui, sans-serif;
+            --ease: cubic-bezier(.25, .46, .45, .94);
+            --nav-h: 72px;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--cream);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        button {
+            font-family: var(--sans);
+            cursor: pointer;
+            border: none;
+            background: none
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--serif);
+            font-weight: 300
+        }
+
+        /* ─── NAVIGATION ─── */
+        .topbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 200;
+            background: rgba(250, 247, 242, .92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, .04);
+            transition: box-shadow .3s
+        }
+
+        .topbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .06)
+        }
+
+        .topbar-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(1.2rem, 4vw, 3rem)
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .6rem
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--gold)
+        }
+
+        .brand-name {
+            font-family: var(--serif);
+            font-size: 1.35rem;
+            letter-spacing: .04em;
+            color: var(--espresso)
+        }
+
+        .brand-sub {
+            display: block;
+            font-family: var(--sans);
+            font-size: .55rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: var(--light-text);
+            margin-top: -2px
+        }
+
+        .desk-nav {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none
+        }
+
+        .desk-nav a {
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--text);
+            position: relative;
+            padding: 4px 0;
+            transition: color .3s
+        }
+
+        .desk-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width .3s var(--ease)
+        }
+
+        .desk-nav a:hover::after,
+        .desk-nav a.on::after {
+            width: 100%
+        }
+
+        .desk-nav a:hover,
+        .desk-nav a.on {
+            color: var(--espresso)
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem
+        }
+
+        .bag-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            padding: 8px 16px;
+            border: 1px solid var(--espresso);
+            border-radius: 100px;
+            transition: all .3s
+        }
+
+        .bag-btn:hover {
+            background: var(--espresso);
+            color: var(--cream)
+        }
+
+        .bag-dot {
+            width: 18px;
+            height: 18px;
+            background: var(--gold);
+            color: var(--espresso);
+            font-size: .65rem;
+            font-weight: 600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 24px;
+            cursor: pointer
+        }
+
+        .hamburger span {
+            height: 1.5px;
+            background: var(--espresso);
+            border-radius: 2px;
+            transition: all .3s
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: calc(var(--nav-h) + 4rem) clamp(1.2rem, 4vw, 3rem) 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 3rem
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+            line-height: 1.05;
+            color: var(--espresso);
+            margin-bottom: 1.5rem
+        }
+
+        .hero-text h1 em {
+            color: var(--gold);
+            font-style: italic
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--light-text);
+            max-width: 440px;
+            margin-bottom: 2.5rem
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--walnut)
+        }
+
+        .badge svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.5
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap
+        }
+
+        .cta {
+            padding: 14px 32px;
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            border-radius: 100px;
+            transition: all .3s var(--ease)
+        }
+
+        .cta-primary {
+            background: var(--espresso);
+            color: var(--cream)
+        }
+
+        .cta-primary:hover {
+            background: var(--walnut);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(44, 30, 19, .25)
+        }
+
+        .cta-ghost {
+            border: 1px solid var(--espresso);
+            color: var(--espresso)
+        }
+
+        .cta-ghost:hover {
+            background: var(--espresso);
+            color: var(--cream)
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        .hero-img-main {
+            width: 100%;
+            max-width: 520px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(44, 30, 19, .12)
+        }
+
+        .hero-img-main img {
+            width: 100%;
+            height: auto;
+            display: block
+        }
+
+        .hero-float {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--white);
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, .08);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: float 4s ease-in-out infinite
+        }
+
+        .hero-float .dot {
+            width: 10px;
+            height: 10px;
+            background: var(--sage);
+            border-radius: 50%
+        }
+
+        .hero-float span {
+            font-size: .8rem;
+            font-weight: 500;
+            color: var(--espresso)
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-8px)
+            }
+        }
+
+        /* ─── MARQUEE ─── */
+        .marquee {
+            overflow: hidden;
+            background: var(--espresso);
+            padding: 14px 0;
+            white-space: nowrap
+        }
+
+        .marquee-inner {
+            display: flex;
+            gap: 3rem;
+            animation: scroll 20s linear infinite
+        }
+
+        .marquee-inner span {
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .2em;
+            color: var(--gold-light)
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(-50%)
+            }
+        }
+
+        /* ─── PRODUCTS ─── */
+        .products {
+            padding: 8rem clamp(1.2rem, 4vw, 3rem);
+            max-width: 1400px;
+            margin: 0 auto
+        }
+
+        .sec-label {
+            font-family: var(--sans);
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            color: var(--gold);
+            margin-bottom: .8rem;
+            text-align: center
+        }
+
+        .sec-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            text-align: center;
+            color: var(--espresso);
+            margin-bottom: 1rem
+        }
+
+        .sec-sub {
+            text-align: center;
+            color: var(--light-text);
+            max-width: 500px;
+            margin: 0 auto 4rem;
+            font-size: .95rem
+        }
+
+        .prod-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem
+        }
+
+        .prod-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, .04);
+            transition: all .45s var(--ease);
+            position: relative
+        }
+
+        .prod-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(44, 30, 19, .1);
+            border-color: var(--gold-light)
+        }
+
+        .prod-img {
+            height: 380px;
+            overflow: hidden;
+            background: var(--sand)
+        }
+
+        .prod-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .6s var(--ease)
+        }
+
+        .prod-card:hover .prod-img img {
+            transform: scale(1.05)
+        }
+
+        .prod-body {
+            padding: 1.5rem
+        }
+
+        .prod-tag {
+            font-size: .65rem;
+            text-transform: uppercase;
+            letter-spacing: .15em;
+            color: var(--sage);
+            margin-bottom: .3rem
+        }
+
+        .prod-name {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            color: var(--espresso);
+            margin-bottom: .4rem
+        }
+
+        .prod-desc {
+            font-size: .82rem;
+            color: var(--light-text);
+            line-height: 1.5;
+            margin-bottom: 1rem
+        }
+
+        .prod-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .prod-price {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--espresso)
+        }
+
+        .prod-btn {
+            padding: 10px 22px;
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            border: 1px solid var(--espresso);
+            border-radius: 100px;
+            color: var(--espresso);
+            transition: all .3s
+        }
+
+        .prod-btn:hover {
+            background: var(--espresso);
+            color: var(--cream)
+        }
+
+        /* ─── LIFESTYLE BANNER ─── */
+        .lifestyle {
+            position: relative;
+            height: 70vh;
+            min-height: 400px;
+            overflow: hidden;
+            margin: 0
+        }
+
+        .lifestyle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .lifestyle-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(44, 30, 19, .7), rgba(44, 30, 19, .3));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem
+        }
+
+        .lifestyle-overlay h2 {
+            font-size: clamp(2rem, 4.5vw, 4rem);
+            color: var(--cream);
+            margin-bottom: 1rem
+        }
+
+        .lifestyle-overlay p {
+            color: var(--gold-light);
+            font-size: 1.05rem;
+            max-width: 500px;
+            margin-bottom: 2rem
+        }
+
+        /* ─── ABOUT ─── */
+        .about {
+            padding: 8rem clamp(1.2rem, 4vw, 3rem);
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center
+        }
+
+        .about-img {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(44, 30, 19, .1)
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto
+        }
+
+        .about-text h2 {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            color: var(--espresso);
+            margin-bottom: 1.5rem
+        }
+
+        .about-text p {
+            color: var(--light-text);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: .95rem
+        }
+
+        .usp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem
+        }
+
+        .usp {
+            padding: 1.2rem;
+            background: var(--sand);
+            border-radius: 12px;
+            text-align: center
+        }
+
+        .usp h4 {
+            font-size: 1.1rem;
+            color: var(--espresso);
+            margin-bottom: .3rem
+        }
+
+        .usp p {
+            font-size: .75rem;
+            color: var(--light-text)
+        }
+
+        /* ─── FOOTER ─── */
+        .foot {
+            background: var(--espresso);
+            color: var(--sand);
+            padding: 5rem clamp(1.2rem, 4vw, 3rem) 2rem
+        }
+
+        .foot-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem
+        }
+
+        .foot h3 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem
+        }
+
+        .foot p,
+        .foot a {
+            font-size: .88rem;
+            line-height: 1.8;
+            color: var(--sand)
+        }
+
+        .foot a:hover {
+            color: var(--gold)
+        }
+
+        .foot-copy {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            font-size: .75rem;
+            color: rgba(255, 255, 255, .35);
+            text-align: center
+        }
+
+        .wa-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 300;
+            width: 56px;
+            height: 56px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, .35);
+            transition: transform .3s
+        }
+
+        .wa-float:hover {
+            transform: scale(1.1)
+        }
+
+        .wa-float svg {
+            width: 28px;
+            height: 28px;
+            fill: #fff
+        }
+
+        /* ─── CART SIDEBAR ─── */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            backdrop-filter: blur(4px);
+            z-index: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: .3s
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: all
+        }
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 420px;
+            max-width: 100vw;
+            height: 100vh;
+            background: var(--cream);
+            z-index: 501;
+            transform: translateX(100%);
+            transition: transform .4s var(--ease);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem
+        }
+
+        .cart-panel.open {
+            transform: translateX(0)
+        }
+
+        .cart-panel-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--sand)
+        }
+
+        .cart-panel-head h3 {
+            font-size: 1.6rem;
+            color: var(--espresso)
+        }
+
+        .cart-close {
+            font-size: 1.4rem;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: .3s
+        }
+
+        .cart-close:hover {
+            color: var(--espresso)
+        }
+
+        .cart-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .ci {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--sand);
+            align-items: center
+        }
+
+        .ci img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 8px
+        }
+
+        .ci-info {
+            flex: 1
+        }
+
+        .ci-name {
+            font-weight: 500;
+            font-size: .9rem;
+            margin-bottom: 2px
+        }
+
+        .ci-price {
+            font-size: .85rem;
+            color: var(--gold)
+        }
+
+        .ci-rm {
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: #c0392b;
+            cursor: pointer;
+            margin-top: 4px
+        }
+
+        .cart-bot {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--sand)
+        }
+
+        .cart-tot {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: var(--espresso)
+        }
+
+        .wa-checkout {
+            width: 100%;
+            padding: 14px;
+            background: #25D366;
+            color: #fff;
+            font-size: .85rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            transition: all .3s
+        }
+
+        .wa-checkout:hover {
+            background: #1da851;
+            transform: translateY(-2px)
+        }
+
+        .empty-msg {
+            text-align: center;
+            color: var(--light-text);
+            padding: 4rem 0;
+            font-size: .9rem
+        }
+
+        /* ─── MOBILE NAV DRAWER ─── */
+        .mob-nav {
+            position: fixed;
+            inset: 0;
+            background: var(--cream);
+            z-index: 400;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            transform: translateY(-100%);
+            transition: .4s var(--ease)
+        }
+
+        .mob-nav.open {
+            transform: translateY(0)
+        }
+
+        .mob-nav a {
+            font-family: var(--serif);
+            font-size: 2rem;
+            color: var(--espresso)
+        }
+
+        .mob-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 1.6rem;
+            color: var(--espresso)
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media(max-width:1024px) {
+            .prod-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .about {
+                grid-template-columns: 1fr
+            }
+
+            .foot-inner {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media(max-width:768px) {
+            .desk-nav {
+                display: none
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: calc(var(--nav-h) + 2rem)
+            }
+
+            .hero-text p {
+                margin: 0 auto 2rem
+            }
+
+            .hero-badges {
+                justify-content: center
+            }
+
+            .cta-row {
+                justify-content: center
+            }
+
+            .hero-float {
+                left: auto;
+                right: 10px;
+                bottom: 10px
+            }
+
+            .prod-grid {
+                grid-template-columns: 1fr
+            }
+
+            .prod-img {
+                height: 300px
+            }
+
+            .about {
+                gap: 2rem
+            }
+
+            .usp-grid {
+                grid-template-columns: 1fr
+            }
+
+            .lifestyle {
+                height: 50vh
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <header class="topbar" id="topbar">
+        <div class="topbar-inner">
+            <a href="#" class="brand" onclick="navTo('home')">
+                <img src="almonds.png" alt="Shyama Logo" class="brand-mark">
+                <div><span class="brand-name">Shyama</span><span class="brand-sub">International</span></div>
+            </a>
+            <ul class="desk-nav">
+                <li><a href="#" onclick="navTo('home')" class="on" id="lnk-home">Home</a></li>
+                <li><a href="#" onclick="navTo('shop')" id="lnk-shop">Collection</a></li>
+                <li><a href="#" onclick="navTo('about')" id="lnk-about">Our Story</a></li>
+                <li><a href="#" onclick="navTo('contact')" id="lnk-contact">Contact</a></li>
+            </ul>
+            <div class="nav-right">
+                <button class="bag-btn" onclick="openCart()"><span>Bag</span><span class="bag-dot"
+                        id="bagCount">0</span></button>
+                <div class="hamburger" onclick="document.getElementById('mobNav').classList.add('open')">
+                    <span></span><span style="width:16px;margin-left:auto"></span><span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE NAV -->
+    <div class="mob-nav" id="mobNav">
+        <button class="mob-close" onclick="document.getElementById('mobNav').classList.remove('open')">✕</button>
+        <a href="#" onclick="navTo('home');document.getElementById('mobNav').classList.remove('open')">Home</a>
+        <a href="#" onclick="navTo('shop');document.getElementById('mobNav').classList.remove('open')">Collection</a>
+        <a href="#" onclick="navTo('about');document.getElementById('mobNav').classList.remove('open')">Our Story</a>
+        <a href="#" onclick="navTo('contact');document.getElementById('mobNav').classList.remove('open')">Contact</a>
+    </div>
+
+    <!-- PAGES -->
+    <div id="pg-home">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-text">
+                <h1>The Art of<br><em>Pure Nutrition</em></h1>
+                <div class="hero-badges">
+                    <div class="badge"><svg viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>Globally Sourced</div>
+                    <div class="badge"><svg viewBox="0 0 24 24">
+                            <path
+                                d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22 7 19c2.37-.5 4.67-1 6-3 1.33 2 3.63 2.5 6 3l1.29 3 1.89-.66C20.1 16.17 17.9 10 9 8M10 14c-2 0-4-1-4-1s2-2 4-2 4 1 4 1-2 2-4 2z" />
+                        </svg>100% Natural</div>
+                    <div class="badge"><svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="m9 12 2 2 4-4" />
+                        </svg>Premium Quality</div>
+                </div>
+                <p>Handpicked California Almonds, Cashews & Walnuts — freshly packed for everyday nutrition and luxury
+                    gifting across Delhi NCR.</p>
+                <div class="cta-row">
+                    <button class="cta cta-primary" onclick="navTo('shop')">Shop Collection</button>
+                    <button class="cta cta-ghost" onclick="navTo('about')">Our Story</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-img-main"><img src="652767835_17952242364092982_5456177478020019581_n.jpeg"
+                        alt="California Almonds by Shyama International"></div>
+                <div class="hero-float">
+                    <div class="dot"></div><span>Freshly Packed Daily</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUEE -->
+        <div class="marquee">
+            <div class="marquee-inner"><span>✦ California Almonds</span><span>✦ Premium Cashews</span><span>✦ Akhrot
+                    Giri</span><span>✦ Luxury Thaals</span><span>✦ Wedding Hampers</span><span>✦ Corporate
+                    Gifting</span><span>✦ California Almonds</span><span>✦ Premium Cashews</span><span>✦ Akhrot
+                    Giri</span><span>✦ Luxury Thaals</span><span>✦ Wedding Hampers</span><span>✦ Corporate
+                    Gifting</span></div>
+        </div>
+
+        <!-- LIFESTYLE BANNER -->
+        <div class="lifestyle">
+            <img src="650791669_17951742042092982_6829415961817600994_n.jpeg" alt="Munch on the Go">
+            <div class="lifestyle-overlay">
+                <h2>Munch On The Go</h2>
+                <p>Premium nutrition that fits your lifestyle. Snack anywhere, anytime with our resealable pouches.</p>
+                <button class="cta cta-primary" onclick="navTo('shop')"
+                    style="background:var(--gold);color:var(--espresso)">Explore Pouches</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHOP PAGE -->
+    <div id="pg-shop" style="display:none">
+        <section class="products" style="padding-top:calc(var(--nav-h) + 4rem)">
+            <p class="sec-label">Our Selection</p>
+            <h2 class="sec-title">The Collection</h2>
+            <p class="sec-sub">Each product is handpicked, globally sourced, and freshly packed to preserve nature's
+                goodness.</p>
+            <div class="prod-grid">
+                <div class="prod-card">
+                    <div class="prod-img"><img src="652767835_17952242364092982_5456177478020019581_n.jpeg"
+                            alt="California Almonds"></div>
+                    <div class="prod-body">
+                        <p class="prod-tag">Bestseller</p>
+                        <h3 class="prod-name">California Almonds</h3>
+                        <p class="prod-desc">Larger, uniform kernels. Naturally sweet & crunchy. Versatile everyday
+                            nutrition. 250g box.</p>
+                        <div class="prod-row"><span class="prod-price">₹350</span><button class="prod-btn"
+                                onclick="addToCart('California Almonds (250g)',350,'652767835_17952242364092982_5456177478020019581_n.jpeg')">Add
+                                to Bag</button></div>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-img"><img src="642900384_17950667901092982_7690607218030547969_n.jpeg"
+                            alt="Premium Cashews"></div>
+                    <div class="prod-body">
+                        <p class="prod-tag">Popular</p>
+                        <h3 class="prod-name">Premium Cashews</h3>
+                        <p class="prod-desc">Rich in essential nutrients, contains vitamins & minerals. Buttery smooth
+                            whole cashews. 250g pouch.</p>
+                        <div class="prod-row"><span class="prod-price">₹400</span><button class="prod-btn"
+                                onclick="addToCart('Premium Cashews (250g)',400,'642900384_17950667901092982_7690607218030547969_n.jpeg')">Add
+                                to Bag</button></div>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="prod-img"><img src="650791669_17951742042092982_6829415961817600994_n.jpeg"
+                            alt="Akhrot Giri"></div>
+                    <div class="prod-body">
+                        <p class="prod-tag">Brain Food</p>
+                        <h3 class="prod-name">Akhrot Giri (Walnuts)</h3>
+                        <p class="prod-desc">Heart-healthy walnuts perfect for brain function, healthy hair & skin.
+                            Fresh halves. 250g pouch.</p>
+                        <div class="prod-row"><span class="prod-price">₹450</span><button class="prod-btn"
+                                onclick="addToCart('Akhrot Giri (250g)',450,'650791669_17951742042092982_6829415961817600994_n.jpeg')">Add
+                                to Bag</button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="pg-about" style="display:none">
+        <section class="about" style="padding-top:calc(var(--nav-h) + 4rem)">
+            <div class="about-img"><img src="642900384_17950667901092982_7690607218030547969_n.jpeg" alt="Our Products">
+            </div>
+            <div class="about-text">
+                <p class="sec-label" style="text-align:left">Since Inception</p>
+                <h2>Heritage of<br>Uncompromising Quality</h2>
+                <p>At Shyama International, we believe in the power of natural goodness. Each nut, each kernel, is
+                    sourced from the most trusted global orchards — from California's sun-kissed almond farms to the
+                    purest walnut groves.</p>
+                <p>We serve Delhi NCR with premium daily nutrition, bespoke luxury thaals for weddings, and elegant
+                    corporate gift hampers — all freshly packed to preserve every crunch.</p>
+                <div class="usp-grid">
+                    <div class="usp">
+                        <h4>100%</h4>
+                        <p>Natural</p>
+                    </div>
+                    <div class="usp">
+                        <h4>250g+</h4>
+                        <p>Pack sizes</p>
+                    </div>
+                    <div class="usp">
+                        <h4>Delhi NCR</h4>
+                        <p>Delivery</p>
+                    </div>
+                    <div class="usp">
+                        <h4>Premium</h4>
+                        <p>Gifting</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="pg-contact" style="display:none">
+        <section class="products" style="padding-top:calc(var(--nav-h) + 5rem)">
+            <p class="sec-label">Reach Out</p>
+            <h2 class="sec-title">Let's Connect</h2>
+            <p class="sec-sub">For orders, bulk inquiries, custom hampers, or wedding gifting — we're just a message
+                away.</p>
+            <div style="max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:1.5rem">
+                <div
+                    style="background:var(--white);padding:2rem;border-radius:16px;display:flex;align-items:center;gap:1.5rem;border:1px solid var(--sand)">
+                    <div
+                        style="width:48px;height:48px;background:var(--sand);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem">
+                        📍</div>
+                    <div><strong style="font-family:var(--serif);font-size:1.1rem">Location</strong>
+                        <p style="color:var(--light-text);font-size:.9rem">Delhi NCR, India</p>
+                    </div>
+                </div>
+                <div
+                    style="background:var(--white);padding:2rem;border-radius:16px;display:flex;align-items:center;gap:1.5rem;border:1px solid var(--sand)">
+                    <div
+                        style="width:48px;height:48px;background:var(--sand);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem">
+                        📞</div>
+                    <div><strong style="font-family:var(--serif);font-size:1.1rem">Phone</strong>
+                        <p style="color:var(--light-text);font-size:.9rem">+91 93549 49026</p>
+                    </div>
+                </div>
+                <div
+                    style="background:var(--white);padding:2rem;border-radius:16px;display:flex;align-items:center;gap:1.5rem;border:1px solid var(--sand)">
+                    <div
+                        style="width:48px;height:48px;background:var(--sand);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem">
+                        📸</div>
+                    <div><strong style="font-family:var(--serif);font-size:1.1rem">Instagram</strong>
+                        <p style="color:var(--light-text);font-size:.9rem">@shyamainternationals</p>
+                    </div>
+                </div>
+                <button class="cta cta-primary" style="align-self:center;margin-top:1rem;background:#25D366"
+                    onclick="window.open('https://wa.me/919354949026?text=Hi%20Shyama%20International!','_blank')">💬
+                    Chat on WhatsApp</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="foot">
+        <div class="foot-inner">
+            <div>
+                <h3>Shyama</h3>
+                <p>Handpicked. Globally Sourced.<br>Freshly Packed. Since Day One.</p>
+            </div>
+            <div>
+                <p><strong>Quick Links</strong></p>
+                <p><a href="#" onclick="navTo('shop')">Collection</a></p>
+                <p><a href="#" onclick="navTo('about')">Our Story</a></p>
+                <p><a href="#" onclick="navTo('contact')">Contact</a></p>
+            </div>
+            <div>
+                <p><strong>Reach Us</strong></p>
+                <p>📍 Delhi NCR</p>
+                <p>📞 +91 93549 49026</p>
+                <p>📸 @shyamainternationals</p>
+            </div>
+        </div>
+        <p class="foot-copy">© 2026 Shyama International. All Rights Reserved.</p>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/919354949026?text=Hi%20Shyama%20International!" target="_blank" class="wa-float"><svg
+            viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+        </svg></a>
+
+    <!-- CART -->
+    <div class="cart-overlay" id="cOverlay" onclick="closeCart()"></div>
+    <div class="cart-panel" id="cPanel">
+        <div class="cart-panel-head">
+            <h3>Your Bag</h3><span class="cart-close" onclick="closeCart()">✕</span>
+        </div>
+        <div class="cart-list" id="cList">
+            <p class="empty-msg">Your bag is empty</p>
+        </div>
+        <div class="cart-bot">
+            <div class="cart-tot"><span>Total</span><span id="cTotal">₹0</span></div>
+            <button class="wa-checkout" onclick="checkout()"><svg width="18" height="18" viewBox="0 0 24 24"
+                    fill="#fff">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                </svg>Order via WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        const PH = '919354949026';
+        const pages = ['home', 'shop', 'about', 'contact'];
+
+        function navTo(p) {
+            pages.forEach(pg => {
+                const el = document.getElementById('pg-' + pg);
+                if (el) el.style.display = pg === p ? 'block' : 'none';
+                const ln = document.getElementById('lnk-' + pg);
+                if (ln) { ln.classList.toggle('on', pg === p) }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Topbar scroll shadow
+        window.addEventListener('scroll', () => document.getElementById('topbar').classList.toggle('scrolled', window.scrollY > 20));
+
+        // Cart
+        function openCart() { document.getElementById('cPanel').classList.add('open'); document.getElementById('cOverlay').classList.add('open') }
+        function closeCart() { document.getElementById('cPanel').classList.remove('open'); document.getElementById('cOverlay').classList.remove('open') }
+
+        function addToCart(name, price, img) {
+            const ex = cart.find(x => x.name === name);
+            if (ex) ex.qty++; else cart.push({ name, price, img, qty: 1 });
+            renderCart(); openCart();
+        }
+        function removeItem(name) { cart = cart.filter(x => x.name !== name); renderCart() }
+
+        function renderCart() {
+            const el = document.getElementById('cList');
+            let count = 0, total = 0;
+            if (!cart.length) { el.innerHTML = '<p class="empty-msg">Your bag is empty</p>'; document.getElementById('cTotal').textContent = '₹0'; document.getElementById('bagCount').textContent = '0'; return }
+            let h = '';
+            cart.forEach(x => { count += x.qty; total += x.price * x.qty; h += `<div class="ci"><img src="${x.img}"><div class="ci-info"><div class="ci-name">${x.name}</div><div class="ci-price">₹${x.price} × ${x.qty}</div><div class="ci-rm" onclick="removeItem('${x.name}')">Remove</div></div></div>` });
+            el.innerHTML = h;
+            document.getElementById('cTotal').textContent = '₹' + total.toLocaleString('en-IN');
+            document.getElementById('bagCount').textContent = count;
+        }
+
+        function checkout() {
+            if (!cart.length) return alert('Your bag is empty!');
+            let m = 'Hello Shyama International!%0A%0AMy Order:%0A', t = 0;
+            cart.forEach((x, i) => { m += `${i + 1}. ${x.name} ×${x.qty} — ₹${x.price * x.qty}%0A`; t += x.price * x.qty });
+            m += `%0ATotal: ₹${t}%0APlease confirm payment & delivery.`;
+            window.open(`https://wa.me/${PH}?text=${m}`, '_blank');
+        }
+    </script>
+</body>
+
+</html>
