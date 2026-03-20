@@ -126,8 +126,13 @@ Create `index.html` with proper `<meta>` SEO tags (title, description, viewport)
 ```
 
 **Mobile-First Design (MANDATORY):**
-- Default CSS targets mobile (375px+).
-- Use `min-width` media queries to scale up: 768px → 1024px → 1440px.
+- Default CSS MUST strictly target mobile (375px+).
+- Use `min-width` media queries to scale up layouts and spacing for: 768px → 1024px → 1440px.
+- **Specific Mobile Precision Rules:**
+  - **Headlines:** Set safe `clamp()` minimums to prevent overflow on 320px-375px screens (e.g., use `clamp(2rem, 8vw, 4.5rem)` rather than a `2.5rem` floor).
+  - **Action Areas:** Always wrap and nicely format adjacent buttons. On mobile, use `display: flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;` to avoid awkward left-loading.
+  - **Padding:** Rely on tighter paddings for base/mobile rules (e.g., `padding: var(--space-lg);`). Scale to spacious padding like `var(--space-3xl)` only within `@media (min-width: 768px)` breakpoints.
+  - **Overlaps:** Dial down extreme overlaps (such as high negative `translateY` values) on mobile, preserving them solely for desktop screen widths.
 
 **Mobile Navigation:**
 - ALWAYS implement a hamburger menu for mobile.
@@ -162,10 +167,11 @@ Create `index.html` with proper `<meta>` SEO tags (title, description, viewport)
 - All `<img>` elements MUST have descriptive `alt` text.
 - Use relative paths for images: `<img src="logo.png">`.
 
-#### 3.4 Wire the CTA ("Book Now" / Contact)
+#### 3.4 Wire the CTA ("Book Now" / Contact / Cart)
 - **CRITICAL:** Use the phone number provided by the user. If no phone number is provided, ALWAYS default to `917778876166`. **NEVER invent a placeholder number.**
-- **For cafes and restaurants:** "Book Now" button opens a custom modal form (event type, date, time, guests). JS captures values and redirects to WhatsApp: `https://wa.me/<PhoneNumber>?text=<UrlEncodedMessage>`
-- **For other businesses:** Direct WhatsApp link: `https://wa.me/<PhoneNumber>?text=Hello...`
+- **If specific products are requested:** ALWAYS implement a lightweight JavaScript shopping cart. Add a sticky "Cart" icon to the header, and include "Add to Cart" / "Buy Now" buttons on every product card. The checkout action must open a cart modal summarizing items/total, and then redirect to a pre-filled WhatsApp message containing the order (`https://wa.me/<PhoneNumber>?text=<UrlEncodedOrder>`).
+- **For cafes and restaurants:** "Book Now" button opens a custom modal form (event type, date, time, guests). JS captures values and redirects to WhatsApp.
+- **For other businesses without specific individual products:** Use direct WhatsApp links: `https://wa.me/<PhoneNumber>?text=Hello...`
 - If an email is provided, include `mailto:<email>`.
 - Include a floating WhatsApp button (bottom-right, `position: fixed`).
 
