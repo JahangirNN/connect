@@ -15,7 +15,28 @@ You are an expert Frontend Engineer and UI/UX Designer. Your task is to generate
 
 ---
 
-## Execution Pipeline (Mandatory 4-Phase Process):
+## ⚠️ Hard Rules (Learned From Past Mistakes)
+
+These rules exist because of real failures. Violating them wastes time and produces broken output.
+
+### DO NOT:
+1. **DO NOT preview or QA in browser.** Never use browser subagent, never start HTTP servers (`python -m http.server`), never try to open `file://` URLs. The browser subagent cannot reliably preview local files. Just write correct code and deliver.
+2. **DO NOT attempt image generation.** The `generate_image` tool has quota limits and frequently fails with 429 errors. Instead, design with **CSS-based visuals** (gradients, patterns, SVG shapes, backdrop-filter effects). Use CSS to create beautiful hero sections without relying on generated images.
+3. **DO NOT use placeholder phone numbers.** If the user provides a phone number, use it exactly. If NO phone number is provided, use the default: `917778876166`. Never invent fake numbers like `6596709670`.
+4. **DO NOT use emojis as icons.** Never use 📍 📞 📸 🎨 🚀 ⚙️ 💬 as UI elements. Use inline SVG icons only (Heroicons/Lucide style). Emojis are ONLY acceptable inside marketing copy text.
+5. **DO NOT generate excessively long HTML.** Keep the code concise. Use short CSS class names, compress whitespace in non-critical areas. The HTML file should aim to be under 25KB. This avoids token limit issues during generation.
+6. **DO NOT run supplementary design searches unless truly needed.** The `--design-system` command already returns everything needed (colors, fonts, style, pattern, effects). Only run `--domain` searches if the design system output is genuinely insufficient for a specific reason.
+
+### ALWAYS:
+1. **ALWAYS run the design system generator** before writing any code (Phase 1).
+2. **ALWAYS use CSS custom properties** mapped from the design system output.
+3. **ALWAYS use the exact hex values** from the design system — do not invent your own colors.
+4. **ALWAYS create the folder and copy the logo** before generating HTML (Phase 2).
+5. **ALWAYS deliver the finished `index.html` directly** — no preview step needed.
+
+---
+
+## Execution Pipeline (Mandatory 3-Phase Process):
 
 ### Phase 1: AI-Powered Design System Generation (via ui-ux-pro-max)
 
@@ -23,13 +44,11 @@ Before writing any code, generate a complete design system using the `ui-ux-pro-
 
 #### Step 1.1: Analyze User Inputs
 Extract the following from the user's business context:
-- **Industry** (e.g., Jewelry, Gym, Cafe, Dry Fruits, Tech Startup)
-- **Vibe/Style keywords** (e.g., luxurious, aggressive, modern, playful, artisan)
-- **Product type** (e.g., e-commerce, service, portfolio, food, retail)
+- **Industry** (e.g., Jewelry, Gym, Cafe, Dry Fruits, Tech Startup, Contractor)
+- **Vibe/Style keywords** (e.g., luxurious, aggressive, modern, playful, artisan, professional)
+- **Product type** (e.g., e-commerce, service, portfolio, food, retail, contractor)
 
-#### Step 1.2: Run Design System Generator (MANDATORY)
-Use the search script to get a complete, AI-recommended design system:
-
+#### Step 1.2: Run Design System Generator (MANDATORY — single command)
 ```bash
 python .agent/skills/ui-ux-pro-max/scripts/search.py "<industry> <vibe> <product_type> <keywords>" --design-system -p "<Business Name>"
 ```
@@ -43,42 +62,24 @@ python .agent/skills/ui-ux-pro-max/scripts/search.py "<industry> <vibe> <product
 | Fitness / Gym | `"fitness gym bold aggressive health service"` |
 | Beauty / Spa | `"beauty spa wellness elegant soft service"` |
 | Tech Startup | `"SaaS tech modern startup dashboard"` |
+| Contractor / Trades | `"contractor construction professional trust service"` |
+| Interior Design | `"interior design luxury home premium portfolio"` |
 
-This returns a complete design system with:
-- **Pattern** — Recommended page structure and CTA placement
-- **Style** — Visual style (e.g., Liquid Glass, Minimalism, Brutalism)
-- **Colors** — Primary, Secondary, CTA, Background, Text hex values
-- **Typography** — Heading + Body font pair with Google Fonts URL
-- **Key Effects** — Recommended animations and micro-interactions
-- **Anti-Patterns** — What to specifically avoid
+This returns a complete design system with **Pattern, Style, Colors, Typography, Key Effects, and Anti-Patterns**. This is sufficient — do NOT run additional searches unless genuinely needed.
 
-#### Step 1.3: Supplement with Detailed Searches (as needed)
-Get additional details for specific areas:
-
-```bash
-# Get UX best practices for the website
-python .agent/skills/ui-ux-pro-max/scripts/search.py "animation accessibility" --domain ux
-
-# Get alternative typography if the default doesn't fit
-python .agent/skills/ui-ux-pro-max/scripts/search.py "elegant luxury serif" --domain typography
-
-# Get landing page structure recommendations
-python .agent/skills/ui-ux-pro-max/scripts/search.py "hero social-proof cta" --domain landing
-```
-
-#### Step 1.4: Finalize Design Decisions
-Synthesize the AI output with your own analysis to finalize:
-- **Color Palette:** Use the exact hex values from the design system output. Map them to CSS custom properties.
-- **Typography:** Use the recommended Google Fonts pair. Load via `<link>` for performance.
-- **Layout Paradigm:** Follow the recommended pattern (e.g., Feature-Rich Showcase, Hero-Centric, etc.)
-- **Micro-interactions:** Implement the recommended key effects (e.g., fluid animations, morphing elements, dynamic blur).
-- **Anti-patterns:** Actively avoid anything listed in the anti-patterns section.
+#### Step 1.3: Finalize Design Decisions
+Map the AI output directly to implementation decisions:
+- **Color Palette:** Use the exact hex values → CSS custom properties.
+- **Typography:** Use the recommended Google Fonts pair → `<link>` tag.
+- **Layout:** Follow the recommended pattern.
+- **Effects:** Implement the key effects listed.
+- **Anti-patterns:** Actively avoid anything listed.
 
 ---
 
 ### Phase 2: Folder Initialization & Asset Management
-1. **Create Business Workspace:** Determine a suitable short name for the business (e.g., `apex_fitness`, `bapas_gems`). Create a dedicated directory: `c:\Users\Administrator\WorkPlace\connect\<business_name>`.
-2. **Setup Assets:** Save or copy the user's provided Logo Image into this new directory (e.g., `c:\Users\Administrator\WorkPlace\connect\<business_name>\logo.png`). Document this relative path for the HTML generation.
+1. **Create Business Workspace:** Determine a suitable short name (e.g., `apex_fitness`, `primecoat_sg`). Create directory: `c:\Users\Administrator\WorkPlace\connect\<business_name>`.
+2. **Copy Logo:** Copy the user's provided logo image into the directory as `logo.png`.
 
 **Expected Folder Structure:**
 ```text
@@ -91,137 +92,113 @@ c:\Users\Administrator\WorkPlace\connect\
 ---
 
 ### Phase 3: Bespoke Code Generation
-Write the entire website from scratch using a single file approach.
+
+Write the entire website from scratch as a single `index.html` file. This is the final deliverable — there is no Phase 4.
 
 #### 3.1 Document Structure
-Create `index.html` inside the business folder with proper SEO meta tags.
+Create `index.html` with proper `<meta>` SEO tags (title, description, viewport).
 
-#### 3.2 Inject Tailored CSS (Design System ➜ Code)
-Write high-quality, completely custom CSS that implements the design system from Phase 1.
+#### 3.2 Inject Tailored CSS (Design System → Code)
 
-**CSS Custom Properties (MANDATORY):** Always define your design system as CSS variables at the top:
+**CSS Custom Properties (MANDATORY):**
 ```css
 :root {
-    /* Colors from ui-ux-pro-max design system */
+    /* Colors from ui-ux-pro-max */
     --primary: <from design system>;
     --secondary: <from design system>;
     --cta: <from design system>;
     --background: <from design system>;
     --text: <from design system>;
     
-    /* Typography from ui-ux-pro-max design system */
+    /* Typography from ui-ux-pro-max */
     --heading-font: '<Heading Font>', serif;
     --body-font: '<Body Font>', sans-serif;
     
     /* Spacing tokens */
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
-    --space-2xl: 48px;
-    --space-3xl: 64px;
+    --space-xs: 4px; --space-sm: 8px; --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
     
-    /* Shadow depths */
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    /* Shadows & transitions */
     --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
     --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-    --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
-    
-    /* Transition */
-    --ease: cubic-bezier(.25, .46, .45, .94);
+    --ease: cubic-bezier(.25,.46,.45,.94);
 }
 ```
 
-**Mobile-First Design is MANDATORY:**
-- Structure the default CSS for mobile screens (375px+).
-- Use `min-width` media queries (`@media (min-width: ...)`) to scale up for tablets and desktops.
-- Test breakpoints: **375px** → **768px** → **1024px** → **1440px**.
+**Mobile-First Design (MANDATORY):**
+- Default CSS targets mobile (375px+).
+- Use `min-width` media queries to scale up: 768px → 1024px → 1440px.
 
 **Mobile Navigation:**
-- ALWAYS implement a functional hamburger menu for mobile devices.
-- Use smooth transitions for open/close (300-400ms).
+- ALWAYS implement a hamburger menu for mobile.
+- Smooth open/close transitions (300-400ms).
 
 **Responsive Grids:**
-- Use CSS Grid and Flexbox that automatically stack on mobile.
-- NEVER use `display: none` to hide primary hero content or major sections on mobile; instead, refactor the layout to fit the screen.
+- CSS Grid / Flexbox that auto-stacks on mobile.
+- NEVER `display: none` on primary content for mobile — refactor the layout instead.
 
-**Hero Section:** Ensure the hero image and CTA are perfectly legible and impactful on small screens.
+**Hero Section — CSS-Based Visuals (NO generated images):**
+- Use CSS gradients, SVG patterns, backdrop-filter effects to create visually rich hero sections.
+- Combine the logo image with CSS-created backgrounds.
+- Example techniques:
+  - `background: linear-gradient(135deg, var(--primary), var(--secondary))` with SVG pattern overlay
+  - `backdrop-filter: blur()` glass cards
+  - CSS-animated geometric shapes
+  - Textured backgrounds via embedded SVG data URIs
 
-**Custom Components:** Design components tailored to the business (e.g., a jewelry carousel, a gym class timetable, a dry fruits product grid, etc.) based on what makes sense for the business.
+**Icons — SVG Only:**
+- Use inline `<svg>` elements with `viewBox="0 0 24 24"`, consistent sizing.
+- Source from Heroicons/Lucide style paths.
+- NEVER use emojis (📍📞📸) as UI icons, even in contact sections.
+
+**Interactive Elements:**
+- `cursor: pointer` on ALL clickable elements.
+- Hover transitions: 150-300ms (color, shadow, transform).
+- `prefers-reduced-motion: reduce` media query to disable animations for accessibility.
 
 #### 3.3 Draft Semantic Content
-- Expand the provided bio/context into polished website copy (Hero section, About, Services/Features).
-- Use the logo image (`<img src="logo.png">`) and any generated images appropriately. Ensure all image paths are relative to the business folder.
+- Expand the bio into polished website copy (Hero, About, Services/Features, Contact).
+- Use semantic HTML: `<header>`, `<main>`, `<section>`, `<footer>`, `<nav>`.
+- All `<img>` elements MUST have descriptive `alt` text.
+- Use relative paths for images: `<img src="logo.png">`.
 
 #### 3.4 Wire the CTA ("Book Now" / Contact)
-- Implement a bold, accessible Call-To-Action button.
-- **CRITICAL:** Use the phone number provided by the user. If no phone number is provided, always default to using `917778876166`.
-- **For cafes and restaurants:** The "Book Now" button MUST open a custom modal/pop-up form. This form should collect details such as the event type (e.g., Birthday, Party), date, time, and number of people. Use JavaScript to capture the form values, construct a combined message, and redirect the user to a WhatsApp chat with the business owner: `https://wa.me/<PhoneNumberAsNumbersOnly>?text=<UrlEncodedMessage>`
-- **For other businesses:** Format the link to instantly open a pre-filled WhatsApp chat: `https://wa.me/<PhoneNumberAsNumbersOnly>?text=Hello...`
-- If an email is provided, use `mailto:<email>`.
+- **CRITICAL:** Use the phone number provided by the user. If no phone number is provided, ALWAYS default to `917778876166`. **NEVER invent a placeholder number.**
+- **For cafes and restaurants:** "Book Now" button opens a custom modal form (event type, date, time, guests). JS captures values and redirects to WhatsApp: `https://wa.me/<PhoneNumber>?text=<UrlEncodedMessage>`
+- **For other businesses:** Direct WhatsApp link: `https://wa.me/<PhoneNumber>?text=Hello...`
+- If an email is provided, include `mailto:<email>`.
+- Include a floating WhatsApp button (bottom-right, `position: fixed`).
 
-#### 3.5 Final Output
-Save the finalized code to `c:\Users\Administrator\WorkPlace\connect\<business_name>\index.html`.
+#### 3.5 Quality Built Into Code (No Separate QA Phase)
+Apply these rules WHILE writing code — not as a separate check:
 
----
+| Category | Rule |
+|----------|------|
+| **Icons** | Inline SVG only, no emojis, consistent `viewBox="0 0 24 24"` |
+| **Cursor** | `cursor: pointer` on all buttons, links, cards, CTAs |
+| **Transitions** | `transition: all 200ms ease` on hover states (150-300ms range) |
+| **Contrast** | Body text ≥ 4.5:1 ratio, muted text ≥ 3:1 ratio |
+| **Navbar** | First section gets `padding-top: calc(var(--nav-h) + extra)` |
+| **Max-width** | Same `max-width` across all sections (e.g., `1200px`) |
+| **Mobile** | No horizontal scroll at 375px, `overflow-x: hidden` on body |
+| **Touch targets** | Buttons/CTAs minimum 44×44px on mobile |
+| **Alt text** | Every `<img>` has descriptive `alt` |
+| **Reduced motion** | `@media(prefers-reduced-motion:reduce)` disables animations |
+| **Semantic** | Use `<header>`, `<main>`, `<section>`, `<footer>`, `<nav>` |
 
-### Phase 4: Quality Assurance (Pre-Delivery Checklist)
-
-Before delivering the website, verify ALL items from the ui-ux-pro-max checklist:
-
-#### Icons & Visual Elements
-| Rule | ✅ Do | ❌ Don't |
-|------|------|---------|
-| **No emoji icons** | Use inline SVG icons (Heroicons, Lucide, or custom) | Use emojis like 🎨 🚀 ⚙️ 📍 📞 📸 as UI icons |
-| **Stable hover states** | Use color/opacity/shadow transitions on hover | Use scale transforms that shift surrounding layout |
-| **Consistent icon sizing** | Use fixed `viewBox="0 0 24 24"` with consistent width/height | Mix random icon sizes |
-
-#### Interaction & Cursor
-| Rule | ✅ Do | ❌ Don't |
-|------|------|---------|
-| **cursor: pointer** | Add `cursor: pointer` to ALL clickable elements (buttons, links, cards, CTAs) | Leave default cursor on interactive elements |
-| **Hover feedback** | Provide visual feedback (color, shadow, border change) | No indication element is interactive |
-| **Smooth transitions** | Use `transition: all 200ms ease` or similar (150-300ms) | Instant state changes or too slow (>500ms) |
-
-#### Contrast & Readability
-| Rule | ✅ Do | ❌ Don't |
-|------|------|---------|
-| **Text contrast** | Body text at minimum 4.5:1 contrast ratio (use dark text on light bg) | Use light gray text (#94A3B8) on white background |
-| **Muted text** | For secondary text, minimum contrast of 3:1 | Use anything lighter than #6B7280 |
-| **Glass/transparent elements** | Use `bg opacity >= 80%` for readability | Use `bg-white/10` where text needs to be read |
-
-#### Layout & Spacing
-| Rule | ✅ Do | ❌ Don't |
-|------|------|---------|
-| **Fixed navbar clearance** | Add `padding-top` to first section = navbar height | Let content hide behind fixed navbar |
-| **Consistent max-width** | Use same `max-width` value across all sections | Mix different container widths randomly |
-| **No horizontal scroll on mobile** | Test at 375px, ensure no overflow | Use fixed pixel widths that overflow on mobile |
-
-#### Accessibility
-| Rule | ✅ Do | ❌ Don't |
-|------|------|---------|
-| **Alt text** | All `<img>` elements must have descriptive `alt` text | Empty or missing alt attributes |
-| **Form labels** | All form inputs must have visible `<label>` elements | Phantom inputs without labels |
-| **Reduced motion** | Respect `prefers-reduced-motion: reduce` for animations | Force animations on users who disabled them |
-| **Semantic HTML** | Use `<header>`, `<main>`, `<section>`, `<footer>`, `<nav>` | Use only `<div>` for everything |
-
-#### Final Responsive Check
-- [ ] Tested at **375px** (mobile)
-- [ ] Tested at **768px** (tablet)
-- [ ] Tested at **1024px** (small desktop)
-- [ ] Tested at **1440px** (large desktop)
-- [ ] No horizontal scrollbar on any breakpoint
-- [ ] Hamburger menu works correctly on mobile
-- [ ] All images are properly sized and don't overflow
-- [ ] CTAs are tapable on mobile (min 44x44px touch target)
+#### 3.6 Save & Deliver
+Save to `c:\Users\Administrator\WorkPlace\connect\<business_name>\index.html` and inform the user the website is ready. No preview, no server, no browser check.
 
 ---
 
 ## Core Rules
 
-1. **Design System First:** ALWAYS run the ui-ux-pro-max design system generator before writing code. The generated palette, fonts, and style MUST be reflected in the final website.
-2. **No Two Alike:** Ensure that no two websites generated by this pipeline look structurally identical. The design must be fundamentally driven by the nature of the business.
-3. **No Emoji Icons:** Use inline SVGs for all icons. Emojis are acceptable ONLY in marketing copy text, never as UI elements.
-4. **Mobile Perfect:** Every site MUST be verified for perfect mobile responsiveness at 375px minimum.
-5. **Performance Aware:** If the design system flags performance warnings (e.g., heavy blur effects), use them sparingly and provide `prefers-reduced-motion` fallbacks.
+1. **Design System First:** ALWAYS run `--design-system` before writing code.
+2. **No Two Alike:** Every website must be structurally unique, driven by the business nature.
+3. **No Emoji Icons:** SVGs only. Emojis acceptable ONLY in marketing copy text.
+4. **No Browser Preview:** Never attempt to preview. Write correct code and deliver.
+5. **No Image Generation:** Use CSS-based visuals. Never call `generate_image`.
+6. **No Placeholder Numbers:** Use the user's number or default `917778876166`.
+7. **Concise Output:** Keep HTML under 25KB. Use short class names, compress where possible.
+8. **Mobile Perfect:** Default CSS is mobile-first. Responsive at 375/768/1024/1440px.
+9. **Performance Aware:** Respect `prefers-reduced-motion`. Use effects sparingly when flagged.
