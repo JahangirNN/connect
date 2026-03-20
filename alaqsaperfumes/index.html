@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Aqsa Perfumes | Luxury Perfumes & Oud</title>
+    <meta name="description" content="Al Aqsa Perfumes India. Luxury Perfumes & Oud Since 1999. Where tradition meets modern elegance.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Design System Colors */
+            --primary: #1C1917;    /* Premium Black */
+            --secondary: #44403C;  /* Warm Dark Grey */
+            --cta: #CA8A04;        /* Gold Accent */
+            --background: #FAFAF9; /* Soft Off-White */
+            --text: #0C0A09;       /* Deep Black Text */
+            --glass-bg: rgba(250, 250, 249, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            
+            /* Typography */
+            --heading-font: 'Cormorant', serif;
+            --body-font: 'Montserrat', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 4px; 
+            --space-sm: 8px; 
+            --space-md: 16px;
+            --space-lg: 24px; 
+            --space-xl: 32px; 
+            --space-2xl: 48px;
+            --space-3xl: 80px;
+
+            /* Visuals */
+            --shadow-sm: 0 4px 6px rgba(28, 25, 23, 0.05);
+            --shadow-md: 0 10px 15px rgba(28, 25, 23, 0.1);
+            --shadow-glass: 0 8px 32px 0 rgba(28, 25, 23, 0.15);
+            --ease: cubic-bezier(.25,.46,.45,.94);
+            --radius-md: 12px;
+            --radius-lg: 24px;
+            --nav-h: 80px;
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--primary);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img, video {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Layout & Utility */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .text-center { text-align: center; }
+        
+        .gold-accent {
+            color: var(--cta);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-family: var(--body-font);
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 300ms var(--ease);
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background-color: var(--cta);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(202, 138, 4, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #A16207;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--background);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-h);
+            background: rgba(250, 250, 249, 0.85); /* Slightly transparent off-white */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(28, 25, 23, 0.05);
+            z-index: 100;
+            transition: all 300ms var(--ease);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            z-index: 101;
+        }
+
+        .logo img {
+            height: 48px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: none;
+        }
+
+        .nav-links {
+            display: none;
+        }
+        
+        /* Mobile Menu Toggle */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 101;
+            padding: var(--space-xs);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section with Video Background */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: var(--nav-h);
+            overflow: hidden;
+            background-color: var(--primary);
+        }
+
+        .hero-video-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6; /* Darken video for text legibility */
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(28,25,23,0.8) 0%, rgba(68,64,60,0.6) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--background);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--cta);
+            margin-bottom: var(--space-lg);
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            color: var(--background);
+            margin-bottom: var(--space-md);
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: rgba(250, 250, 249, 0.8);
+            margin-bottom: var(--space-xl);
+            font-weight: 300;
+            max-width: 600px;
+            margin-inline: auto;
+        }
+
+        /* Glass Cards Section (Story/Origin) */
+        .origin-section {
+            padding: var(--space-3xl) 0;
+            background: var(--background);
+            position: relative;
+        }
+        
+        /* Subtle decorative SVG pattern background */
+        .origin-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(var(--secondary) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .glass-story-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-glass);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            transform: translateY(-30px); /* Pull up over the hero slightly */
+        }
+        
+        .glass-story-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--primary);
+        }
+        
+        .glass-story-card p {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            max-width: 600px;
+            margin: 0 auto var(--space-lg);
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+            flex-wrap: wrap;
+        }
+        
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .timeline-item svg {
+            width: 32px;
+            height: 32px;
+            color: var(--cta);
+        }
+        
+        .timeline-text {
+            font-family: var(--heading-font);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Collection/Products Section */
+        .collection {
+            padding: var(--space-3xl) 0;
+            background: #fff;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .section-header p {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+        }
+
+        .product-card {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--background);
+            transition: all 400ms var(--ease);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            padding-top: 120%; /* Aspect Ratio */
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .product-img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 700ms var(--ease);
+        }
+
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: var(--space-lg);
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .product-info p {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Stats/Trust Bar */
+        .trust-bar {
+            background: var(--primary);
+            color: var(--background);
+            padding: var(--space-2xl) 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+            text-align: center;
+        }
+        
+        .stat-item h4 {
+            font-size: 2.5rem;
+            color: var(--cta);
+            margin-bottom: var(--space-xs);
+            font-family: var(--body-font);
+        }
+        
+        .stat-item p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        /* Footer / Contact */
+        .footer {
+            background-color: var(--background);
+            padding: var(--space-3xl) 0 var(--space-xl);
+            border-top: 1px solid rgba(28, 25, 23, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-2xl);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .footer-brand p {
+            margin-top: var(--space-md);
+            color: var(--secondary);
+            max-width: 300px;
+        }
+
+        .footer-title {
+            font-family: var(--heading-font);
+            font-size: 1.4rem;
+            margin-bottom: var(--space-lg);
+            color: var(--primary);
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            color: var(--secondary);
+        }
+
+        .contact-item svg {
+            width: 24px;
+            height: 24px;
+            color: var(--cta);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-xl);
+            border-top: 1px solid rgba(28, 25, 23, 0.05);
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Fixed WhatsApp Button */
+        .fab {
+            position: fixed;
+            bottom: max(var(--space-lg), env(safe-area-inset-bottom));
+            right: var(--space-lg);
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+            z-index: 99;
+            transition: all 400ms var(--ease);
+        }
+
+        .fab:hover {
+            transform: scale(1.1) translateY(-4px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        .fab svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(250, 250, 249, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-xl);
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 400ms var(--ease);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            font-family: var(--heading-font);
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--primary);
+            transition: color 200ms ease;
+        }
+        
+        .mobile-menu a:hover {
+            color: var(--cta);
+        }
+
+        /* ---------------- Media Queries ---------------- */
+        @media (min-width: 768px) {
+            .logo-text { display: block; }
+            .grid-3 { grid-template-columns: repeat(3, 1fr); }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; }
+            .glass-story-card { 
+                padding: var(--space-3xl); 
+                transform: translateY(-80px);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hamburger { display: none; }
+            .nav-links {
+                display: flex;
+                gap: var(--space-xl);
+                align-items: center;
+            }
+            .nav-links a {
+                font-family: var(--body-font);
+                font-size: 0.95rem;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: color 200ms;
+            }
+            .nav-links a:hover { color: var(--cta); }
+            
+            .hero-content {
+                text-align: left;
+                margin: 0;
+                max-width: 650px;
+            }
+            .hero p { margin-inline: 0; }
+        }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Al Aqsa Perfumes Logo">
+                <span class="logo-text">Al Aqsa Perfumes</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#story">Our Story</a>
+                <a href="#collection">Collection</a>
+                <a href="#contact">Contact</a>
+                <a href="https://wa.me/918011140210?text=Hello%20Al%20Aqsa%20Perfumes,%20I%20would%20like%20to%20know%20more%20about%20your%20collection." target="_blank" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.85rem;">Enquire Now</a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#story">Our Story</a>
+        <a href="#collection">Collection</a>
+        <a href="#contact">Contact</a>
+        <a href="https://wa.me/918011140210?text=Hello%20Al%20Aqsa%20Perfumes" target="_blank" class="btn btn-primary">Enquire On WhatsApp</a>
+    </div>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-video-wrapper">
+            <video src="video.mp4" autoplay loop muted playsinline class="hero-video"></video>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container relative" style="z-index: 2;">
+            <div class="hero-content">
+                <span class="hero-badge">Est. 1999</span>
+                <h1>Where Tradition Meets <br><span class="gold-accent">Modern Elegance</span></h1>
+                <p>Curating the finest luxury perfumes and authentic oud. Born in the heart of Kuwait & Bahrain, now gracing India with unparalleled fragrances.</p>
+                <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;">
+                    <a href="https://wa.me/918011140210?text=Hello!%20I'm%20interested%20in%20your%20luxury%20perfumes." target="_blank" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        Contact Us
+                    </a>
+                    <a href="#collection" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.4);">
+                        Discover Collection
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Origin / Story -->
+    <section id="story" class="origin-section">
+        <div class="container">
+            <div class="glass-story-card">
+                <h2>A Legacy of Fragrance</h2>
+                <p>Since 1999, Al Aqsa Perfumes has been synonymous with the purest expressions of luxury and heritage. We craft more than just scents; we distil memories, elegance, and distinction.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span class="timeline-text">Kuwait 🇰🇼</span>
+                    </div>
+                    <div style="height: 2px; width: 40px; background: var(--cta); opacity: 0.5;"></div>
+                    <div class="timeline-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span class="timeline-text">Bahrain 🇧🇭</span>
+                    </div>
+                    <div style="height: 2px; width: 40px; background: var(--cta); opacity: 0.5;"></div>
+                    <div class="timeline-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span class="timeline-text">India 🇮🇳</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Stats -->
+    <section class="trust-bar">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h4>24+</h4>
+                <p>Years of Elegance</p>
+            </div>
+            <div class="stat-item">
+                <h4>100%</h4>
+                <p>Authentic Oud</p>
+            </div>
+            <div class="stat-item">
+                <h4>Premium</h4>
+                <p>Global Heritage</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection -->
+    <section id="collection" class="collection">
+        <div class="container">
+            <div class="section-header">
+                <h2>Signature Collection</h2>
+                <p>Discover our meticulously crafted artisanal blends.</p>
+            </div>
+            
+            <div class="grid-3">
+                <!-- Product 1 -->
+                <div class="product-card" onclick="window.open('https://wa.me/918011140210?text=I%20want%20to%20know%20more%20about%20your%20Signature%20Oud', '_blank')">
+                    <div class="product-img-wrapper">
+                        <img src="asset1.webp" alt="Al Aqsa Signature Oud Perfume" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Royal Essence</h3>
+                        <p>Signature Blend</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" onclick="window.open('https://wa.me/918011140210?text=I%20want%20to%20know%20more%20about%20your%20Golden%20Musk', '_blank')">
+                    <div class="product-img-wrapper">
+                        <img src="asset2.webp" alt="Al Aqsa Golden Musk Premium" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Golden Noir</h3>
+                        <p>Luxury Perfume</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" onclick="window.open('https://wa.me/918011140210?text=I%20want%20to%20know%20more%20about%20your%20Heritage%20Collection', '_blank')">
+                    <div class="product-img-wrapper">
+                        <img src="asset3.webp" alt="Al Aqsa Heritage Collection" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Heritage Oud</h3>
+                        <p>Pure Distillation</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center" style="margin-top: var(--space-3xl);">
+                <a href="https://wa.me/918011140210?text=Please%20send%20me%20your%20complete%20catalog." target="_blank" class="btn btn-outline">
+                    Request Full Catalog
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <img src="logo.png" alt="Al Aqsa Perfumes Logo" style="height: 40px; margin-bottom: 12px;">
+                        <span class="logo-text" style="font-size: 1.25rem;">Al Aqsa Perfumes</span>
+                    </a>
+                    <p>Luxury Perfumes & Oud Since 1999. Where tradition meets modern elegance in every drop.</p>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Navigation</h4>
+                    <div class="contact-list">
+                        <a href="#story" class="contact-item">Our Story</a>
+                        <a href="#collection" class="contact-item">Signature Collection</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>+91 80111 40210</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>India<br>Kuwait 🇰🇼 • Bahrain 🇧🇭</span>
+                        </div>
+                        <div class="contact-item" style="margin-top: 8px;">
+                            <!-- Instagram Icon -->
+                            <a href="https://www.instagram.com/alaqsaperfumes_india/" target="_blank" aria-label="Instagram" style="color: var(--secondary); transition: color 0.2s; display: flex; align-items: center; gap: var(--space-sm); text-decoration: none;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                <span>@alaqsaperfumes_india</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Al Aqsa Perfumes India. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp FAB -->
+    <a href="https://wa.me/918011140210?text=Hello!%20I'm%20interested%20in%20your%20perfumes." target="_blank" class="fab" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(250, 250, 249, 0.95)';
+                navbar.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+            } else {
+                navbar.style.background = 'rgba(250, 250, 249, 0.85)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        let menuOpen = false;
+
+        hamburger.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.classList.add('active');
+                hamburger.children[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                hamburger.children[1].style.opacity = '0';
+                hamburger.children[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                mobileMenu.classList.remove('active');
+                hamburger.children[0].style.transform = 'none';
+                hamburger.children[1].style.opacity = '1';
+                hamburger.children[2].style.transform = 'none';
+            }
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                mobileMenu.classList.remove('active');
+                hamburger.children[0].style.transform = 'none';
+                hamburger.children[1].style.opacity = '1';
+                hamburger.children[2].style.transform = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
