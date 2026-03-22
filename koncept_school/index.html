@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koncept School | The Future of Learning</title>
+    <meta name="description" content="A creative laboratory for the modern era. Experience project-based learning and radical collaboration at Koncept School.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="nav-header">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo-container">
+                <img src="assets/logo.png" alt="Koncept School" class="logo-img">
+                <span class="logo-text">Koncept</span>
+            </a>
+
+            <nav class="nav-desktop">
+                <a href="#philosophy" class="nav-link">Philosophy</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="https://wa.me/917778876166" class="btn-cta-nav">Apply Now</a>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu" style="position: fixed; top: 0; right: 0; width: 100%; height: 100vh; background: var(--background); z-index: 1050; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px; transform: translateX(100%); transition: var(--transition-slow); visibility: hidden; opacity: 0;">
+        <a href="#philosophy" style="font-family: var(--font-heading); font-size: 2.5rem;">Philosophy</a>
+        <a href="#experience" style="font-family: var(--font-heading); font-size: 2.5rem;">Experience</a>
+        <a href="#contact" style="font-family: var(--font-heading); font-size: 2.5rem;">Contact</a>
+        <a href="https://wa.me/917778876166" class="btn-primary">Apply Now</a>
+    </div>
+
+    <main>
+        <section class="hero">
+            <video autoplay loop muted playsinline class="hero-video">
+                <source src="assets/bg.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            
+            <div class="container hero-content">
+                <span class="hero-tagline reveal stagger-1">Est. 2026 // Education Refined</span>
+                <h1 class="hero-title reveal split-words" style="line-height: 1.1;">Revolutionizing the Future of Learning.</h1>
+                <p class="hero-description reveal split-words">The school for the unschoolable. A creative laboratory where curiosity meets consequence. We don't just teach the future; we build it.</p>
+                <div class="hero-buttons reveal stagger-3">
+                    <a href="#philosophy" class="btn-primary">Discover the Model</a>
+                    <a href="https://wa.me/917778876166" class="btn-secondary">Message Admissions</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="bento-section">
+            <div class="container">
+                <div class="bento-grid">
+                    <!-- Featured Card -->
+                    <div class="bento-item featured col-span-2 reveal" style="background: url('assets/bento1.png') center/cover; min-height: 400px; padding: 40px;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%);"></div>
+                        <div class="bento-content" style="position: relative; z-index: 1;">
+                            <h3 style="color: white; font-size: 2.5rem;">Project-Based <br>Autonomy</h3>
+                            <p style="color: rgba(255,255,255,0.8);">Our students don't study subjects—they solve global problems through hands-on creation and radical experimentation.</p>
+                        </div>
+                    </div>
+
+                    <!-- Small Card 1 -->
+                    <div class="bento-item reveal" style="background: url('assets/bento2.png') center/cover; min-height: 300px;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, transparent 70%);"></div>
+                        <div class="bento-content" style="position: relative; z-index: 1; color: white;">
+                            <h3 style="color: white;">Global <br>Network</h3>
+                            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Collaborate with mentors and creators worldwide.</p>
+                        </div>
+                    </div>
+
+                    <!-- Small Card 2 -->
+                    <div class="bento-item reveal" style="background: url('assets/bento3.png') center/cover; min-height: 300px;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, transparent 70%);"></div>
+                        <div class="bento-content" style="position: relative; z-index: 1; color: white;">
+                            <h3 style="color: white;">Adaptive <br>Logic</h3>
+                            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">A curriculum that evolves in real-time.</p>
+                        </div>
+                    </div>
+
+                    <!-- Large Vertical Card -->
+                    <div class="bento-item reveal" style="grid-row: span 2; background: url('assets/lab.png') center/cover; min-height: 400px; position: relative;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(transparent, rgba(15, 23, 42, 0.9));"></div>
+                        <div class="bento-content" style="position: relative; z-index: 1; color: white;">
+                            <h3 style="color: white; font-size: 2rem;">The Creative <br>Lab</h3>
+                            <p style="color: rgba(255,255,255,0.8);">A multi-disciplinary space for builders, thinkers, and visionaries.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Final Card -->
+                    <div class="bento-item reveal col-span-2" style="background: url('assets/bento4.png') center/cover; min-height: 350px;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 60%, transparent 100%);"></div>
+                        <div class="bento-content" style="position: relative; z-index: 1; color: white;">
+                            <h3 style="color: white;">Human-Centric Intelligence</h3>
+                            <p style="color: rgba(255,255,255,0.8);">Fostering the skills that machines can't replicate: empathy, ethics, and strategic creativity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="philosophy" class="glass-section">
+            <div class="container">
+                <div class="glass-card reveal">
+                    <h2 class="split-words reveal" style="font-size: 3.5rem; margin-bottom: 30px;">"The classroom is a relic; the world is the laboratory."</h2>
+                    <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto 40px; color: rgba(255,255,255,0.7);">We believe in radical schooling. No walls, no limits, just pure curiosity driven by action. Koncept School is where the 'unschoolable' find their rhythm and the 'creators' find their voice.</p>
+                    <a href="https://wa.me/917778876166" class="btn-primary" style="background: white; color: var(--primary);">Join the Revolution</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container contact-wrapper">
+                <div class="contact-info reveal">
+                    <h2 class="split-chars reveal">Speak with Visionaries.</h2>
+                    <p>Admissions for the 2026 cohort are now open for select candidates who dare to think differently.</p>
+                </div>
+                <div class="contact-details reveal stagger-2">
+                    <div class="contact-item">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em;">Direct Line</span>
+                        <a href="tel:+917778876166" class="contact-link">+91 77788 76166</a>
+                    </div>
+                    <div class="contact-item">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em;">Social Presence</span>
+                        <a href="#" class="contact-link">@konceptschool</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-nav">
+                <a href="#philosophy">Philosophy</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p style="font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted);">© 2026 KONCEPT SCHOOL // BUILT FOR THE FUTURE</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
