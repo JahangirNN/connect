@@ -6,22 +6,34 @@
     <title>Koncept School | The Future of Learning</title>
     <meta name="description" content="A creative laboratory for the modern era. Experience project-based learning and radical collaboration at Koncept School.">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 </head>
 <body>
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <span class="preloader-title">KONCEPT</span>
+            <div class="preloader-progress"><span id="preloaderCounter">0</span>%</div>
+        </div>
+    </div>
+
+    <!-- MAIN SITE WRAPPER FOR SMOOTH SCROLL -->
+    <div id="lenis-wrapper">
+
     <header class="nav-header">
         <div class="container nav-wrapper">
             <a href="#" class="logo-container">
                 <img src="assets/logo.png" alt="Koncept School" class="logo-img">
                 <span class="logo-text">Koncept</span>
             </a>
-
             <nav class="nav-desktop">
                 <a href="#philosophy" class="nav-link">Philosophy</a>
                 <a href="#experience" class="nav-link">Experience</a>
+                <a href="#mentors" class="nav-link">Mentors</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <a href="https://wa.me/917778876166" class="btn-cta-nav">Apply Now</a>
             </nav>
-
             <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
                 <span></span>
                 <span></span>
@@ -29,106 +41,188 @@
         </div>
     </header>
 
-    <div class="mobile-menu" id="mobileMenu" style="position: fixed; top: 0; right: 0; width: 100%; height: 100vh; background: var(--background); z-index: 1050; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px; transform: translateX(100%); transition: var(--transition-slow); visibility: hidden; opacity: 0;">
-        <a href="#philosophy" style="font-family: var(--font-heading); font-size: 2.5rem;">Philosophy</a>
-        <a href="#experience" style="font-family: var(--font-heading); font-size: 2.5rem;">Experience</a>
-        <a href="#contact" style="font-family: var(--font-heading); font-size: 2.5rem;">Contact</a>
-        <a href="https://wa.me/917778876166" class="btn-primary">Apply Now</a>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#philosophy" class="mobile-nav-link">Philosophy</a>
+        <a href="#experience" class="mobile-nav-link">Experience</a>
+        <a href="#mentors" class="mobile-nav-link">Mentors</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+        <a href="https://wa.me/917778876166" class="btn-primary mobile-cta">Apply Now</a>
     </div>
 
     <main>
+        <!-- HERO -->
         <section class="hero">
             <video autoplay loop muted playsinline class="hero-video">
                 <source src="assets/bg.mp4" type="video/mp4">
             </video>
+            <canvas id="particleCanvas" class="particle-canvas"></canvas>
             <div class="hero-overlay"></div>
-            
             <div class="container hero-content">
-                <span class="hero-tagline reveal stagger-1">Est. 2026 // Education Refined</span>
-                <h1 class="hero-title reveal split-words" style="line-height: 1.1;">Revolutionizing the Future of Learning.</h1>
-                <p class="hero-description reveal split-words">The school for the unschoolable. A creative laboratory where curiosity meets consequence. We don't just teach the future; we build it.</p>
+                <span class="hero-tagline reveal stagger-1">Est. 2026 &nbsp;// &nbsp;Education Refined</span>
+                <h1 class="hero-title reveal split-words">Revolutionizing the Future of Learning.</h1>
+                <p class="hero-description reveal split-words">The school for the unschoolable. A creative laboratory where curiosity meets consequence.</p>
                 <div class="hero-buttons reveal stagger-3">
-                    <a href="#philosophy" class="btn-primary">Discover the Model</a>
+                    <a href="#experience" class="btn-primary">Discover the Model</a>
                     <a href="https://wa.me/917778876166" class="btn-secondary">Message Admissions</a>
                 </div>
-            </div>
-        </section>
-
-        <section id="experience" class="bento-section">
-            <div class="container">
-                <div class="bento-grid">
-                    <!-- Featured Card -->
-                    <div class="bento-item featured col-span-2 reveal" style="background: url('assets/bento1.png') center/cover; min-height: 400px; padding: 40px;">
-                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%);"></div>
-                        <div class="bento-content" style="position: relative; z-index: 1;">
-                            <h3 style="color: white; font-size: 2.5rem;">Project-Based <br>Autonomy</h3>
-                            <p style="color: rgba(255,255,255,0.8);">Our students don't study subjects—they solve global problems through hands-on creation and radical experimentation.</p>
-                        </div>
-                    </div>
-
-                    <!-- Small Card 1 -->
-                    <div class="bento-item reveal" style="background: url('assets/bento2.png') center/cover; min-height: 300px;">
-                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, transparent 70%);"></div>
-                        <div class="bento-content" style="position: relative; z-index: 1; color: white;">
-                            <h3 style="color: white;">Global <br>Network</h3>
-                            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Collaborate with mentors and creators worldwide.</p>
-                        </div>
-                    </div>
-
-                    <!-- Small Card 2 -->
-                    <div class="bento-item reveal" style="background: url('assets/bento3.png') center/cover; min-height: 300px;">
-                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, transparent 70%);"></div>
-                        <div class="bento-content" style="position: relative; z-index: 1; color: white;">
-                            <h3 style="color: white;">Adaptive <br>Logic</h3>
-                            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">A curriculum that evolves in real-time.</p>
-                        </div>
-                    </div>
-
-                    <!-- Large Vertical Card -->
-                    <div class="bento-item reveal" style="grid-row: span 2; background: url('assets/lab.png') center/cover; min-height: 400px; position: relative;">
-                        <div style="position: absolute; inset: 0; background: linear-gradient(transparent, rgba(15, 23, 42, 0.9));"></div>
-                        <div class="bento-content" style="position: relative; z-index: 1; color: white;">
-                            <h3 style="color: white; font-size: 2rem;">The Creative <br>Lab</h3>
-                            <p style="color: rgba(255,255,255,0.8);">A multi-disciplinary space for builders, thinkers, and visionaries.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Final Card -->
-                    <div class="bento-item reveal col-span-2" style="background: url('assets/bento4.png') center/cover; min-height: 350px;">
-                        <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 60%, transparent 100%);"></div>
-                        <div class="bento-content" style="position: relative; z-index: 1; color: white;">
-                            <h3 style="color: white;">Human-Centric Intelligence</h3>
-                            <p style="color: rgba(255,255,255,0.8);">Fostering the skills that machines can't replicate: empathy, ethics, and strategic creativity.</p>
-                        </div>
-                    </div>
+                <div class="scroll-cue reveal stagger-3" aria-hidden="true">
+                    <span class="scroll-line"></span>
+                    <span class="scroll-label">Scroll</span>
                 </div>
             </div>
         </section>
 
+        <!-- STATS -->
+        <section class="stats-section" id="stats">
+            <div class="stats-bg" style="background-image: url('assets/stats_bg.png');"></div>
+            <div class="container stats-grid">
+                <div class="stat-item reveal stagger-1">
+                    <span class="stat-number" data-target="565">0</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+                <div class="stat-item reveal stagger-2">
+                    <span class="stat-number" data-target="12">0</span>
+                    <span class="stat-label">Projects Published</span>
+                </div>
+                <div class="stat-item reveal stagger-3">
+                    <span class="stat-number" data-target="100">0</span>
+                    <span class="stat-label">% Student-Led</span>
+                </div>
+                <div class="stat-item reveal">
+                    <span class="stat-number" data-target="2026">0</span>
+                    <span class="stat-label">Year Founded</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- HORIZONTAL SCROLL-HIJACK: Experience -->
+        <div class="hijack-shell" id="experience">
+            <div class="hijack-sticky">
+                <div class="hijack-header container">
+                    <span class="section-tag">// The Experience</span>
+                    <h2 class="section-title split-words reveal">A different kind of <em>school.</em></h2>
+                </div>
+                <div class="hijack-track-wrapper">
+                    <div class="hijack-track" id="hijackTrack">
+                        <div class="hcard img-mask-reveal">
+                            <div class="img-mask-scale hcard-bg" style="background-image:url('assets/bento1.png');"></div>
+                            <div class="hcard-overlay"></div>
+                            <div class="hcard-content">
+                                <span class="hcard-num">01</span>
+                                <h3>Project-Based<br>Autonomy</h3>
+                                <p>Our students don't study subjects. They solve global problems through hands-on creation.</p>
+                            </div>
+                        </div>
+                        <div class="hcard img-mask-reveal">
+                            <div class="img-mask-scale hcard-bg" style="background-image:url('assets/bento2.png');"></div>
+                            <div class="hcard-overlay"></div>
+                            <div class="hcard-content">
+                                <span class="hcard-num">02</span>
+                                <h3>Global<br>Network</h3>
+                                <p>Collaborate with mentors, founders and creators from Mumbai to Manhattan.</p>
+                            </div>
+                        </div>
+                        <div class="hcard img-mask-reveal">
+                            <div class="img-mask-scale hcard-bg" style="background-image:url('assets/bento3.png');"></div>
+                            <div class="hcard-overlay"></div>
+                            <div class="hcard-content">
+                                <span class="hcard-num">03</span>
+                                <h3>Adaptive<br>Logic</h3>
+                                <p>A curriculum that evolves in real-time based on student momentum and world events.</p>
+                            </div>
+                        </div>
+                        <div class="hcard img-mask-reveal">
+                            <div class="img-mask-scale hcard-bg" style="background-image:url('assets/lab.png');"></div>
+                            <div class="hcard-overlay"></div>
+                            <div class="hcard-content">
+                                <span class="hcard-num">04</span>
+                                <h3>The Creative<br>Lab</h3>
+                                <p>A multi-disciplinary space for builders, thinkers, and visionaries.</p>
+                            </div>
+                        </div>
+                        <div class="hcard img-mask-reveal">
+                            <div class="img-mask-scale hcard-bg" style="background-image:url('assets/bento4.png');"></div>
+                            <div class="hcard-overlay"></div>
+                            <div class="hcard-content">
+                                <span class="hcard-num">05</span>
+                                <h3>Human-Centric<br>Intelligence</h3>
+                                <p>Fostering the skills machines can't replicate: empathy, ethics, strategic creativity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hijack-progress-bar">
+                    <div class="hijack-progress-fill" id="hijackProgress"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHILOSOPHY -->
         <section id="philosophy" class="glass-section">
             <div class="container">
                 <div class="glass-card reveal">
-                    <h2 class="split-words reveal" style="font-size: 3.5rem; margin-bottom: 30px;">"The classroom is a relic; the world is the laboratory."</h2>
-                    <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto 40px; color: rgba(255,255,255,0.7);">We believe in radical schooling. No walls, no limits, just pure curiosity driven by action. Koncept School is where the 'unschoolable' find their rhythm and the 'creators' find their voice.</p>
-                    <a href="https://wa.me/917778876166" class="btn-primary" style="background: white; color: var(--primary);">Join the Revolution</a>
+                    <h2 class="split-words reveal philosophy-title">"The classroom is a relic; the world is the laboratory."</h2>
+                    <p class="philosophy-text">We believe in radical schooling. No walls, no limits — just pure curiosity driven by action. Koncept School is where the 'unschoolable' find their rhythm and the 'creators' find their voice.</p>
+                    <a href="https://wa.me/917778876166" class="btn-ghost">Join the Revolution →</a>
                 </div>
             </div>
         </section>
 
+        <!-- MENTORS -->
+        <section id="mentors" class="mentors-section">
+            <div class="container mentors-wrapper">
+                <div class="mentor-image-wrap reveal img-mask-reveal">
+                    <div class="img-mask-scale mentor-img" style="background: url('assets/mentor.png') center/cover;"></div>
+                    <div class="mentor-badge">
+                        <span class="badge-num split-chars">01</span>
+                        <span class="badge-label">Lead Educator</span>
+                    </div>
+                </div>
+                <div class="mentor-text reveal">
+                    <span class="section-tag">// The People</span>
+                    <h2 class="mentor-heading">Taught by <em>rebels</em>, thinkers &amp;<br>world-builders.</h2>
+                    <p>Our mentors aren't teachers. They're founders, artists, engineers, and explorers who left traditional careers to shape the minds of tomorrow's problem-solvers.</p>
+                    <a href="https://wa.me/917778876166" class="btn-primary" style="display:inline-block;margin-top:24px;">Meet our people</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUEE DIVIDER -->
+    <div class="marquee-section" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-text"><span class="outline">NO WALLS</span> ✦ NO LIMITS ✦ <span class="outline">PURE CURIOSITY</span> ✦ </span>
+            <span class="marquee-text"><span class="outline">NO WALLS</span> ✦ NO LIMITS ✦ <span class="outline">PURE CURIOSITY</span> ✦ </span>
+            <span class="marquee-text"><span class="outline">NO WALLS</span> ✦ NO LIMITS ✦ <span class="outline">PURE CURIOSITY</span> ✦ </span>
+            <span class="marquee-text"><span class="outline">NO WALLS</span> ✦ NO LIMITS ✦ <span class="outline">PURE CURIOSITY</span> ✦ </span>
+        </div>
+        <div class="marquee-track reverse">
+            <span class="marquee-text"><span class="outline">THE WORLD</span> ✦ IS THE ✦ <span class="outline">LABORATORY</span> ✦ </span>
+            <span class="marquee-text"><span class="outline">THE WORLD</span> ✦ IS THE ✦ <span class="outline">LABORATORY</span> ✦ </span>
+            <span class="marquee-text"><span class="outline">THE WORLD</span> ✦ IS THE ✦ <span class="outline">LABORATORY</span> ✦ </span>
+            <span class="marquee-text"><span class="outline">THE WORLD</span> ✦ IS THE ✦ <span class="outline">LABORATORY</span> ✦ </span>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
         <section id="contact" class="contact-section">
             <div class="container contact-wrapper">
                 <div class="contact-info reveal">
-                    <h2 class="split-chars reveal">Speak with Visionaries.</h2>
-                    <p>Admissions for the 2026 cohort are now open for select candidates who dare to think differently.</p>
+                    <span class="section-tag">// Get in Touch</span>
+                    <h2 class="split-chars">Speak with<br>Visionaries.</h2>
+                    <p>Admissions for the 2026 cohort are open for select candidates who dare to think differently.</p>
                 </div>
                 <div class="contact-details reveal stagger-2">
                     <div class="contact-item">
-                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em;">Direct Line</span>
+                        <span class="contact-label">Direct Line</span>
                         <a href="tel:+917778876166" class="contact-link">+91 77788 76166</a>
                     </div>
                     <div class="contact-item">
-                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em;">Social Presence</span>
-                        <a href="#" class="contact-link">@konceptschool</a>
+                        <span class="contact-label">Social Presence</span>
+                        <a href="https://instagram.com/konceptschool" class="contact-link">@konceptschool</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">WhatsApp</span>
+                        <a href="https://wa.me/917778876166" class="contact-link">Message us now →</a>
                     </div>
                 </div>
             </div>
@@ -136,15 +230,19 @@
     </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-nav">
+        <div class="container footer-inner">
+            <h2 class="footer-title">KONCEPT <span class="footer-title-sub">SCHOOL</span></h2>
+            <nav class="footer-nav">
                 <a href="#philosophy">Philosophy</a>
                 <a href="#experience">Experience</a>
+                <a href="#mentors">Mentors</a>
                 <a href="#contact">Contact</a>
-            </div>
-            <p style="font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted);">© 2026 KONCEPT SCHOOL // BUILT FOR THE FUTURE</p>
+            </nav>
+            <p class="footer-copy">© 2026 KONCEPT SCHOOL // BUILT FOR THE FUTURE</p>
         </div>
     </footer>
+
+    </div> <!-- /lenis-wrapper -->
 
     <script src="js/main.js"></script>
 </body>
