@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAMARE Spices | Premium Masalas & Authentic Flavors</title>
+    <meta name="description" content="Pure. Hand-selected. Preservative-free. Elevate your everyday cooking with AAMARE Spices. The art of authentic flavor.">
+    
+    <!-- Design System Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container container">
+            <a href="#" class="logo-link">
+                <img src="assets/logo.png" alt="AAMARE Spices Logo" class="nav-logo">
+            </a>
+            
+            <div class="nav-actions">
+                <button class="cart-toggle" id="cartToggle" aria-label="View Cart">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </button>
+                
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Our Story</a></li>
+                <li><a href="#collection">Collection</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="nav-cta-item"><a href="#collection" class="btn-cta">Shop Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <button class="close-menu" id="closeMenu" aria-label="Close Menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#collection">Collection</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#collection" class="btn-cta">Shop Now</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-bg-visual"></div>
+            <div class="container hero-content">
+                <h1 class="hero-title">The Art of <br><span class="accent-text">Authentic Flavor.</span></h1>
+                <p class="hero-subtitle">Pure. Hand-selected. Preservative-free.<br>Elevate your everyday cooking with premium masalas.</p>
+                <div class="hero-btns">
+                    <a href="#collection" class="btn-primary">Explore Collection</a>
+                    <a href="#about" class="btn-secondary">Our Story</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats/Features -->
+        <section class="features">
+            <div class="container features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3>Pure Quality</h3>
+                    <p>100% natural, no artificial additives.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <h3>Hand Selected</h3>
+                    <p>Only the finest spices reach your kitchen.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3>Fresh Ground</h3>
+                    <p>Preserving aroma and flavor in every pack.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container about-container">
+                <div class="about-image">
+                    <div class="spice-visual-box"></div>
+                </div>
+                <div class="about-text">
+                    <span class="section-tag">Since Perfection</span>
+                    <h2>A Tradition of <span class="accent-text">Purity</span></h2>
+                    <p>At AAMARE Spices, we believe that great cooking starts with the soul of the dish—the spices. Our mission is to bring back the authentic taste of tradition through masalas that are pure, hand-selected, and completely free from preservatives.</p>
+                    <p>Every blend is crafted with care, ensuring that you taste nothing but the true essence of each ingredient. Elevate your everyday cooking with the signature touch of AAMARE.</p>
+                    <div class="about-highlights">
+                        <div class="highlight">
+                            <strong>100%</strong>
+                            <span>Preservative Free</span>
+                        </div>
+                        <div class="highlight">
+                            <strong>Premium</strong>
+                            <span>Quality Sourcing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collection Section -->
+        <section id="collection" class="collection">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our <span class="accent-text">Signature</span> Blends</h2>
+                    <p>Discover the rich variety of AAMARE Spices, crafted to perfection.</p>
+                </div>
+                
+                <div class="product-grid" id="productGrid">
+                    <!-- Products will be dynamically rendered or static for SEO -->
+                    <div class="product-card" data-id="1" data-name="AAMARE Garam Masala" data-price="299">
+                        <div class="product-img">
+                            <div class="spice-pattern p1"></div>
+                        </div>
+                        <div class="product-info">
+                            <h3>AAMARE Garam Masala</h3>
+                            <p class="product-desc">The royal blend of aromatic spices.</p>
+                            <div class="product-footer">
+                                <span class="price">₹299</span>
+                                <button class="btn-add-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-id="2" data-name="Turmeric Powder" data-price="149">
+                        <div class="product-img">
+                            <div class="spice-pattern p2"></div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Pure Turmeric Powder</h3>
+                            <p class="product-desc">High curcumin content for health and color.</p>
+                            <div class="product-footer">
+                                <span class="price">₹149</span>
+                                <button class="btn-add-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-id="3" data-name="Kashmiri Chili Powder" data-price="199">
+                        <div class="product-img">
+                            <div class="spice-pattern p3"></div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Kashmiri Chili Powder</h3>
+                            <p class="product-desc">Vibrant red color with a mild heat.</p>
+                            <div class="product-footer">
+                                <span class="price">₹199</span>
+                                <button class="btn-add-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-id="4" data-name="AAMARE Kitchen King" data-price="249">
+                        <div class="product-img">
+                            <div class="spice-pattern p4"></div>
+                        </div>
+                        <div class="product-info">
+                            <h3>AAMARE Kitchen King</h3>
+                            <p class="product-desc">The ultimate all-purpose masala.</p>
+                            <div class="product-footer">
+                                <span class="price">₹249</span>
+                                <button class="btn-add-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="final-cta">
+            <div class="container cta-container">
+                <div class="cta-content">
+                    <h2>Ready to Transform Your Cooking?</h2>
+                    <p>Order your AAMARE Spices today and taste the difference of purity.</p>
+                    <a href="https://wa.me/917778876166?text=Hello%20AAMARE%20Spices%2C%20I'd%20like%20to%20order..." class="btn-whatsapp-large">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.436 5.631 1.437h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+                        </svg>
+                        Order via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter / Community -->
+        <section id="contact" class="contact">
+            <div class="container contact-grid">
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    <p>Experience the art of authentic flavor. Follow us for recipes and kitchen inspiration.</p>
+                    <div class="contact-methods">
+                        <a href="https://instagram.com/aamare.spices" class="contact-link" target="_blank">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                            @aamare.spices
+                        </a>
+                        <a href="tel:+917778876166" class="contact-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.83 12.83 0 00.62 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.62A2 2 0 0122 16.92z"></path>
+                            </svg>
+                            +91 77788 76166
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="4" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Your Kitchen Basket</h2>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be injected by JS -->
+                <div class="empty-cart-msg">Your basket is empty.</div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotalText">₹0</span>
+                </div>
+                <button class="btn-checkout" id="checkoutBtn">Checkout to WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/logo.png" alt="AAMARE Spices Logo" class="footer-logo">
+                    <p>Elevate your everyday cooking with the essence of authentic Indian spices.</p>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 AAMARE Spices. Crafted with Purity.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/917778876166" class="floating-whatsapp" aria-label="Chat on WhatsApp"> 
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.436 5.631 1.437h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+        </svg>
+    </a>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
