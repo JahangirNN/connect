@@ -79,7 +79,11 @@ Map the AI output directly to implementation decisions:
 
 ### Phase 2: Folder Initialization & Asset Management
 1. **Create Business Workspace:** Determine a suitable short name (e.g., `apex_fitness`, `primecoat_sg`). Create directory: `c:\Users\Administrator\WorkPlace\connect\<business_name>`.
-2. **Copy Logo:** Copy the user's provided logo image into the directory as `logo.png`.
+2. **Handle Assets (CRITICAL):**
+    - **Logo:** Copy the primary logo image into the directory as `logo.png`.
+    - **All Other Assets:** Copy EVERY image and video provided by the user into the workspace.
+    - **HEIC Conversion:** If user provides `.heic` files, ALWAYS convert them to `.jpg` using `ffmpeg -i input.heic output.jpg` before integrating.
+    - **Integration:** Do not let assets sit idle. Use videos as backgrounds or feature sections. Use multiple images in galleries or as contextual section visuals.
 
 **Expected Folder Structure:**
 ```text
@@ -208,3 +212,4 @@ Save to `c:\Users\Administrator\WorkPlace\connect\<business_name>\index.html` an
 7. **Concise Output:** Keep HTML under 25KB. Use short class names, compress where possible.
 8. **Mobile Perfect:** Default CSS is mobile-first. Responsive at 375/768/1024/1440px.
 9. **Performance Aware:** Respect `prefers-reduced-motion`. Use effects sparingly when flagged.
+11. **Asset Maximization:** ALWAYS use all provided assets. Integrate videos and multiple images into the UI. Convert `.heic` to `.jpg` proactively.
