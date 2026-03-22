@@ -31,16 +31,20 @@ These rules exist because of real failures. Violating them wastes time and produ
 1. **ALWAYS run the design system generator** before writing any code (Phase 1).
 2. **ALWAYS use CSS custom properties** mapped from the design system output.
 3. **ALWAYS use the exact hex values** from the design system — do not invent your own colors.
-4. **ALWAYS create the folder and copy the logo** before generating HTML (Phase 2).
-5. **ALWAYS deliver the finished `index.html` directly** — no preview step needed.
+4. **ALWAYS create the folder and copy the logo** before generating code (Phase 2).
+5. **ALWAYS read `c:\Users\Administrator\WorkPlace\connect\.agent\skills\instant-website\resources\mobile-design-best-practices.md`** before planning the layout logic.
+6. **ALWAYS deliver a clean file structure** — separating concerns into `index.html`, `css/styles.css`, and `js/main.js` instead of a monstrous monolithic file. No preview step needed.
 
 ---
 
-## Execution Pipeline (Mandatory 3-Phase Process):
+## Execution Pipeline (Mandatory 4-Phase Process):
+
+### Phase 0: Planning & Task Checklist (MANDATORY ARTIFACT)
+Before taking ANY actions or running searches, you MUST create an `implementation_plan` artifact. This plan must act as a rigid, step-by-step checklist of everything you are about to do—explicitly including the Mobile Design Guidelines, the multi-file architecture constraints, and the Self-Reflection UI checks. Do NOT proceed to Phase 1 until you have written this artifact.
 
 ### Phase 1: AI-Powered Design System Generation (via ui-ux-pro-max)
 
-Before writing any code, generate a complete design system using the `ui-ux-pro-max` skill.
+After your plan is written, generate a complete design system using the `ui-ux-pro-max` skill.
 
 #### Step 1.1: Analyze User Inputs
 Extract the following from the user's business context:
@@ -81,7 +85,7 @@ Map the AI output directly to implementation decisions:
 1. **Create Business Workspace:** Determine a suitable short name (e.g., `apex_fitness`, `primecoat_sg`). Create directory: `c:\Users\Administrator\WorkPlace\connect\<business_name>`.
 2. **Handle Assets (CRITICAL):**
     - **Logo:** Copy the primary logo image into the directory as `logo.png`.
-    - **All Other Assets:** Copy EVERY image and video provided by the user into the workspace.
+    - **All Other Assets:** Copy EVERY image and video provided by the user into the workspace. **If multiple images are provided alongside a logo, assume they are product images 99% of the time, and you MUST implement a simple "Add to Cart" functionality.**
     - **HEIC Conversion:** If user provides `.heic` files, ALWAYS convert them to `.jpg` using `ffmpeg -i input.heic output.jpg` before integrating.
     - **Integration:** Do not let assets sit idle. Use videos as backgrounds or feature sections. Use multiple images in galleries or as contextual section visuals.
 
@@ -90,19 +94,23 @@ Map the AI output directly to implementation decisions:
 c:\Users\Administrator\WorkPlace\connect\
 └── <business_name>\
     ├── index.html    (Main website file)
-    └── logo.png      (Business logo)
+    ├── css/
+    │   └── styles.css (All styling)
+    ├── js/
+    │   └── main.js   (All logic)
+    └── assets/       (Contains logo and all other media)
 ```
 
 ---
 
 ### Phase 3: Bespoke Code Generation
 
-Write the entire website from scratch as a single `index.html` file. This is the final deliverable — there is no Phase 4.
+Write the website from scratch utilizing a cleaner multi-file architecture: `index.html`, `css/styles.css`, and `js/main.js`. **CRITICAL: Before writing any code, you MUST run a `view_file` on `c:\Users\Administrator\WorkPlace\connect\.agent\skills\instant-website\resources\mobile-design-best-practices.md` to ensure your mobile layouts (especially product cards) are not massive and adhere strictly to UX standards.**
 
-#### 3.1 Document Structure
-Create `index.html` with proper `<meta>` SEO tags (title, description, viewport).
+#### 3.1 Document Structure (`index.html`)
+Create `index.html` with proper `<meta>` SEO tags (title, description, viewport), linking to external CSS and JS.
 
-#### 3.2 Inject Tailored CSS (Design System → Code)
+#### 3.2 Inject Tailored CSS (`css/styles.css`)
 
 **CSS Custom Properties (MANDATORY):**
 ```css
@@ -129,8 +137,8 @@ Create `index.html` with proper `<meta>` SEO tags (title, description, viewport)
 }
 ```
 
-**Mobile-First Design (MANDATORY):**
-- Default CSS MUST strictly target mobile (375px+).
+**Mobile-First Design (MANDATORY & CRITICAL):**
+- The design MUST be **mobile-first, always** (not just mobile-friendly). It often looks bad on mobile otherwise. Default CSS MUST strictly target mobile (375px+).
 - Use `min-width` media queries to scale up layouts and spacing for: 768px → 1024px → 1440px.
 - **Specific Mobile Precision Rules:**
   - **Headlines:** Set safe `clamp()` minimums to prevent overflow on 320px-375px screens (e.g., use `clamp(2rem, 8vw, 4.5rem)` rather than a `2.5rem` floor).
@@ -138,9 +146,14 @@ Create `index.html` with proper `<meta>` SEO tags (title, description, viewport)
   - **Padding:** Rely on tighter paddings for base/mobile rules (e.g., `padding: var(--space-lg);`). Scale to spacious padding like `var(--space-3xl)` only within `@media (min-width: 768px)` breakpoints.
   - **Overlaps:** Dial down extreme overlaps (such as high negative `translateY` values) on mobile, preserving them solely for desktop screen widths.
 
-**Mobile Navigation:**
-- ALWAYS implement a hamburger menu for mobile.
-- Smooth open/close transitions (300-400ms).
+**Mobile Navigation & Layout Safeties:**
+- ALWAYS implement a hamburger menu for mobile. Smooth open/close transitions (300-400ms).
+- **Cancel/Close Icon (CRITICAL):** ALWAYS provide a clear way to close the mobile menu. The hamburger toggle must remain visible on top (`z-index` higher than menu) and animate into a visible "X" (Close button), OR explicitly place an SVG "X" button inside the sidebar to close it. Never trap the user inside a sidebar.
+- **Menu Background Bleed:** Make sure the mobile menu overlay has `opacity: 0`, `visibility: hidden`, and `pointer-events: none` when closed, so it never bleeds through the edges of the exact viewport height bounds.
+- **Button Sizing Overflow:** Sidebar links often receive massive font sizing (`3rem`). If you nest a CTA button inside the sidebar, you MUST use CSS to strictly prevent it from inheriting massive font sizes that blow out its bounds (e.g. use `.mobile-menu > a:not(.btn-cta)` for the big links).
+- **Wide Screen Clamp Error:** NEVER constrain `<nav>` or `<header>` container nodes directly using `max-width` or `.container` boundaries, which causes backgrounds and videos to get chopped off linearly on widescreens. Apply the container to an inner wrapper (`<div class="nav-wrapper container">`) so backgrounds organically span `100vw`.
+- **Top Safe Area (Overlap Bug):** ALWAYS add `padding-top: calc(var(--nav-h) + var(--space-xl));` to your `header` or `hero` wrapper. Without this, extremely short mobile screens will squeeze your bottom-aligned hero text underneath the fixed glass navbar, hiding the text.
+- **CRITICAL FIX:** The mobile navbar is extremely narrow. NEVER place a large primary action button (`.btn-cta`) next to the hamburger menu on mobile; hide navbar CTA buttons (`display: none` below `1024px`) and place the CTA inside the mobile menu dropdown instead.
 
 **Responsive Grids:**
 - CSS Grid / Flexbox that auto-stacks on mobile.
@@ -173,7 +186,8 @@ Create `index.html` with proper `<meta>` SEO tags (title, description, viewport)
 
 #### 3.4 Wire the CTA ("Book Now" / Contact / Cart)
 - **CRITICAL:** Use the phone number provided by the user. If no phone number is provided, ALWAYS default to `917778876166`. **NEVER invent a placeholder number.**
-- **If specific products are requested:** ALWAYS implement a lightweight JavaScript shopping cart. Add a sticky "Cart" icon to the header, and include "Add to Cart" / "Buy Now" buttons on every product card. The checkout action must open a cart modal summarizing items/total, and then redirect to a pre-filled WhatsApp message containing the order (`https://wa.me/<PhoneNumber>?text=<UrlEncodedOrder>`).
+- **If specific products are requested OR if multiple images are provided alongside a logo (assume they are products 99% of the time):** ALWAYS implement a lightweight JavaScript shopping cart. Add a sticky "Cart" icon to the header, and include "Add to Cart" / "Buy Now" buttons on every product card. The checkout action must open a cart modal summarizing items/total, and then redirect to a pre-filled WhatsApp message containing the order (`https://wa.me/<PhoneNumber>?text=<UrlEncodedOrder>`). 
+- **Cart UX Requirements:** If generating a cart, you MUST include functional "Remove" (×) buttons next to each item inside the modal that successfully slice the item out of the array and re-render the view. Also, if all items are removed, explicitly render a "Your cart is empty." message natively.
 - **For cafes and restaurants:** "Book Now" button opens a custom modal form (event type, date, time, guests). JS captures values and redirects to WhatsApp.
 - **For other businesses without specific individual products:** Use direct WhatsApp links: `https://wa.me/<PhoneNumber>?text=Hello...`
 - If an email is provided, include `mailto:<email>`.
@@ -189,6 +203,7 @@ Apply these rules WHILE writing code — not as a separate check:
 | **Transitions** | `transition: all 200ms ease` on hover states (150-300ms range) |
 | **Contrast** | Body text ≥ 4.5:1 ratio, muted text ≥ 3:1 ratio |
 | **Navbar** | First section gets `padding-top: calc(var(--nav-h) + extra)` |
+| **Nav CTA** | Hide CTA buttons inside the navbar on mobile (`display: none`) to prevent overflow |
 | **Max-width** | Same `max-width` across all sections (e.g., `1200px`) |
 | **Mobile** | No horizontal scroll at 375px, `overflow-x: hidden` on body |
 | **Touch targets** | Buttons/CTAs minimum 44×44px on mobile |
@@ -196,8 +211,19 @@ Apply these rules WHILE writing code — not as a separate check:
 | **Reduced motion** | `@media(prefers-reduced-motion:reduce)` disables animations |
 | **Semantic** | Use `<header>`, `<main>`, `<section>`, `<footer>`, `<nav>` |
 
+#### 3.5 AI Self-Reflection Checklist (MANDATORY MUST-PASS)
+Before delivering the code, you **MUST** step-by-step self-verify the constraints below. If any are missed, the website is conceptually broken for mobile.
+1. [ ] Check **Menu Close Mechanism**: Does the mobile sidebar actually have a clear close/cancel "X" mechanism (an animated toggle staying on top, or a dedicated explicit close button)?
+2. [ ] Check **Sidebar Bleed**: Does `.mobile-menu` explicitly employ `visibility: hidden` and `opacity: 0` when in its closed state so no corners bleed out?
+3. [ ] Check **Sidebar Text Scales**: Did I protect the `.btn-cta` inside the sidebar from inheriting the massive `3rem` font sizes applied to normal menu links using CSS exclusions like `:not(.btn-cta)`?
+4. [ ] Check **Navbar UI Clamp**: Did I explicitly hide `.btn-cta` from the navbar on mobile via a `@media` query to prevent overflow? 
+5. [ ] Check **Full-width Hero/Nav Backgrounds**: Did I incorrectly drop the `.container` class onto `<nav>` or `<header>`, breaking structural width? (Fix: wrap the inner content in a container instead).
+6. [ ] Check **Hero Safe Area**: Did I inject `padding-top: calc(var(--nav-h) + extra)` into the hero section to prevent short mobile screens from shoving text underneath the fixed navbar?
+7. [ ] Check **Product Card Orientation**: Are the product/image cards horizontally grouped or utilizing a scroll-snap carousel rather than stacking 100vh massive vertical blocks?
+8. [ ] Check **Cart Removal UX**: If I implemented a cart, does it have functional 'Remove' buttons and handle the empty `cart.length === 0` UI state correctly without breaking?
+
 #### 3.6 Save & Deliver
-Save to `c:\Users\Administrator\WorkPlace\connect\<business_name>\index.html` and inform the user the website is ready. No preview, no server, no browser check.
+Save all files (`index.html`, `css/styles.css`, `js/main.js`) securely in the business directory and inform the user the website is ready. No preview, no server, no browser check.
 
 ---
 
@@ -210,6 +236,6 @@ Save to `c:\Users\Administrator\WorkPlace\connect\<business_name>\index.html` an
 5. **No Image Generation:** Use CSS-based visuals. Never call `generate_image`.
 6. **No Placeholder Numbers:** Use the user's number or default `917778876166`.
 7. **Concise Output:** Keep HTML under 25KB. Use short class names, compress where possible.
-8. **Mobile Perfect:** Default CSS is mobile-first. Responsive at 375/768/1024/1440px.
+8. **Mobile First, Always:** The design MUST be mobile-first, not just mobile-friendly. Default CSS MUST strictly target mobile. Responsive at 375/768/1024/1440px.
 9. **Performance Aware:** Respect `prefers-reduced-motion`. Use effects sparingly when flagged.
 11. **Asset Maximization:** ALWAYS use all provided assets. Integrate videos and multiple images into the UI. Convert `.heic` to `.jpg` proactively.
