@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cream N Essence | Surat Home Bakery</title>
+    <meta name="description" content="Surat based home bakery offering premium cakes, brownies, cookies, and cheesecake. 9+ Years of baking Experience. Freshness Served Daily.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Overlay for Modals/Sidebar -->
+    <div class="overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-wrapper container">
+            <a href="#" class="logo">
+                <img src="assets/image.png" alt="Cream N Essence Logo">
+                Cream N Essence
+            </a>
+            
+            <!-- Desktop Links -->
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#menu" class="nav-link">Our Menu</a></li>
+                <!-- CTA hidden in navbar on mobile, visible on desktop -->
+                <li><a href="https://wa.me/917778876166" class="btn btn-primary nav-cta">DM to Order</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="cart-toggle" aria-label="Open Cart">
+                    <svg class="icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <span class="cart-count">0</span>
+                </button>
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar -->
+    <div class="mobile-sidebar">
+        <!-- The X close is visually the hamburger menu transforming, but works since z-index overlay -->
+        <div class="mobile-nav-links">
+            <a href="#about" class="mobile-nav-link">About Us</a>
+            <a href="#menu" class="mobile-nav-link">Menu</a>
+            <a href="https://wa.me/917778876166" class="mobile-nav-link">Contact</a>
+        </div>
+        
+        <div style="margin-top: auto; display: flex; flex-direction: column; gap: 16px;">
+            <p class="text-muted" style="text-align: center;">📍 Surat based | Home bakery</p>
+            <a href="https://wa.me/917778876166?text=Hi!%20I%20would%20like%20to%20order..." class="btn btn-primary">DM to Order</a>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-btn" aria-label="Close Cart">
+                <svg class="icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="cart-body">
+            <!-- Items injected here by JS -->
+            <div class="empty-cart-msg">Your cart is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <strong>₹0</strong>
+            </div>
+            <button class="btn btn-primary btn-checkout">Order via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-wrapper container">
+                <div class="hero-content">
+                    <span class="hero-subtitle">Freshness Served Daily 👩‍🍳</span>
+                    <h1>Layers of Happiness.</h1>
+                    <p class="hero-text">Your favorite dessert, now travel-friendly & irresistible. Premium, handcrafted cakes and desserts baked with love in Surat.</p>
+                    <div class="hero-actions">
+                        <a href="#menu" class="btn btn-primary">Check Our Menu</a>
+                        <a href="#about" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="hero-media">
+                    <!-- High quality Trimmed MP4 video with web optimization (faststart) -->
+                    <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                        <source src="assets/happiness_optimized.mp4" type="video/mp4">
+                    </video>
+                    
+                    <div class="floating-badge">
+                        <div class="badge-icon">
+                            <svg class="icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                        </div>
+                        <span class="badge-text" style="font-size: 1.2rem;">9+ Years</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About/Stats Section -->
+        <section class="section about" id="about">
+            <div class="container">
+                <h2 style="margin-bottom: 8px;">The Bakery.</h2>
+                <p class="text-center text-muted" style="max-width: 600px; margin: 0 auto;">We are a FSSAI Registered home bakery based in Surat, bringing you the finest textures and artisanal flavors.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-num">9+</div>
+                        <div class="stat-label">Years Exp.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">FSSAI</div>
+                        <div class="stat-label">Registered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">210+</div>
+                        <div class="stat-label">Posts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">Surat</div>
+                        <div class="stat-label">Location</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section class="section menu" id="menu">
+            <div class="container">
+                <h2>Our Specialties.</h2>
+                <p class="text-center text-muted" style="max-width: 600px; margin: 0 auto; margin-bottom: 32px;">Every bite is perfectly balanced. Enjoy our bestselling items baked fresh to order.</p>
+                
+                <div class="menu-grid">
+                    <!-- Product Card -->
+                    <div class="product-card">
+                        <img src="assets/cake.png" alt="Can Cake" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Can Cake Dessert</h3>
+                            <p class="product-desc">Layers of happiness, sealed in a can. Travel-friendly & irresistible.</p>
+                            <div class="product-meta">
+                                <span class="product-price">₹250</span>
+                                <button class="btn-add" aria-label="Add to cart">
+                                    <svg class="icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Card -->
+                    <div class="product-card">
+                        <img src="assets/brownie.png" alt="Premium Brownie" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Fudgy Brownie Box</h3>
+                            <p class="product-desc">Decadent, gooey, and rich chocolate brownies made with premium cocoa.</p>
+                            <div class="product-meta">
+                                <span class="product-price">₹450</span>
+                                <button class="btn-add" aria-label="Add to cart">
+                                    <svg class="icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Card -->
+                    <div class="product-card">
+                        <img src="assets/cookies.png" alt="Artisan Cookies" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Artisan Assorted Cookies</h3>
+                            <p class="product-desc">Crisp edges, chewy centers. A box of our finest handcrafted cookies.</p>
+                            <div class="product-meta">
+                                <span class="product-price">₹300</span>
+                                <button class="btn-add" aria-label="Add to cart">
+                                    <svg class="icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Card -->
+                    <div class="product-card">
+                        <img src="assets/cheesecake.png" alt="Classic Cheesecake" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Classic Cheesecake Slice</h3>
+                            <p class="product-desc">Smooth, rich cream cheese resting on a buttery crumble base.</p>
+                            <div class="product-meta">
+                                <span class="product-price">₹280</span>
+                                <button class="btn-add" aria-label="Add to cart">
+                                    <svg class="icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Cream N Essence</div>
+                <p style="opacity: 0.9;">Freshness Served Daily. 📍 Surat based Home bakery.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg class="icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2" stroke="none" fill="currentColor"></circle></svg>
+                    </a>
+                </div>
+                <p>210 posts • 310 followers • 170 following</p>
+                <a href="https://wa.me/917778876166" class="btn btn-secondary" style="border-color: white; color: white;">DM to Order</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Cream N Essence. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Action -->
+    <a href="https://wa.me/917778876166?text=Hello!%20I'd%20like%20to%20place%20an%20order." class="fab-whatsapp" aria-label="Chat on WhatsApp">
+        <svg style="width: 32px; height: 32px; fill: white;" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.369.846.149.072.236.058.322-.043.086-.101.373-.435.474-.585.101-.15.202-.125.361-.065.159.058 1.005.474 1.177.561.173.087.289.13.332.202.043.073.043.423-.101.828zM11.964 21.056h-.032c-1.373 0-2.4-.337-3.414-.852l-.244-.145-2.505.656.669-2.443-.16-.254c-.588-.934-.897-1.928-.897-3.036 0-3.923 3.193-7.11 7.124-7.11 1.902 0 3.685.74 5.029 2.083 1.344 1.343 2.083 3.127 2.083 5.028-.001 3.92-3.195 7.11-7.11 7.110z" />
+        </svg>
+    </a>
+</body>
+</html>
