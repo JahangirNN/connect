@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timber and Tales | Timeless Wooden Crafts & Frames</title>
+    <meta name="description" content="Every piece at Timber and Tales tells a story through wooden crafts and frames made to enrich your interiors and memories with timeless style. Located in Kota, Rajasthan.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header>
+        <div class="nav-wrapper container">
+            <a href="#" class="logo-container">
+                <img src="assets/logo.png" alt="Timber and Tales Logo">
+                <span class="brand-name">Timber and Tales</span>
+            </a>
+            
+            <nav class="desktop-menu">
+                <a href="#about">Our Story</a>
+                <a href="#collection">Collection</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="cart-toggle" aria-label="Open Cart">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="cart-count">0</span>
+                </button>
+                <button class="hamburger" aria-label="Toggle Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#about" class="nav-link">Our Story</a>
+        <a href="#collection" class="nav-link">Collection</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <!-- CTA inside mobile menu to prevent overflow in header on small screens -->
+        <a href="#collection" class="btn-cta nav-link" style="margin-top: 2rem;">Shop Now</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop playsinline class="hero-bg-video">
+            <source src="assets/AQMutmT7_2Gnac68Q407WEk-PN4sPgtqohwvk9nPf-_O1L8LeIfZ8vYAT3EJMDkRpNPeVzn-ktI_hKNTAqRg1y_n..mp4" type="video/mp4">
+        </video>
+        <div class="hero-glass-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Timeless Wooden Crafts & Frames</h1>
+                <p class="subtitle">Every piece at Timber and Tales tells a story, crafted to enrich your interiors and preserve your memories.</p>
+                <div class="hero-actions">
+                    <a href="#collection" class="btn-cta">Explore Collection</a>
+                    <a href="#about" class="btn-cta btn-cta-outline">Discover Our Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Story Section -->
+    <section id="about" class="section about">
+        <div class="container about-grid">
+            <div class="about-video">
+                <!-- Using another video to showcase the craft -->
+                <video autoplay muted loop playsinline>
+                    <source src="assets/AQPEohIMVyU6M2BnryCIFy9kP-fljmfD25XqhYKBBwDEoqA_JpfEZgEUAcYyxCPaJT9i87JE7SKB8T3fMkFPtfp9..mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="about-content">
+                <h2>Enrich Your Interiors.</h2>
+                <h2 style="color: var(--secondary); margin-bottom: var(--space-md);">Preserve Your Memories.</h2>
+                <p style="margin-bottom: var(--space-md);">At Timber and Tales, we believe that your home should reflect the stories you cherish. Our handcrafted wooden pieces and elegant frames are designed with meticulous attention to detail, bringing warmth and timeless style to any room.</p>
+                <p style="margin-bottom: var(--space-lg);">From conceptualization to the final polish, our artisans pour their passion into creating decor that is not only beautiful but durable, serving as the perfect backdrop for your life's best moments.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section id="collection" class="section shop">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Collection</h2>
+                <p class="subtitle" style="margin: 0 auto;">Curated pieces designed to elevate your space.</p>
+            </div>
+            
+            <div class="product-grid" id="productGrid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <img src="assets/627715991_17863274781583321_5359461739403438508_n..jpg" alt="Artisan Wooden Craft" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title">Artisan Wooden Craft</h3>
+                        <div class="product-footer">
+                            <span class="product-price">₹1,299</span>
+                            <button class="btn-add" data-id="1" data-name="Artisan Wooden Craft" data-price="1299" data-img="assets/627715991_17863274781583321_5359461739403438508_n..jpg">
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <img src="assets/641296397_17866329369583321_7520182305945357979_n..jpg" alt="Elegance Decor Piece" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title">Elegance Decor Piece</h3>
+                        <div class="product-footer">
+                            <span class="product-price">₹1,850</span>
+                            <button class="btn-add" data-id="2" data-name="Elegance Decor Piece" data-price="1850" data-img="assets/641296397_17866329369583321_7520182305945357979_n..jpg">
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <img src="assets/647413467_17867552145583321_2416961056202441097_n..jpg" alt="Timeless Home Accent" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title">Timeless Home Accent</h3>
+                        <div class="product-footer">
+                            <span class="product-price">₹999</span>
+                            <button class="btn-add" data-id="3" data-name="Timeless Home Accent" data-price="999" data-img="assets/647413467_17867552145583321_2416961056202441097_n..jpg">
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <img src="assets/655346153_17870542686583321_251365320931049896_n..jpg" alt="Premium Wood Carving" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title">Premium Wood Carving</h3>
+                        <div class="product-footer">
+                            <span class="product-price">₹2,499</span>
+                            <button class="btn-add" data-id="4" data-name="Premium Wood Carving" data-price="2499" data-img="assets/655346153_17870542686583321_251365320931049896_n..jpg">
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <img src="assets/655380957_17870542713583321_8629700426876905777_n..jpg" alt="Classic Memoir Frame" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title">Classic Memoir Frame</h3>
+                        <div class="product-footer">
+                            <span class="product-price">₹1,150</span>
+                            <button class="btn-add" data-id="5" data-name="Classic Memoir Frame" data-price="1150" data-img="assets/655380957_17870542713583321_8629700426876905777_n..jpg">
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <video autoplay muted loop playsinline class="product-image" style="background: #000;">
+                        <source src="assets/AQPZZysizfrD2HiWQTxiQ574TkvhhSrLq7PEjPdc6Gd5Eud5NeADvM5bzfgGpNBtT8iVJ33mVt4YrZP5KhRFDai1..mp4" type="video/mp4">
+                    </video>
+                    <div class="product-details">
+                        <h3 class="product-title">Signature Masterpiece</h3>
+                        <div class="product-footer">
+                            <span class="product-price">₹3,200</span>
+                            <button class="btn-add" data-id="6" data-name="Signature Masterpiece" data-price="3200" data-img="assets/656459220_17870542743583321_8786624978568080374_n..jpg">
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer & Contact -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <img src="assets/logo.png" alt="Timber and Tales Logo" class="footer-logo">
+                    <div class="footer-brand">Timber and Tales</div>
+                    <p class="footer-text">Every piece tells a story through wooden crafts and frames made to enrich your interiors and memories.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Visit Us</h4>
+                    <p class="footer-text">Rajat city platina, Shop no : F-64<br>Kunhadi, Kota<br>Rajasthan 324008</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Get In Touch</h4>
+                    <div class="footer-links">
+                        <a href="tel:919560939364">+91 95609 39364</a>
+                        <a href="https://wa.me/919560939364" target="_blank">Chat on WhatsApp</a>
+                        <a href="#">Instagram: @timberandtales.in</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-credits">
+                &copy; 2026 Timber and Tales. Designed with custom precision.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal Overlay -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" id="closeCart">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">Your cart is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <button class="btn-cta checkout-btn disabled" id="checkoutBtn">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.976L2 22l5.176-1.354a9.954 9.954 0 004.836 1.25h.004c5.503 0 9.986-4.478 9.987-9.984C21.999 6.392 17.514 2 12.012 2zm0 18.06h-.003a8.125 8.125 0 01-4.14-1.13l-.297-.176-3.08.808.823-3.003-.193-.306a8.12 8.12 0 01-1.242-4.298c.002-4.484 3.655-8.136 8.14-8.136s8.135 3.652 8.138 8.136c-.002 4.483-3.655 8.135-8.14 8.135zm4.464-6.104c-.244-.122-1.448-.716-1.67-.798-.224-.082-.386-.122-.548.122-.162.244-.633.798-.776.96-.143.162-.286.183-.53.061-.244-.122-1.033-.382-1.968-1.216-.727-.65-1.218-1.45-1.36-1.693-.143-.244-.015-.376.107-.498.11-.11.244-.285.366-.428.122-.143.163-.244.244-.407.082-.162.041-.306-.02-.428-.061-.122-.548-1.32-.752-1.808-.198-.475-.4-.41-.548-.418-.142-.008-.305-.008-.468-.008a.89.89 0 00-.65.305c-.224.244-.855.834-.855 2.034 0 1.2.875 2.36 1.002 2.522.122.162 1.72 2.628 4.168 3.682.584.253 1.041.404 1.398.517.587.186 1.12.16 1.542.097.472-.07 1.448-.592 1.65-1.164.204-.572.204-1.062.143-1.164-.061-.102-.224-.162-.468-.284z"/>
+                </svg>
+                Order on WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating UI Elements -->
+    <a href="https://wa.me/919560939364" class="wa-float" target="_blank" aria-label="WhatsApp Us">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.976L2 22l5.176-1.354a9.954 9.954 0 004.836 1.25h.004c5.503 0 9.986-4.478 9.987-9.984C21.999 6.392 17.514 2 12.012 2zm0 18.06h-.003a8.125 8.125 0 01-4.14-1.13l-.297-.176-3.08.808.823-3.003-.193-.306a8.12 8.12 0 01-1.242-4.298c.002-4.484 3.655-8.136 8.14-8.136s8.135 3.652 8.138 8.136c-.002 4.483-3.655 8.135-8.14 8.135zm4.464-6.104c-.244-.122-1.448-.716-1.67-.798-.224-.082-.386-.122-.548.122-.162.244-.633.798-.776.96-.143.162-.286.183-.53.061-.244-.122-1.033-.382-1.968-1.216-.727-.65-1.218-1.45-1.36-1.693-.143-.244-.015-.376.107-.498.11-.11.244-.285.366-.428.122-.143.163-.244.244-.407.082-.162.041-.306-.02-.428-.061-.122-.548-1.32-.752-1.808-.198-.475-.4-.41-.548-.418-.142-.008-.305-.008-.468-.008a.89.89 0 00-.65.305c-.224.244-.855.834-.855 2.034 0 1.2.875 2.36 1.002 2.522.122.162 1.72 2.628 4.168 3.682.584.253 1.041.404 1.398.517.587.186 1.12.16 1.542.097.472-.07 1.448-.592 1.65-1.164.204-.572.204-1.062.143-1.164-.061-.102-.224-.162-.468-.284z"/>
+        </svg>
+    </a>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
