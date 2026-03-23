@@ -81,13 +81,9 @@ Map the AI output directly to implementation decisions:
 
 ---
 
-### Phase 2: Folder Initialization & Asset Management
+### Phase 2: Folder Initialization
 1. **Create Business Workspace:** Determine a suitable short name (e.g., `apex_fitness`, `primecoat_sg`). Create directory: `c:\Users\Administrator\WorkPlace\connect\<business_name>`.
-2. **Handle Assets (CRITICAL):**
-    - **Logo:** Copy the primary logo image into the directory as `logo.png`.
-    - **All Other Assets:** Copy EVERY image and video provided by the user into the workspace. **If multiple images are provided alongside a logo, assume they are product images 99% of the time, and you MUST implement a simple "Add to Cart" functionality.**
-    - **HEIC Conversion:** If user provides `.heic` files, ALWAYS convert them to `.jpg` using `ffmpeg -i input.heic output.jpg` before integrating.
-    - **Integration:** Do not let assets sit idle. Use videos as backgrounds or feature sections. Use multiple images in galleries or as contextual section visuals.
+2. **Initialize Structure:** Create the internal folders `css/`, `js/`, and `assets/` immediately inside the workspace. Use `mkdir` or `New-Item -ItemType Directory` for each to ensure compatibility.
 
 **Expected Folder Structure:**
 ```text
@@ -222,8 +218,24 @@ Before delivering the code, you **MUST** step-by-step self-verify the constraint
 7. [ ] Check **Product Card Orientation**: Are the product/image cards horizontally grouped or utilizing a scroll-snap carousel rather than stacking 100vh massive vertical blocks?
 8. [ ] Check **Cart Removal UX**: If I implemented a cart, does it have functional 'Remove' buttons and handle the empty `cart.length === 0` UI state correctly without breaking?
 
-#### 3.6 Save & Deliver
-Save all files (`index.html`, `css/styles.css`, `js/main.js`) securely in the business directory and inform the user the website is ready. No preview, no server, no browser check.
+#### 3.6 Save Code Files
+Save code files (`index.html`, `css/styles.css`, `js/main.js`) securely in the business directory.
+
+---
+
+### Phase 4: Asset Management & Final Verification (THE LAST STEP)
+
+This phase MUST be completed after the code is written but BEFORE notifying the user.
+
+1. **Handle Assets (CRITICAL):**
+    - **Logo:** Copy the primary logo image into the directory as `logo.png` using `Copy-Item -Path "..." -Destination "..." -Force`.
+    - **All Other Assets:** Copy EVERY image and video provided by the user into the `assets/` subfolder.
+    - **Robust Copy (Windows):** For every asset, use `Copy-Item -Path "<source>" -Destination "<business_name>/assets/<destination>" -Force` to ensure success on Windows.
+    - **HEIC Conversion:** If user provides `.heic` files, ALWAYS convert them to `.jpg` using `ffmpeg -i input.heic output.jpg` before moving to assets.
+2. **Verify Integrity:** Run `list_dir` on the workspace and the `assets/` folder to verify every file exists and has a non-zero size.
+
+#### 4.1 Final Delivery
+Inform the user the website is ready. No preview, no server, no browser check.
 
 ---
 
