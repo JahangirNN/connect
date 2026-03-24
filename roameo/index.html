@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoamEO — City Experiences</title>
+    <meta name="description" content="Discover events, find your crowd, and share experiences with RoamEO.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Z-Index Layer System:
+         0-99:    Base content
+         100-199: Navigation, sticky elements
+         200-299: Dropdowns, tooltips
+         300-399: Overlays, backdrops
+         400-499: Modals, dialogs
+         500+:    Critical alerts
+    -->
+
+    <!-- Background Layer (z-0) -->
+    <div class="ambient-bg">
+        <div class="mesh-gradient"></div>
+        <div class="noise-overlay"></div>
+    </div>
+
+    <!-- Navigation Layer (z-100) -->
+    <header class="navbar">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo-group">
+                <div class="logo-circle-mini">
+                    <img src="assets/logo.png" alt="RoamEO Logo">
+                </div>
+                <span class="logo-text">RoamEO</span>
+            </a>
+
+            <nav class="desktop-nav">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#events" class="nav-link">Events</a>
+                <a href="#map" class="nav-link">Map</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="https://wa.me/917778876166" class="btn-cta">Join Now</a>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Layer (z-200) -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div class="mobile-menu-backdrop"></div>
+        <nav class="mobile-nav">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#events" class="mobile-link">Events</a>
+            <a href="#map" class="mobile-link">Map</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="https://wa.me/917778876166" class="btn-cta mobile-cta">Join Now</a>
+        </nav>
+    </div>
+
+    <!-- Main Content Layer (z-0) -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot" aria-hidden="true"></span>
+                    <span>Live in Mumbai</span>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="line">Explore the</span>
+                    <span class="line accent">City's Best</span>
+                    <span class="line">Moments</span>
+                </h1>
+
+                <p class="hero-tagline">
+                    <span class="tag">Discover events</span>
+                    <span class="separator" aria-hidden="true">•</span>
+                    <span class="tag">Find your crowd</span>
+                    <span class="separator" aria-hidden="true">•</span>
+                    <span class="tag">Share experiences</span>
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#map" class="btn-primary">
+                        <span>Explore Map</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 17L17 7M17 7H7M17 7V17" />
+                        </svg>
+                    </a>
+                    <a href="#events" class="btn-secondary">Upcoming Events</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-logo-container">
+                    <div class="logo-circle-large">
+                        <img src="assets/logo.png" alt="RoamEO Logo">
+                    </div>
+                    <div class="logo-glow"></div>
+                </div>
+                <div class="orbital-ring ring-1" aria-hidden="true"></div>
+                <div class="orbital-ring ring-2" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <!-- Stories Section -->
+        <section class="stories-section">
+            <div class="container">
+                <p class="section-label">Fresh Stories</p>
+                <div class="stories-wrapper">
+                    <button class="story-item" data-story="1" aria-label="View Highlights story">
+                        <div class="story-ring">
+                            <div class="story-thumb">
+                                <img src="assets/post1.webp" alt="Highlights" loading="lazy">
+                            </div>
+                        </div>
+                        <span class="story-label">Highlights</span>
+                        <span class="story-time">2h ago</span>
+                    </button>
+
+                    <button class="story-item" data-story="2" aria-label="View Events story">
+                        <div class="story-ring">
+                            <div class="story-thumb">
+                                <img src="assets/post2.webp" alt="Events" loading="lazy">
+                            </div>
+                        </div>
+                        <span class="story-label">Events</span>
+                        <span class="story-time">5h ago</span>
+                    </button>
+
+                    <button class="story-item" data-story="3" aria-label="View Community story">
+                        <div class="story-ring">
+                            <div class="story-thumb">
+                                <img src="assets/post3.webp" alt="Community" loading="lazy">
+                            </div>
+                        </div>
+                        <span class="story-label">Community</span>
+                        <span class="story-time">1d ago</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value" data-count="210">0</span>
+                        <span class="stat-label">Active Members</span>
+                        <span class="stat-trend up">+12%</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" data-count="47">0</span>
+                        <span class="stat-label">Events This Month</span>
+                        <span class="stat-trend up">+24%</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" data-count="12">0</span>
+                        <span class="stat-label">Venues Partnered</span>
+                        <span class="stat-trend up">New</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map" class="map-section">
+            <div class="container">
+                <div class="section-header">
+                    <p class="section-label">Live Map</p>
+                    <h2 class="section-title">Find Your Next<br><span class="accent">Adventure</span></h2>
+                </div>
+                <div class="map-container">
+                    <div id="event-map"></div>
+                    <div class="map-controls">
+                        <button class="map-btn" id="locateBtn" aria-label="Center map on my location">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="3" />
+                                <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="map-overlay-badge">
+                        <span class="pulse-indicator" aria-hidden="true"></span>
+                        <span>Live Updates</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="events-section">
+            <div class="container">
+                <div class="section-header">
+                    <p class="section-label">Curated</p>
+                    <h2 class="section-title">Featured<br>Experiences</h2>
+                </div>
+
+                <div class="events-grid">
+                    <article class="event-card featured">
+                        <div class="event-image">
+                            <img src="assets/post1.webp" alt="Cocktail Night Royale" loading="lazy">
+                            <div class="event-tags">
+                                <span class="tag-primary">Nightlife</span>
+                                <span class="tag-secondary">Mar 28</span>
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <h3>Cocktail Night Royale</h3>
+                            <p>Premium mixology experience at Sky Lounge with panoramic city views.</p>
+                            <a href="https://wa.me/917778876166" class="event-link">
+                                Get Tickets
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="event-card">
+                        <div class="event-image">
+                            <img src="assets/post2.webp" alt="Underground Art Gallery" loading="lazy">
+                            <span class="tag-primary">Art</span>
+                        </div>
+                        <div class="event-content">
+                            <h3>Underground Art Gallery</h3>
+                            <p>Discover contemporary local artists and their masterpieces.</p>
+                            <a href="https://wa.me/917778876166" class="event-link">View →</a>
+                        </div>
+                    </article>
+
+                    <article class="event-card">
+                        <div class="event-image">
+                            <img src="assets/post3.webp" alt="City Photowalk" loading="lazy">
+                            <span class="tag-primary">Social</span>
+                        </div>
+                        <div class="event-content">
+                            <h3>City Photowalk</h3>
+                            <p>Capture urban beauty with fellow creators and photographers.</p>
+                            <a href="https://wa.me/917778876166" class="event-link">Join →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-card">
+                    <div class="about-content">
+                        <p class="section-label">The Vision</p>
+                        <h2>Built by Community<br>Leaders</h2>
+                        <p>RoamEO is the vision of creators dedicated to bringing people together through shared
+                            experiences.</p>
+
+                        <div class="founders">
+                            <a href="https://instagram.com/naman__553" class="founder-chip" target="_blank"
+                                rel="noopener">
+                                <span class="avatar"
+                                    style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">N</span>
+                                <span class="handle">@naman__553</span>
+                            </a>
+                            <a href="https://instagram.com/amann._2005" class="founder-chip" target="_blank"
+                                rel="noopener">
+                                <span class="avatar"
+                                    style="background: linear-gradient(135deg, #ec4899, #f43f5e);">A</span>
+                                <span class="handle">@amann._2005</span>
+                            </a>
+                            <a href="https://instagram.com/aalooparanthaa" class="founder-chip" target="_blank"
+                                rel="noopener">
+                                <span class="avatar"
+                                    style="background: linear-gradient(135deg, #10b981, #34d399);">A</span>
+                                <span class="handle">@aalooparanthaa</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Layer (z-400) - FIXED: Properly isolated stacking context -->
+    <div class="story-modal" id="storyModal" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose" aria-label="Close story">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-content">
+                <img id="modalImage" src="" alt="" loading="eager">
+                <div class="modal-caption">
+                    <span class="caption-time">Now</span>
+                    <p id="modalText"></p>
+                </div>
+            </div>
+            <div class="modal-progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float (z-100) -->
+    <a href="https://wa.me/917778876166" class="whatsapp-float" aria-label="Contact on WhatsApp">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
+        </svg>
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-group">
+                        <div class="logo-circle-mini">
+                            <img src="assets/logo.png" alt="RoamEO Logo">
+                        </div>
+                        <span class="logo-text">RoamEO</span>
+                    </div>
+                    <p>Explore the city's best moments.</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://instagram.com/roameo.city" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 RoamEO. Explore responsibly.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
