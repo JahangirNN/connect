@@ -256,6 +256,20 @@ These are frequently overlooked issues that make UI look unprofessional:
 
 ---
 
+## 2026 Modern CSS & Aesthetics
+
+To ensure designs do not look like outdated 2010 flat websites, always enforce the following 2026 guidelines:
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Vibrant Colors** | Use `oklch()` for brighter, modern color spaces | Use dull RGB/Hex values natively |
+| **Fluid Typography** | Use `clamp(min, val, max)` and `text-wrap: balance` | Use static `px` sizes and manual `<br>` |
+| **Premium Shadows** | Layer 3-6 subtle box-shadows for smooth diffusion | Use a single, harsh black shadow (e.g., `0 4px 6px #000`) |
+| **Scroll Animations** | Use native CSS `animation-timeline: view()` | Only use JS IntersectionObservers |
+| **Organic Layouts** | Use `:has()`, Container Queries, and Subgrid | Rely solely on basic flexbox for everything |
+
+---
+
 ## Pre-Delivery Checklist
 
 Before delivering UI code, verify these items:
@@ -273,10 +287,11 @@ Before delivering UI code, verify these items:
 - [ ] Transitions are smooth (150-300ms)
 - [ ] Focus states visible for keyboard navigation
 
-### Light/Dark Mode
+### Light/Dark Mode & Color Space
 - [ ] Light mode text has sufficient contrast (4.5:1 minimum)
 - [ ] Glass/transparent elements visible in light mode
-- [ ] Borders visible in both modes
+- [ ] Colors are implemented using vibrant `oklch()` values
+- [ ] Shadows are layered and diffused (no single harsh shadows)
 - [ ] Test both modes before delivery
 
 ### Layout

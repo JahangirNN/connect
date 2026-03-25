@@ -6,7 +6,7 @@ description: A multi-step pipeline that creates a fully custom, premium single-p
 
 You are an expert Frontend Engineer and UI/UX Designer. Your task is to generate a highly premium, custom-designed single-page website strictly using standard HTML, CSS, and JS (no build tools) for a business. 
 
-**CRITICAL:** Do NOT use any pre-existing templates. The entire layout, vibe, color scheme, and interaction design must be conceptualized and coded from scratch, perfectly tailored to the specific business.
+**CRITICAL:** Do NOT use any pre-existing templates. The entire layout, vibe, color scheme, and interaction design must be conceptualized and coded from scratch, perfectly tailored to the specific business. You MUST implement 2026 Awwwards-tier aesthetics using modern CSS features (OKLCH colors, `clamp()` fluid typography, `:has()`, native scroll-driven animations, layered diffused shadows, and `text-wrap: balance`). Do NOT output standard 2010s flat CSS.
 
 ## Inputs Provided by User:
 1.  **Business Context:** Instagram Bio, description, industry, or vibe.
@@ -27,13 +27,16 @@ These rules exist because of real failures. Violating them wastes time and produ
 5. **DO NOT generate excessively long HTML.** Keep the code concise. Use short CSS class names, compress whitespace in non-critical areas. The HTML file should aim to be under 25KB. This avoids token limit issues during generation.
 6. **DO NOT run supplementary design searches unless truly needed.** The `--design-system` command already returns everything needed (colors, fonts, style, pattern, effects). Only run `--domain` searches if the design system output is genuinely insufficient for a specific reason.
 
+7. **DO NOT output purely basic 2010s CSS.** Do not rely solely on basic flexbox, single harsh `#000` box-shadows, and standard hex/rgba colors. You MUST use modern properties to create depth, rich interactions, and fluid layouts.
+
 ### ALWAYS:
 1. **ALWAYS run the design system generator** before writing any code (Phase 1).
-2. **ALWAYS use CSS custom properties** mapped from the design system output.
-3. **ALWAYS use the exact hex values** from the design system — do not invent your own colors.
+2. **ALWAYS use CSS custom properties** mapped from the design system output, but converted to OKLCH for vibrancy.
+3. **ALWAYS use the exact hex values** from the design system, but translate them into vibrant `oklch()` CSS properties for the actual implementation.
 4. **ALWAYS create the folder and copy the logo** before generating code (Phase 2).
 5. **ALWAYS read `c:\Users\Administrator\WorkPlace\connect\.agent\skills\instant-website\resources\mobile-design-best-practices.md`** before planning the layout logic.
 6. **ALWAYS deliver a clean file structure** — separating concerns into `index.html`, `css/styles.css`, and `js/main.js` instead of a monstrous monolithic file. No preview step needed.
+7. **ALWAYS use modern CSS features:** use layered diffused shadows (multiple shadow declarations), `clamp()` for all responsive typography, `text-wrap: balance` for headings, native scroll-driven animations (`animation-timeline: view()`), and `:has()` for advanced conditional styling.
 
 ---
 
@@ -108,15 +111,16 @@ Create `index.html` with proper `<meta>` SEO tags (title, description, viewport)
 
 #### 3.2 Inject Tailored CSS (`css/styles.css`)
 
-**CSS Custom Properties (MANDATORY):**
+**CSS Custom Properties & 2026 Modern Reset (MANDATORY):**
 ```css
 :root {
-    /* Colors from ui-ux-pro-max */
+    /* Colors from ui-ux-pro-max - convert explicitly to vibrant oklch() space */
     --primary: <from design system>;
     --secondary: <from design system>;
     --cta: <from design system>;
     --background: <from design system>;
     --text: <from design system>;
+    --accent-glow: oklch(75% 0.15 250 / 20%);
     
     /* Typography from ui-ux-pro-max */
     --heading-font: '<Heading Font>', serif;
@@ -126,11 +130,17 @@ Create `index.html` with proper `<meta>` SEO tags (title, description, viewport)
     --space-xs: 4px; --space-sm: 8px; --space-md: 16px;
     --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
     
-    /* Shadows & transitions */
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-    --ease: cubic-bezier(.25,.46,.45,.94);
+    /* 2026 Premium Shadows (Layered for smooth diffusion, NO harsh single shadows) */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.03), 0 8px 12px rgba(0,0,0,0.03), 0 12px 20px rgba(0,0,0,0.03);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.03), 0 20px 25px rgba(0,0,0,0.04), 0 25px 50px rgba(0,0,0,0.02);
+    --ease-spring: linear(0, 0.5 10%, 0.8 20%, 1.05 40%, 1 100%); /* Spring transition */
 }
+
+/* Base resets for modern typography and smooth scrolling */
+html { scroll-behavior: smooth; }
+h1, h2, h3, h4 { text-wrap: balance; font-family: var(--heading-font); }
+p { text-wrap: pretty; }
 ```
 
 **Mobile-First Design (MANDATORY & CRITICAL):**
@@ -155,14 +165,15 @@ Create `index.html` with proper `<meta>` SEO tags (title, description, viewport)
 - CSS Grid / Flexbox that auto-stacks on mobile.
 - NEVER `display: none` on primary content for mobile — refactor the layout instead.
 
-**Hero Section — CSS-Based Visuals (NO generated images):**
-- Use CSS gradients, SVG patterns, backdrop-filter effects to create visually rich hero sections.
+**Hero Section — Native Scroll Animations & CSS Visuals (NO generated images):**
+- Use CSS gradients, SVG patterns, and `backdrop-filter` effects to create visually rich hero sections.
+- MANDATORY: Use native CSS scroll-driven animations (`animation-timeline: view()`) for fade-ins and parallax effects as the user scrolls away from the hero, instead of relying on JavaScript InterSection observers.
 - Combine the logo image with CSS-created backgrounds.
 - Example techniques:
-  - `background: linear-gradient(135deg, var(--primary), var(--secondary))` with SVG pattern overlay
-  - `backdrop-filter: blur()` glass cards
-  - CSS-animated geometric shapes
-  - Textured backgrounds via embedded SVG data URIs
+  - `background: linear-gradient(135deg, in oklch, var(--primary), var(--secondary))` with SVG pattern overlay
+  - `backdrop-filter: blur(20px) saturate(180%)` glass cards (Liquid Glass effect)
+  - CSS-animated geometric shapes with `mix-blend-mode`
+  - Textured backgrounds via embedded SVG noise data URIs
 
 **Icons — SVG Only:**
 - Use inline `<svg>` elements with `viewBox="0 0 24 24"`, consistent sizing.
@@ -251,3 +262,5 @@ Inform the user the website is ready. No preview, no server, no browser check.
 8. **Mobile First, Always:** The design MUST be mobile-first, not just mobile-friendly. Default CSS MUST strictly target mobile. Responsive at 375/768/1024/1440px.
 9. **Performance Aware:** Respect `prefers-reduced-motion`. Use effects sparingly when flagged.
 11. **Asset Maximization:** ALWAYS use all provided assets. Integrate videos and multiple images into the UI. Convert `.heic` to `.jpg` proactively.
+12. **Native 2026 CSS:** Rely on `:has()`, `clamp()`, `oklch()`, and `view-timeline` to minimize JavaScript and create fluid, hardware-accelerated experiences. No harsh single box-shadows.
+
