@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOIRE | Avant-Garde Luxury Parfums</title>
+    <meta name="description" content="Discover NOIRE Parfums. A collection of minimalist, obsidian-inspired luxury fragrances.">
+    
+    <!-- Chrome & Obsidian Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Architected Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="safe-mobile-padding">
+
+    <!-- Strict Desktop/Mobile Navbar -->
+    <nav class="navbar">
+        <div class="nav-container container flex-row align-center justify-between">
+            <div class="nav-segment justify-start">
+                <div class="desk-only">
+                    <a href="#collection" class="nav-anchor">Collection</a>
+                    <a href="#heritage" class="nav-anchor">Heritage</a>
+                </div>
+            </div>
+            
+            <a href="#" class="brand-logomark">
+                <span class="brand-text">NOIRE</span>
+            </a>
+            
+            <div class="nav-segment justify-end">
+                <button class="cart-trigger" aria-label="Open Cart" data-action="toggle-cart">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    <span class="cart-pill" id="cart-pill-count">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal with guaranteed overflow-y: auto -->
+    <div class="cart-modal" id="system-cart">
+        <div class="modal-backdrop" data-action="toggle-cart"></div>
+        <div class="modal-sidebar safe-scrollable">
+            <div class="modal-header">
+                <h2 class="title-syncopate">BASKET</h2>
+                <button class="btn-close text-chrome" data-action="toggle-cart">&times;</button>
+            </div>
+            
+            <div class="modal-body" id="cart-item-list">
+                <!-- JS dynamically injects items here -->
+            </div>
+            
+            <div class="modal-footer">
+                <div class="total-bar flex-row justify-between mb-lg">
+                    <span class="text-inter font-strong">SUBTOTAL</span>
+                    <span class="text-inter font-strong text-chrome" id="cart-total-display">$0</span>
+                </div>
+                <button class="btn-solid w-full" data-action="checkout-trigger" disabled id="checkout-btn">SECURE CHECKOUT</button>
+                <p class="text-xs text-muted mt-sm text-center">Orders processed securely via WhatsApp end-to-end encryption.</p>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- High Contrast Hero Layout -->
+        <header class="hero-module">
+            <div class="hero-split-grid">
+                <div class="hero-copy container z-elevate scroll-animate-up">
+                    <p class="eyebrow text-chrome track-widest">PARFUMS DE LUXE</p>
+                    <h1 class="fluent-giant title-syncopate text-pure-white line-tight">SILVER<br>& OBSIDIAN.</h1>
+                    <p class="hero-subtext text-inter text-muted mt-md max-w-sm">An avant-garde exploration of liquid architecture. Discover the brutally elegant signature scent of NOIRE.</p>
+                    <div class="hero-ctas mt-lg flex-row gap-sm">
+                        <a href="#collection" class="btn-solid">EXPLORE THE LINE</a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual safe-image-pane fade-animate">
+                    <!-- Constrained safely without 100vw distortion -->
+                    <div class="hero-image-frame">
+                        <img src="assets/hero.png" alt="Crystal Perfume Bottle" class="contained-img parallax-fx">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Product Collection Grid -->
+        <section class="collection-module pt-2xl pb-2xl" id="collection">
+            <div class="container text-center mb-xl scroll-animate-up">
+                <h2 class="fluent-large title-syncopate text-pure-white line-tight">THE CHROME<br>ARCHIVES</h2>
+                <p class="text-muted text-inter mt-md">Select your distinct minimalist flacon.</p>
+            </div>
+            
+            <div class="container products-strict-grid">
+                
+                <!-- Explicit Data-Action Hooking for Bulletproof JS -->
+                <article class="product-slab scroll-animate-up border-chrome">
+                    <div class="slab-visual aspect-square">
+                        <img src="assets/products.png" alt="Oud Noir" class="contained-img hover-scale" style="object-position: left;">
+                        <span class="slab-tag">SIGNATURE</span>
+                    </div>
+                    <div class="slab-data flex-row justify-between align-end">
+                        <div class="slab-meta text-left">
+                            <h3 class="title-syncopate text-md text-pure-white mb-xs">OUD NOIR</h3>
+                            <p class="text-xs text-muted track-wide">Smoked Wood / Vetiver</p>
+                            <span class="text-md font-strong mt-sm block text-chrome">$285</span>
+                        </div>
+                        <button class="btn-ghost" data-action="add-cart" data-id="frag-1" data-name="OUD NOIR" data-price="285">ADD TO BAG</button>
+                    </div>
+                </article>
+
+                <article class="product-slab scroll-animate-up delay-100 border-chrome">
+                    <div class="slab-visual aspect-square">
+                        <img src="assets/products.png" alt="Santal Blanc" class="contained-img hover-scale" style="object-position: center;">
+                    </div>
+                    <div class="slab-data flex-row justify-between align-end">
+                        <div class="slab-meta text-left">
+                            <h3 class="title-syncopate text-md text-pure-white mb-xs">SANTAL BLANC</h3>
+                            <p class="text-xs text-muted track-wide">White Sandalwood / Fig</p>
+                            <span class="text-md font-strong mt-sm block text-chrome">$240</span>
+                        </div>
+                        <!-- Isolated js hook -->
+                        <button class="btn-ghost" data-action="add-cart" data-id="frag-2" data-name="SANTAL BLANC" data-price="240">ADD TO BAG</button>
+                    </div>
+                </article>
+
+                <article class="product-slab scroll-animate-up delay-200 border-chrome">
+                    <div class="slab-visual aspect-square">
+                        <img src="assets/products.png" alt="Vetiver Chrome" class="contained-img hover-scale" style="object-position: right;">
+                    </div>
+                    <div class="slab-data flex-row justify-between align-end">
+                        <div class="slab-meta text-left">
+                            <h3 class="title-syncopate text-md text-pure-white mb-xs">VETIVER CHROME</h3>
+                            <p class="text-xs text-muted track-wide">Metallic Accord / Cedar</p>
+                            <span class="text-md font-strong mt-sm block text-chrome">$260</span>
+                        </div>
+                        <!-- Isolated js hook -->
+                        <button class="btn-ghost" data-action="add-cart" data-id="frag-3" data-name="VETIVER CHROME" data-price="260">ADD TO BAG</button>
+                    </div>
+                </article>
+                
+            </div>
+        </section>
+
+        <section class="heritage-module pt-2xl pb-2xl border-top-chrome" id="heritage">
+            <div class="container text-center">
+                <img src="assets/logo.png" alt="NOIRE" class="footer-logomark mb-lg">
+                <p class="text-inter text-muted max-w-sm mx-auto">Bottled in brutalist glass. Designed in Paris. Crafted for the avant-garde.</p>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Floating Universal WhatsApp Component -->
+    <a href="https://wa.me/15550000000" class="global-floating-wa flex-row align-center shadow-elevated" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.031 2.032c-5.467 0-9.917 4.414-9.917 9.876 0 1.708.435 3.376 1.261 4.85l-1.396 5.105 5.215-1.368a9.88 9.88 0 0 0 4.837 1.263h.004c5.463 0 9.913-4.417 9.913-9.878 0-2.651-1.032-5.144-2.909-7.019A9.9 9.9 0 0 0 12.031 2.032zm5.405 13.928c-.296.837-1.71 1.583-2.394 1.637-.626.048-1.428-.157-3.64-1.076-2.64-1.096-4.32-3.804-4.448-3.974-.128-.173-1.066-1.419-1.066-2.708 0-1.291.674-1.928.918-2.195.244-.264.53-.332.71-.332.176 0 .356.002.512.008.16.008.374-.06.571.41.202.484.693 1.693.754 1.815.064.12.104.262.02.434-.082.17-.124.277-.248.423-.122.146-.258.326-.37.452-.12.13-.248.27-.107.514.143.242.637 1.05 1.367 1.7 0.94.838 1.737 1.098 1.983 1.218.243.12.385.097.528-.067.142-.162.613-.715.776-.96.166-.247.33-.207.553-.124.225.084 1.42.67 1.666.793.245.122.408.182.468.283.06.101.06.586-.236 1.424z"/></svg>
+        <span class="desk-only ml-sm track-wide text-xs">SUPPORT</span>
+    </a>
+
+    <!-- Defensive isolated JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

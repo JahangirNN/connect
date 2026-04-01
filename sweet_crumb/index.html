@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Crumb | Artisan Homemade Bakery</title>
+    <meta name="description" content="Sweet Crumb offers artisanal, homemade drip cakes, cookies, and pastries.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar relative-z">
+        <div class="container nav-wrapper">
+            <div class="nav-left desktop-only">
+                <a href="#about" class="nav-link">The Story</a>
+                <a href="#menu" class="nav-link">Menu</a>
+            </div>
+            
+            <a href="#" class="brand-logo">
+                <img src="assets/logo.png" alt="Sweet Crumb Logo" class="logo-img">
+            </a>
+            
+            <div class="nav-right">
+                <button class="cart-toggle" id="cart-toggle-btn" aria-label="Open Cart">
+                    <span class="cart-text desktop-only">BASKET</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Overlay Modal -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-backdrop" id="cart-close-bg"></div>
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h2>Your Basket</h2>
+                <button class="close-cart" id="close-cart-btn">&times;</button>
+            </div>
+            <div class="cart-items" id="cart-items-container"></div>
+            <div class="cart-footer">
+                <div class="cart-total-row">
+                    <span>Subtotal</span>
+                    <span id="cart-total-price">₹0</span>
+                </div>
+                <button class="btn-primary w-full" id="checkout-btn" disabled>Checkout on WhatsApp</button>
+                <p class="text-mini mt-sm text-center">We manually process all local deliveries upon chat confirmation.</p>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <header class="hero" id="home">
+            <div class="container relative-z">
+                <div class="hero-top scroll-fade-up">
+                    <h1 class="giant-heading">Artisan.<br><i class="text-caramel">Indulgent.</i><br>Always Home.</h1>
+                </div>
+            </div>
+            <div class="hero-image-wrapper fade-in">
+                <img src="assets/hero.png" alt="Homemade chocolate drip cake" class="hero-img parallax-img">
+            </div>
+        </header>
+
+        <!-- Marquee -->
+        <div class="marquee-wrapper mt-xl">
+            <div class="marquee-content">
+                <span>SMALL BATCH ARTISANAL BAKERY • PURE INDULGENCE • HANDCRAFTED FROM SCRATCH • </span>
+                <span>SMALL BATCH ARTISANAL BAKERY • PURE INDULGENCE • HANDCRAFTED FROM SCRATCH • </span>
+            </div>
+        </div>
+
+        <!-- The Story -->
+        <section class="story-section pt-2xl pb-xl" id="about">
+            <div class="container grid-2">
+                <div class="story-text scroll-fade-up">
+                    <h2 class="section-title">The Sweet Crumb Philosophy</h2>
+                    <p class="body-text">We believe the best memories are made over warm slices of cake and crumbly cookies. Every recipe is an heirloom, baked to order to guarantee absolute freshness.</p>
+                    <a href="#menu" class="btn-outline mt-md">Explore Curated Menu</a>
+                </div>
+                <div class="story-image reveal-block desktop-only">
+                    <img src="assets/products.png" alt="Bakery Process" class="offset-img parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Dark Contrast Menu Section -->
+        <section class="menu-section pt-xl pb-2xl" id="menu">
+            <div class="container">
+                <div class="menu-header flex-row justify-between align-end mb-xl scroll-fade-up">
+                    <h2 class="section-title m-0 text-vanilla">Freshly Baked</h2>
+                    <p class="text-vanilla opacity-70">Click to add items to your basket.</p>
+                </div>
+
+                <!-- Editorial Products Grid -->
+                <div class="editorial-products-grid">
+                    
+                    <!-- Product 1 (Feature) -->
+                    <div class="ed-product-card card-large scroll-fade-up">
+                        <div class="ed-img-frame">
+                            <span class="ed-tag">Bestseller</span>
+                            <img src="assets/hero.png" alt="Signature Chocolate Drip Cake" class="ed-product-img">
+                        </div>
+                        <div class="ed-product-info">
+                            <h3 class="ed-product-title">Signature Chocolate Drip</h3>
+                            <p class="ed-product-desc">Decadent triple layer chocolate fudge cake with rich ganache drip and seasonal fruit.</p>
+                            <div class="ed-product-action">
+                                <span class="ed-price">₹1,500</span>
+                                <button class="btn-primary btn-add-cart" data-id="p1" data-name="Signature Chocolate Drip Cake" data-price="1500">Basket</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Stack Grid -->
+                    <div class="right-col-grid">
+                        <!-- Product 2 -->
+                        <div class="ed-product-card scroll-fade-up delay-1">
+                            <div class="ed-img-frame aspect-square">
+                                <img src="assets/products.png" alt="Assorted Cupcakes Box" class="ed-product-img" style="object-position: top;">
+                            </div>
+                            <div class="ed-product-info">
+                                <h3 class="ed-product-title">Artisan Cupcakes (Box of 6)</h3>
+                                <p class="ed-product-desc">A delicate assortment of vanilla bean and double chocolate cupcakes.</p>
+                                <div class="ed-product-action">
+                                    <span class="ed-price">₹600</span>
+                                    <button class="btn-outline-light btn-small btn-add-cart" data-id="p2" data-name="Artisan Cupcakes" data-price="600">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="ed-product-card scroll-fade-up delay-2">
+                            <div class="ed-img-frame aspect-square">
+                                <img src="assets/products.png" alt="Gooey Chocolate Chip Cookies" class="ed-product-img" style="object-position: bottom;">
+                            </div>
+                            <div class="ed-product-info">
+                                <h3 class="ed-product-title">Gooey Choco-Chip Batch</h3>
+                                <p class="ed-product-desc">A half-dozen warm, chewy cookies bursting with melted dark chocolate chunks.</p>
+                                <div class="ed-product-action">
+                                    <span class="ed-price">₹450</span>
+                                    <button class="btn-outline-light btn-small btn-add-cart" data-id="p3" data-name="Gooey Choco-Chip Batch" data-price="450">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container text-center">
+                <img src="assets/logo.png" alt="Sweet Crumb" class="footer-logo mb-md">
+                <h2 class="giant-heading text-cocoa pb-md opacity-20">SWEET CRUMB</h2>
+                <p class="text-mini opacity-70">&copy; 2026 Sweet Crumb Homemade Bakery.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
